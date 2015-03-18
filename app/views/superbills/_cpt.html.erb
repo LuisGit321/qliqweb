@@ -1,0 +1,15 @@
+<% cpt_group = CptGroup.find(f)  %>  
+<a><%= cpt_group.name  %></a> 
+<div>
+  <div class="fields">
+    <%= autocomplete_field_tag "cpt_#{f}", '', autocomplete_cpt_code_superbills_path, :id_element => "#search_cpt_id_#{f}", :class => :width_cpt  %>  
+    <%= hidden_field_tag "search_cpt_id_#{f}", ''  %>  
+    <%= button_to_function "Add", "add_cpt(#{f});", :style => "width:50px;margin-left:20px;"  %>  
+  </div>  
+  <div id="group_cpts_<%= cpt_group.id %>">  
+    <% @superbill_cpts[f]["cpts"].keys.each  do |key| %>  
+      <% cpt = Cpt.find(@superbill_cpts[f]["cpts"][key]["cpt_id"]) %>  
+      <%= render :partial => 'cpt_html', :locals => {:cpt => cpt, :key => key, :parent_key => f}  %>  
+    <% end %>  
+  </div>  
+</div>  

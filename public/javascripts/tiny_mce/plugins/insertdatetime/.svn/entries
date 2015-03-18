@@ -1,0 +1,73 @@
+8
+
+dir
+349
+svn://localhost/eJosh/trunk/src/eJosh/vendor/plugins/rails_tiny_mce/assets/public/javascripts/tiny_mce/plugins/insertdatetime
+svn://localhost/eJosh
+
+
+
+2009-10-14T15:17:24.725567Z
+162
+hansraj
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+be6aba8a-1533-11de-b1d4-ef632c4ee052
+
+editor_plugin.js
+file
+
+
+
+
+2009-11-06T08:14:05.000000Z
+0fba6e5bec7725b88b910721f1ba17a7
+2009-10-14T15:17:24.725567Z
+162
+hansraj
+has-props
+
+langs
+dir
+
+images
+dir
+
+editor_plugin_src.js
+file
+
+
+
+
+2009-11-06T08:14:05.000000Z
+a8ee30a71d4c139f1b6624de06bdd8c1
+2009-10-14T15:17:24.725567Z
+162
+hansraj
+has-props
+
+readme.txt
+file
+
+
+
+
+2009-11-06T08:14:05.000000Z
+bd3d2e2fe0c37c3458bbd6e1550878d6
+2009-10-14T15:17:24.725567Z
+162
+hansraj
+has-props
+

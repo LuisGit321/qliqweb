@@ -1,0 +1,46 @@
+<div class="form_tab">
+  <div class="butons" style="padding:0;float:left;width:100%">
+    <%= link_to 'Cancel', activities_path, :class => "backgrnd_lnk margin_rte", :style => "float:right;" %>
+    <%= submit_tag "Save", :class => :backgrnd, :style => "float:right;", :onclick => "$('#PatientForm').submit();" %> 
+    <%= image_tag "/images/spinner.gif", :id => "spinner", :style => "display:none;"  %>
+  </div>
+  <div style="border-top:2px solid black;width:100%;float:left;">&nbsp;</div>  
+  <h1 style="float:left;width:50%">Patient Information</h1>
+  <div style="float:left;">
+    <%= form_for(@patient, :html => {:remote => true, :id => "PatientForm"}, :builder => CCFormBuilder) do |f| %>
+      <fieldset>
+        <div>
+          <%= f.select :facility_id, @facilities.collect{|fc| [fc.name, fc.id]}, {:include_blank => "--select--"}, :label => t('.facility'), :style => "width:351px;" %>
+          <%= f.fields_for :hospital_episodes do |h| %>
+            <div class="fields">
+              <%= link_to "Add Primary Referring Physician", new_referring_physician_path(:new_referring => 'primary_referring'), :rel => "facebox", :style => "color: black;float: right;text-decoration: underline;margin-right:82px;" %>
+            </div>  
+            <div id="set_primary_referring">
+              <%= h.select  :primary_physician_id, @referring_physicians.collect{|ph| [ph.name, ph.id]}, {:include_blank => "--select--"}, :label => t('.primary_referring'), :style => "width:351px;" %><br />
+            </div>
+            <div class="fields">
+              <%= link_to "Add Another Referring Physician", new_referring_physician_path(:new_referring => 'secondary_referring'), :rel => "facebox", :style => "color: black;float: right;text-decoration: underline;margin-right:82px;" %>
+            </div>
+            <div id="set_secondary_referring">
+              <br /> <%= h.select :referring_physician_id, @referring_physicians.collect{|ph| [ph.name, ph.id]}, {:include_blank => "--select--"}, :label =>t('.referring'), :style => "width:351px;" %><br />
+            </div>
+            <br /> <%= h.text_field :floor, :label => "Floor"  %>
+            <%= h.text_field :room, :label => "Room"  %>
+          <% end %>
+          <%= f.text_field :first_name, :label => t('.f_name') + t('mandatory')%>
+          <%= f.text_field :middle_name , :label => t('.m_name') %>
+          <%= f.text_field :last_name , :label => t('.l_name') + t('mandatory')%>
+          <div class="fields" style="width: auto !important;">
+            <%= raw label_tag t('.date_of_birth') + t('mandatory') %>
+            <%= raw date_select :patient, :date_of_birth  %>
+            <%= raw "<div class='errMsg'>#{@patient.errors[:date_of_birth].first}</div>" unless @patient.errors[:date_of_birth].empty?  %> 
+          </div>  
+          <%= f.text_field :phone, :label => t('contact.phone')  %>
+          <%= f.text_field :email, :label => t('contact.email')  %>
+          <%= f.select :insurance, INSURANCE_TYPES.collect{|a| [a, a]}, {:prompt => "--select--"}, :label => t('.insurance'), :style => "width:351px;"  %>
+        </div>
+      </fieldset> 
+    <% end %>
+    <%= render :partial => "events"  %>
+  </div>
+</div>

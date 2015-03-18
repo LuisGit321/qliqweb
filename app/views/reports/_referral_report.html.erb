@@ -1,0 +1,33 @@
+
+<table cellpadding="0" cellspacing="0">
+  <tr class="interface_heading">
+    <td class="col1 none">Physician</td>
+    <td class="col1 none">Month</td>
+    <td class="col1 none">Referral Count</td>
+  </tr>
+  <% if @flag == 1  %> 
+    <%  cnt = 0  %> 
+    <tr class="light_blue">
+      <td class="col11"><%= @records.first.name %></td> 
+      <% @records.each do |r| %> 
+        <% if cnt == 0  %>  
+          <td class="light_blue"><%= Date::ABBR_MONTHNAMES[r.month.to_i] %></td>
+          <td><%= r.ref_count %></td>
+          <%  cnt = cnt + 1  %> 
+        <% elsif cnt != 0  %>  
+          <td class="col11"></td> 
+          <td class="light_blue"><%= Date::ABBR_MONTHNAMES[r.month.to_i] %></td>
+          <td class="light_blue"><%= r.ref_count %></td>
+        <% end %> 
+      </tr>
+    <% end %> 
+  <% else %> 
+    <% @records.each do |r| %> 
+      <tr class="light_blue">
+        <td class="col11"><%= r.name %></td> 
+        <td class="light_blue"><%= Date::ABBR_MONTHNAMES[r.month.to_i] %></td>
+        <td><%= r.ref_count %></td>
+      </tr>
+    <% end %> 
+  <% end %> 
+</table>  

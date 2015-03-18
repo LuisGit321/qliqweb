@@ -1,0 +1,158 @@
+    <% if @order.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+          <ul>
+            <% @order.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+
+    <div class="bottom_section">
+      <div class="bottom_left" style="padding-top:7px;">
+        <div class="secure">
+          <h5>Secure credit card verification</h5>
+          <a href="#"><img src="/images/lock.png" alt=""></a>
+
+          <%= raw "<h3 class='color' id='form_have_errors' style='color:#D2542A; display:#{flash[:error] ? 'none' : 'block'}'>#{flash[:error]}</h3>" %>
+
+
+          <p>This is a secure, 128-bit SSL encrypted card verification. </p>
+
+          <p>Your card will not be charged until the end of your 30-day trial period
+            (<%= 30.days.from_now.strftime('%B %d, %Y') %>).</p>
+          <span class="clear"></span></div>
+        <div class="listing">
+
+          <ul>
+            <li>
+              <div class="credit_card">
+                <p class="bold"> Credit card type</p>
+
+                <p>Please select your credit card type.</p>
+
+                <div class="row3 bg_none">
+                  <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :include_blank => 'Select card type' %>
+
+                </div>
+              </div>
+
+            </li>
+            <li>
+              <div class="credit_card">
+                <p class="bold"> Credit card number</p>
+
+                <p>Please enter the 16-digit number on the front of your credit card.</p>
+
+                <div class="row3 text">
+                  <%= f.text_field :card_number %>
+                </div>
+              </div>
+
+            </li>
+
+            <li>
+              <div class="credit_card">
+                <p class="bold"> Expiration date</p>
+
+                <p>The date your credit card expires, found on the front of your credit card.</p>
+
+                <div class="row3 bg_none">
+                  <%= f.select :card_expires_on_month, (1..12).collect { |m| m <= 9 ? "0#{m}" : m }, :prompt => 'Month' %>
+                  <label>/</label>
+                  <%= f.select :card_expires_on_year, Date.today.year.to_i..Date.today.year.to_i+10, :prompt => 'Year' %>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="credit_card length">
+                <p class="bold"> Security code
+                  <small>(or “CVC” or “CVV”)</small>
+                </p>
+                <p>The last 3 digits on the back of your credit card.</p>
+
+                <div class="row3 inpt text">
+                  <%= f.text_field :card_verification %>
+                </div>
+              </div>
+              <div class="card"><a href="#"><img src="/images/card.gif" alt=""></a></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom_right">
+        <div class="security"><span>Sercurity</span> <span>Badge</span></div>
+      </div>
+    </div>
+    <div class="placeOrder">
+      <%= f.hidden_field :first_name %>
+      <%= f.hidden_field :last_name %>
+      <%= f.hidden_field :country %>
+      <%= f.hidden_field :state %>
+      <%= f.hidden_field :city %>
+      <%= f.hidden_field :zip_code %>
+      <%= f.hidden_field :phone %>
+      <%= f.hidden_field :email %>
+
+
+    </div>
+
+    <div class="processing" id="processing_before">
+      <div class="text1" style="margin-left:32px;">
+        <%= f.submit 'Check Out Now', :class => 'btn', :id =>"submit_checkout" %>
+      </div>
+      <div class="processed">
+        <p class="pad_t">After you've checked out, you can proceed to Step 4 or complete section later.</p>
+      </div>
+    </div>
+
+
+<script type="text/javascript">
+    clientSideValidations.callbacks.element.fail = function(element, message, callback) {
+        callback();
+        $('#form_have_errors').show();
+
+        element.parents('.text:first').addClass("invalid");
+        var messageElement = jQuery('label.message[for="' + element.attr('id') + '"]');
+        var isBlankFound = message.search(new RegExp(/blank/i));
+
+        if (element.attr('id') == 'order_card_number') {
+            if (isBlankFound < 0)
+                messageElement.text(messageElement.text()).show().css('top', '-52px');
+        }
+
+        if (element.attr('id') == 'order_card_verification') {
+            if (isBlankFound < 0)
+                messageElement.text(messageElement.text()).show().css('top', '-52px').css( 'left', '51px').css('width', '150px');
+        }
+
+
+    }
+
+    clientSideValidations.callbacks.element.pass = function(element, callback) {
+        element.parents('.text:first').removeClass("invalid");
+        element.parent().find('.message').effect('fade', {}, 2000, callback);
+
+
+    }
+
+
+    $(document).ready(function() {
+        $('#submit_checkout').click(function() {
+            var form = $('#order_form');
+            var settings = window[form.attr('id')];
+            if (form.isValid(settings.validators)) {
+                $('#processing_before').hide();
+                $('#processing_after').show();
+            }
+        })
+    })
+
+
+</script>
+
+

@@ -1,0 +1,27 @@
+<div class="interface">
+  <div class="interface_middle_curve">
+    <div class="interface_top_curve">
+      <div class="interface_bottom_curve">
+        <div class="interface_content">
+          <div class="<%= get_class_for_image(current_user.resource)  %>" onmouseover="show_link(1);" onmouseout="hide_link(1);"> 
+            <%= image_tag current_user.resource.print.image.url(:medium_thumb) unless current_user.resource.print.nil?  %>  
+            <%= link_to raw("<span style='display:none;' id='physician_photo'>insert physician photo</span>"), physician_photo_path(current_user.resource, :for => PHYSICIAN)  %>  
+          </div>
+          <small><%#= current_user.resource.salutation  %> <%= current_user.resource.first_name  %></small>  
+          <ul>
+            <% unless current_user.resource.nil? %>  
+              <li class="active"><%= current_user.resource.first_name  %></li>  
+              <%= raw get_physician_details(current_user.resource)  %>  
+            </ul>
+            <div class="<%= get_class_for_image(current_user.resource)  %>" onmouseover="show_link(2);" onmouseout="hide_link(2);"> 
+              <%= image_tag current_user.resource.print.image.url(:medium_thumb) unless current_user.resource.print.nil?  %>  
+              <% if is_group_admin? %>  
+                <%= link_to raw("<span style='display:none;' id='hospital_photo'>insert hospital photo</span>"), physician_photo_path(current_user.resource, :for => HOSPITAL)  %>
+              <% end %>  
+            </div>
+          <% end %>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

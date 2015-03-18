@@ -1,0 +1,65 @@
+	{ "Message": {
+		"Type":"app2app",
+		"Command" : "push",
+		"Subject" : "appointments",
+		"Data" :
+			[{	
+				"patient" : {
+					"first_name":"Benjamin",
+					"middle_name":"",
+					"last_name":"Vigil",
+					"date_of_birth":"02/13/1987",
+					"race":"White",
+					"gender":"Male",
+					"phone":"388-388-4877",
+					"email":"bv@bv.com",
+					'insurance":"Private"}
+				"attending_physician" :{
+					"group_name":"ABC Group",
+					"name":"Jared Brown",
+					"initials":"JB",
+					"specialty":"Hospitalist",
+					"state":"TX",
+					"zip":"75627",
+					"npi":"34987348789",
+					"mobile":"938-388-3883",
+					"phone":"347-488-4884",
+					"fax":"324-484-4984",
+					"email":"jb@abcgroup.com"				
+				}
+				"facility" :{
+					"facility_type":"Hospital",
+					"medicare_id":"2893787",
+					"name":"Trinity Medical Center",
+					"address":"123 Street",
+					"city":"123 City",
+					"state":"TX",
+					"zip":"73883",
+					"county":"Denton"				
+				}
+				"message_control_id":"this is used for correlation",
+				"patient_account_number":"unique number every time patient is admitted",
+				"event_type":"",
+				"event_recorded_time":"",
+				"patient_class":"",				
+				"admit_date":"04/30/2011",
+				"discharge_date":null,
+				"room":"232",
+				"mrn":"test",
+				"active":"1",
+				"referral_physician":{
+					"name":"Mohammad Amin",
+					"address":"12347 Main",
+					"city":"St Louis",
+					"state":"MO",
+					"zip":"",
+					"phone":"888-399-3993",
+					"mobile":"344-494-4994",
+					"fax":"494-499-4040",
+					"email":"ma@ma.com",
+					"npi":"34873488",
+					"specialty":"Family Practice"				
+				}
+			}]
+		}
+	}			

@@ -1,0 +1,9 @@
+<% unless flash.empty? %>
+  <script type="text/javascript" charset="utf-8">
+    $(function() {
+        jQuery.facebox('<div width="150px;"><%= escape_javascript flash.values.to_sentence %></div>');
+        });
+       // setTimeout('$.facebox.close()', 1000);
+</script>
+<% end %>
+<% flash.clear %>  

@@ -1,0 +1,12 @@
+#after verifying email and NPI combinations, send them an email
+#also send a success message to the client
+##############################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "authorization",
+	"Subject" : "forgot_pw_reply",
+	"Data" :{
+		"success":{"A temporary password is sent. please check your email and complete process."}
+	}
+  }
+}

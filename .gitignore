@@ -1,0 +1,13 @@
+.bundle
+*.swp
+log/*.log
+tmp/**/*
+db/development.sqlite3
+.rvmrc
+config/database.yml
+config/qliq_config.yml
+config/deploy/*.rb
+.idea 
+.sass-cache
+public/index.html
+public/home.html

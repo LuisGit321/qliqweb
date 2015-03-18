@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Qliqsoft</title>
+    <%= javascript_include_tag 'jquery', 'jquery-ui-min', 'facebox', 'rails', 'application', 'jquery-validation','client_side_validations' %>
+    <%= javascript_include_tag "jquery.jqprint"  %>  
+    <%= stylesheet_link_tag 'style' %>
+    <%= stylesheet_link_tag 'facebox' %>
+    <%= stylesheet_link_tag 'jquery-ui-1.8.4.custom' %>
+    <%#= javascript_include_tag "jquery.printElement"   %>  
+    <%= javascript_include_tag "autocomplete-rails.js" %>
+    <%= csrf_meta_tag %>
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <% if  current_user.role?(ROLES[BILLING_ADMIN]) ||  current_user.role?(ROLES[BILLING_FUNCTIONAL])  %>    
+      <%= render :partial => '/layouts/agency_header'  %>  
+    <% else %> 
+      <%= render :partial => 'layouts/header'  %>  
+    <% end %> 
+    <%= render :partial => '/layouts/notice'  %>
+    <div id="page">
+      <%= yield  %>  
+    </div>
+    <%= render :partial => "/layouts/footer"  %>  
+  </div>
+</body>
+</html>

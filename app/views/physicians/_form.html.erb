@@ -1,0 +1,114 @@
+<script type="text/javascript">
+  $('#group_id_option').hide();
+  var group = "<%= @physician.group_id.to_s %>"  
+  var is_grp_admin = "<%= is_group_admin?  %>" 
+  var is_physician_grp_admin = "<%= @physician.user.role?(ROLES[GROUP_ADMIN]) %>" 
+  if(group != "" || is_grp_admin == "true")
+    {
+      $('#group_id_option').show();
+    }
+  if( is_physician_grp_admin != "true")
+    {
+      if($('#group_admin').is(':checked'))
+      {
+        $('#group_admin').attr('checked', false);
+      }
+    }
+
+  $('#physician_group_id').change(function() {
+      var group_id = $('#physician_group_id').val();
+      if(group_id == "")
+      { 
+        $('#group_id_option').hide();
+        if($('#group_admin').is(':checked')) 
+        {
+          $('#group_admin').attr('checked', false);
+        }
+      }
+      else
+      $('#group_id_option').show();
+      $.ajax({
+          type: 'GET',
+          data: 'group_id='+ group_id,
+          url : '/physicians/change_billing_agency'
+    });
+});
+
+</script>
+<script type="text/javascript">
+  $(function() {
+      initialize_form();
+      var v = $("#frmAdmin").jcheck({notifiers: ["custom_errors"], live_notifiers: ["custom_errors"], field_prefix: "physician"});
+      v.validates("first_name", "last_name", "user_attributes[email]", ":superbill", {presence: true});
+      v.validates_format_of("user_attributes[email]", {"with": "email"});
+      
+      $('#frmAdmin').submit(function(e) {
+        e.preventDefault();
+        return v.is_valid();
+        });
+  });
+</script>
+<%= form_for(@physician, :html => { :remote => true, :id => "frmAdmin" }, :builder => CCFormBuilder) do |f| %>
+  <fieldset>
+    <%= f.select :group_id, @groups.collect{|g| [g.name, g.id]}, {:include_blank => "--select--"}, :label => t('.group') if current_user.role?(ROLES[SYSTEM_ADMIN])%>  
+    <%= f.select :salutation, SALUTATION.collect{|s| [s, s]}, {}, :label => t('.salutation')  %>  
+    <%= f.text_field :first_name, :label => t('.first_name') + t('mandatory') %>  
+    <%= f.text_field :last_name, :label => t('.last_name') + t('mandatory') %>  
+    <%= f.text_field :npi, :label => t('.npi')  %>  
+    <%= f.text_field :phone, :label => t('contact.phone')  %>  
+    <%= f.text_field :fax, :label => t('contact.fax')  %>  
+    <%= f.fields_for :user do |u|  %>  
+      <%= u.text_field :email, :label => t('contact.email') + t('mandatory') %>  
+
+      <% if current_user.role?(ROLES[SYSTEM_ADMIN]) or  current_user.role?(ROLES[GROUP_ADMIN])     %> 
+        <%= label_tag t('.roles')  %> <br/> 
+        <%= check_box_tag "physician[user_attributes][roles][]", ROLES[PHYSICIAN_FUNCTIONAL], @physician.user.roles.include?(ROLES[PHYSICIAN_FUNCTIONAL]) , { :id => "physician_functional"}%>
+        <span><%= ROLES[PHYSICIAN_FUNCTIONAL]  %> </span> 
+        <%= check_box_tag "physician[user_attributes][roles][]", ROLES[PHYSICIAN_ADMIN], @physician.user.roles.include?(ROLES[PHYSICIAN_ADMIN]), { :id => "physician_admin"} %>
+        <span><%= ROLES[PHYSICIAN_ADMIN]  %>  </span>
+        <div id="group_id_option">
+          <%= check_box_tag "physician[user_attributes][roles][]", ROLES[GROUP_ADMIN], @physician.user.roles.include?(ROLES[GROUP_ADMIN]), { :id => "group_admin"} %>
+          <span> <%= ROLES[GROUP_ADMIN]  %> </span> 
+        </div> 
+      <% else %>  
+        <%= hidden_field_tag "physician[user_attributes][roles][]", @physician.user.roles  %>  
+
+      <% end %>  
+    <% end %>  
+    <div class="fields">
+      <%= raw "<div class='errMsg'>Please select atleast one role.</div>" unless @physician.errors["user.roles"].empty?  %> 
+    </div> 
+
+    <%= f.select :specialty,  @specialties.collect{|s| [s.name, s.name]}, {:include_blank => "--select--"}, :label => t('.specialty') %>  
+
+    <div class="fields">
+      <%= label_tag t('.superbills') + t('mandatory') %>  
+      <%= select_tag :superbill, options_from_collection_for_select(@superbills, 'id', 'name', @preferred_superbill.to_s) , :include_blank => '--select--' %>
+      <%= raw "<div class='errMsg'>#{@physician.errors[:error_preferred_superbill].first}</div>" unless @physician.errors[:error_preferred_superbill].empty?  %> 
+
+    </div>
+    <div class="fields">
+      <%= label_tag t('.superbill2')  %>
+      <%= select_tag :superbill2, options_from_collection_for_select(@superbills, 'id', 'name', @superbill2.to_s), :include_blank => '--select--' %>
+    </div>
+    <div class="fields">
+      <%= f.fields_for :physician_pref do |p|  %>  
+        <%= p.text_field :number_of_days_to_bill, :label => t('.no_of_billing_days')  %>  
+        <%= p.select  :defacto_facility_id, @facilities.collect{|s| [s.name, s.id]}, {:include_blank => "--select--"}, :label => t('.facility') %> 
+        <%= label_tag t('.fax_to_primary')  %>  <%= p.check_box :fax_to_primary  %> 
+      <% end %>  
+    </div>
+
+    <div class="fields">
+      <%= label_tag t('.subscription_info')  %>  
+      <%= f.check_box :subscribe_to_iphone  %><span><%= t('.iphone')  %></span>
+      <%= f.check_box :subscribe_to_web %><span> <%= t('.web')  %></span>
+    </div>
+    <div class="butons">
+      <%= f.submit "Add", :class => 'backgrnd' %>
+      <%= link_to 'Back', @request_source, :class => "backgrnd_lnk margin_rte" %> 
+      <%= image_tag "/images/spinner.gif", :id => "spinner", :style => "display:none;"  %>  
+    </div>
+  </fieldset> 
+<% end %>
+<%= render :partial => "/physician_groups/events"  %>  

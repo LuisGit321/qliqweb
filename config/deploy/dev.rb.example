@@ -1,0 +1,47 @@
+set :application, 'qliqweb'
+set :deploy_to, "#{base_path}/#{application}"
+role :web, '1.2.3.4'
+role :app, '1.2.3.4'
+role :db, '1.2.3.4', :primary => true
+server '1.2.3.4', :app, :web, :primary => true
+set :branch, 'master'
+
+
+namespace :database do
+
+  desc "Create database configuration file"
+  task :add_config do
+    configuration = {
+        "production" => {
+            "adapter" => "mysql2",
+            "database" => "db_name",
+            "encoding" => "utf8",
+            "pool" => 5,
+            "timeout" => 5000,
+            "host" => "localhost",
+            "username" => "db_user",
+            "password" => "db_pass",
+            "socket" => '/path/to/mysqld.sock',
+        },
+
+        "sip_server" => {
+            "adapter" => "mysql2",
+            "database" => "db_name",
+            "encoding" => "utf8",
+            "pool" => 5,
+            "host" => "1.2.3.4",
+            "timeout" => 5000,
+            "username" => "db_user",
+            "password" => 'db_pass'
+        }
+
+    }
+    put configuration.to_yaml, "#{current_path}/config/database.yml"
+    qliq_configuration = {
+      :npi => {
+        :endpoint => "http://1.2.3.4/services/workspace"
+      }
+    }
+    put qliq_configuration.to_yaml, "#{ current_path }/config/qliq_config.yml"
+  end
+end

@@ -1,0 +1,39 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title qliqSoft Inc. - Mobile Charge Capture for All
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    = stylesheet_link_tag 'reset', 'general', 'forms', 'lightbox'
+    = javascript_include_tag  'jquery', 'jquery-ui-min', 'jquery.ui.widget',
+                              'jquery.ui.accordion', 'jquery.colorbox', 'rails',
+                              'facebox', 'jquery.tinycarousel.min', 'home'
+    = yield :head
+    = csrf_meta_tag
+  %body
+    .header
+      .container
+        .brand
+          %h1= link_to 'Qliq Charge'
+        .top-nav
+          %ul
+            %li= link_to 'Home', root_path
+            %li= link_to 'Blog', '#'
+            %li= link_to 'Contact', '#'
+            %li.login
+              %a{:href => "#"}
+                = image_tag 'icon-lock-login.png', :alt => 'Login'
+                Login
+            %li.suscribe= link_to 'Subscribe', subscribe_index_path
+        .main-nav
+          = main_nav_tag
+    .main
+      .container
+        = yield
+    .footer
+      .container
+        %p © 2011 qliqSoft, Inc. All rights reserved.
+        %ul
+          %li= link_to "Company Overview", "#"
+          %li= link_to "Advisory Board", "#"
+          %li= link_to "Terms of Service", "#"
+          %li= link_to "Customer Support", "#"

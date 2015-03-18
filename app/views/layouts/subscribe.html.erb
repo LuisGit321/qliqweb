@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Qliqsoft</title>
+  <%= stylesheet_link_tag 'home_style', 'av_hack', 'facebox', 'client_side_validation' %>
+  <%#= stylesheet_link_tag 'home_style', :media => "screen" %>
+  <%= javascript_include_tag 'jquery', 'jquery-ui-min', 'facebox', 'rails', 'application', 'rails.validations', 'rails.validations.custom' %>
+  <%#= csrf_meta_tag %>
+  <script type="text/javascript">
+      //<![CDATA[
+      var BLANK_URL = 'images/image//blank.html';
+      var BLANK_IMG = 'images/image/spacer.gif'; //]]> </script>
+  <!--[if lt IE 7]>
+  <script type="text/javascript" src="include/ds-sleight.js"></script> <![endif]-->
+  <!--[if IE]>
+  <link rel="stylesheet" type="text/css" href="include/ie.css"><![endif]-->
+
+  <style type="text/css">
+
+
+
+  </style>
+</head>
+<body>
+<div class="outer_wrapper">
+  <div id="outer_header">
+    <div class="inner_wrapper">
+      <div id="header">
+        <div class="header_left_section">
+          <h1><a href="index.html"><img src="/images/logo.jpg" alt="" title="Ardensys"/></a></h1>
+        </div>
+        <div class="header_right_section">
+          <div class="top_nav">
+            <ul>
+              <li><a href="#">Home </a></li>
+              <li><a href="#">Blog </a></li>
+              <li><a href="#">Contact </a></li>
+              <li class="padding_left"><a href="#">Login </a></li>
+              <li><a href="#" class="active">Subscribe </a></li>
+            </ul>
+          </div>
+          <div class="bottom_nav">
+            <ul>
+              <li class="none"><a href="#">Overview </a></li>
+              <li><a href="#">iPhone </a></li>
+              <li><a href="#">Desktop </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%#= render :partial => '/layouts/notice'  %>
+  <div id="outer_page">
+    <div class="inner_wrapper">
+      <div id="page">
+        <%#= render :partial =>'content'%>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+
+  <div id="outer_footer">
+    <div class="inner_wrapper">
+      <div id="footer"><span> &copy; 2011 qliqSoft, Inc. All rights reserved.</span>
+
+        <div id="footer_navigation">
+          <ul>
+            <li><a href="#">Company Overview </a></li>
+            <li><a href="#"> Advisory Board </a></li>
+            <li><a href="#">Terms of Service </a></li>
+            <li><a href="#"> Customer Support </a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+</body>
+</html>
+~
+

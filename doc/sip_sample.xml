@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<cp:ruleset xmlns:pr="urn:ietf:params:xml:ns:pres-rules" xmlns:cp="urn:ietf:params:xml:ns:common-policy">
+  <cp:rule id="pres_whitelist">
+    <cp:conditions>
+      <cp:identity>
+        <cp:one id="sip:alice@example.org"/>
+        <cp:one id="sip:bob@example.org"/>
+        <cp:one id="sip:carol@example2.net"/>
+      </cp:identity>
+    </cp:conditions>
+    <cp:actions>
+      <pr:sub-handling>allow</pr:sub-handling>
+    </cp:actions>
+    <cp:transformations>
+      <pr:provide-services>
+        <pr:all-services/>
+      </pr:provide-services>
+      <pr:provide-persons>
+        <pr:all-persons/>
+      </pr:provide-persons>
+      <pr:provide-devices>
+        <pr:all-devices/>
+      </pr:provide-devices>
+      <pr:provide-all-attributes/>
+    </cp:transformations>
+  </cp:rule>
+</cp:ruleset>

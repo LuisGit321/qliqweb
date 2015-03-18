@@ -1,0 +1,30 @@
+<%= render :partial => "/layouts/group_admin_left_menu"  %>  
+<div class="interface_right_section">
+  <h3>Referring Physicians</h3>
+  <div class="add"><%= link_to "Add Referring Physician", new_referring_physician_path, :rel => :facebox  %></div>
+  <table cellpadding="0" cellspacing="0">
+    <tr class="interface_heading">
+      <td class="col31_top none">NAME</td>
+      <td class="none">NPI</td>
+      <td class="none">Fax</td>
+      <td class="none">&nbsp;</td>
+    </tr>
+    <% @referring_physicians.each do |referring_physician| %>
+      <tr class="light_blue">
+        <td class="col31"><%= referring_physician.name  %></td> 
+        <td><%= referring_physician.npi.blank? ? raw("&nbsp;") : referring_physician.npi  %></td>   
+        <td><%= referring_physician.fax  %></td>   
+        <td class="edit-link border_right">
+          <%= link_to 'Edit', edit_referring_physician_path(referring_physician), :rel => :facebox %> |
+          <%= link_to 'Destroy', referring_physician, :confirm => 'Are you sure?', :method => :delete %>
+        </td>   
+      </tr>                        
+    <% end %>  
+  </table>
+  <div style="margin-top:20px;float:right">
+    <%= will_paginate @referring_physicians  %>  
+  </div>  
+</div>
+
+
+

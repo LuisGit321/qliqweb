@@ -1,0 +1,31 @@
+development:
+  adapter: mysql2
+  database: qliq_development
+  username: qliq
+  password:
+  host: localhost
+
+test:
+  adapter: mysql2
+  database: qliq_test
+  username: qliq
+  password:
+  host: localhost
+
+sip_server:
+  adapter: mysql2
+  database: qliq_sip
+  username: qliq
+  password:
+  host: localhost
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: mysql2
+  database: qliq_production
+  username: qliq
+  password:
+  host: localhost
+  pool: 5
+  timeout: 5000

@@ -1,0 +1,33 @@
+.accordion .content .superbill, .accordion .content .modifiers {
+  float: left;
+  margin: 0 50px 0 0;
+  padding: 10px;
+  border: #003d71 1px solid;
+  border-radius: 5px; }
+.accordion .content .superbill input.superbill-search {
+  border: black 1px solid;
+  margin: 5px 0 5px 0; }
+.accordion .content .superbill ul.cpt {
+  list-style: none; }
+  .accordion .content .superbill ul.cpt li {
+    clear: both; }
+    .accordion .content .superbill ul.cpt li span {
+      float: left;
+      font-size: 11px;
+      margin: 0 15px 0 0; }
+    .accordion .content .superbill ul.cpt li span.title, .accordion .content .superbill ul.cpt li span.code {
+      font-weight: bold; }
+    .accordion .content .superbill ul.cpt li span.title {
+      color: #003d71; }
+    .accordion .content .superbill ul.cpt li span.code {
+      color: #8b8c8e; }
+    .accordion .content .superbill ul.cpt li span.description {
+      font-size: 10px; }
+.accordion .content .modifiers ul {
+  list-style: circle inside; }
+  .accordion .content .modifiers ul span.id, .accordion .content .modifiers ul span.name {
+    padding: 0 5px 0 0; }
+  .accordion .content .modifiers ul span.id {
+    font-size: 12px; }
+  .accordion .content .modifiers ul span.name {
+    font-size: 10px; }

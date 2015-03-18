@@ -1,0 +1,36 @@
+= content_for :head do
+  = stylesheet_link_tag 'superbills'
+  = javascript_include_tag 'jquery.quicksearch', 'superbills'
+
+- current_user.resource.physicians.each do |physician|
+  %div
+    %h3
+      Superbills for
+      = physician.fullname
+  - if 0 < physician.superbills.count
+    .accordion
+      - physician.superbills.each do |superbill|
+        %h3= link_to superbill.name, '#'
+        .content
+          .superbill
+            - if 0 < superbill.superbill_cpts.count
+              %h4 Search CPT:
+              %input{ :type => 'text', :class => 'superbill-search' }/
+              %br/
+              %ul.cpt{ :id => "cpt-#{ superbill.id }" }
+                - superbill.superbill_cpts.each do |superbill_cpt|
+                  %li
+                    %span.title CPT
+                    %span.code= superbill_cpt.cpt.code
+                    %span.description= superbill_cpt.cpt.description
+            - else
+              %h3 No superbills found
+          .modifiers
+            - if 0 < superbill.superbill_modifiers.count
+              %ul
+                - superbill.superbill_modifiers.each do |superbill_modifier|
+                  %li
+                    %span.id= superbill_modifier.modifier.id
+                    %span.name= superbill_modifier.modifier.name
+            - else
+              %h3 No modifiers found

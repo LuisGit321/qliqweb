@@ -1,0 +1,11 @@
+<% counter = counter.present? ? counter : "new_billing_agencies"  %>  
+<div class="row2">
+  <h5>&nbsp;&nbsp;</h5>
+    <%= f.text_field :first_name, :placeholder => "First Name, Middle initial", :div_class => "text2" , :class => 'staffs_name'  %>
+    <%= f.text_field :last_name, :placeholder => "Last Name", :div_class => "text1" , :class => 'staffs_name' %>
+  <%= f.fields_for :user do |u| %>  
+    <%= u.text_field "email", :placeholder => "Staff Email Address", :div_class => "text1", :class => 'staffs_email'  %>
+      <span class="removeFieldSet">X</span>
+    <%= hidden_field_tag "physician_group[billing_agencies_attributes][#{counter}][user_attributes][roles][]", ROLES[BILLING_ADMIN] %>
+  <% end %>  
+</div>

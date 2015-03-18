@@ -1,0 +1,7 @@
+<div id="frmAdmin">
+  <h3><%= @note.note_type.description %></h3>
+  <br />
+  <%= raw @note.text_note %> 
+  <br />
+  <%= @note.encounter_notes.first.updated_at.strftime("%Y-%m-%d") %>
+</div>

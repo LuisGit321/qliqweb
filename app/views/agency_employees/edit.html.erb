@@ -1,0 +1,21 @@
+<%= stylesheet_link_tag 'jcheck'  %>  
+<%= javascript_include_tag 'jcheck-0.7.1.min'  %>  
+<% if current_user.role?(ROLES[BILLING_ADMIN]) %> 
+  <div class="form_tab">
+    <h1>Editing Agency Employee</h1>
+    <div id="frmGroup">
+      <%= render 'form' %>
+    </div>
+  </div>
+<% elsif current_user.role?(ROLES[BILLING_FUNCTIONAL]) %> 
+  <%= render :partial => '/layouts/agency_employee_left_menu'  %> 
+  <div class="interface_right_section">
+    <div class="form_tab">
+      <h1>Editing Agency Employee</h1>
+      <div id="frmGroup">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+<% end  %> 
+

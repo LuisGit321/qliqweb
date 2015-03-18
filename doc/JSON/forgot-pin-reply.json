@@ -1,0 +1,13 @@
+#after verifying the username and password
+#send the encrypted PIN
+##############################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "authorization",
+	"Subject" : "pin_reply",
+	"Data" :{
+		"user_name":{"amit@joshsoftware.com"},
+		"pin":{"encrypted PIN"}
+	}
+  }
+}

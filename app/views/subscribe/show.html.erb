@@ -1,0 +1,123 @@
+<fieldset>
+  <div class="left_container">
+    <div class="step1">
+      <div class="mid_curve1">
+        <div class="top_curve3">
+          <div class="bottom_curve3">
+            <div class="content_step1">
+
+              <h2>Subscribe to qliqCharge</h2>
+
+              <%= raw step1 %>
+              <%= raw step2 %>
+              <%= raw step3 %>
+
+              <div class="account">
+                <h4> Your qilqAccount Information </h4>
+                <ul>
+                  <li class="top"> <%= @physician_group.first_name %> <%= @physician_group.last_name %></li>
+                  <li> <%= @physician_group.name %> </li>
+                  <li> <%= @physician_group.address %> </li>
+                  <li> <%= @physician_group.address2 %> </li>
+                  <li> <%= @physician_group.city %> </li>
+                  <li> <%= @physician_group.state %> </li>
+                  <li> <%= @physician_group.zip %> </li>
+                  <li class="top"> <%= @physician_group.phone %> </li>
+                  <li> <%= @physician_group.user.email %> </li>
+                  <li> <%#= @physician_group.providers %> </li>
+                </ul>
+              </div>
+
+              <div class="account rite">
+                <h4> Your Billing Information </h4>
+                <% if @billing_info %>
+                    <ul>
+                      <li class="top">  <%= @billing_info.first_name %> <%= @billing_info.last_name %> </li>
+                      <li>  <%= @billing_info.title %> </li>
+                      <li> <%= @billing_info.company %> </li>
+                      <li> <%= @billing_info.address1 %> </li>
+                      <li> <%= @billing_info.address2 %> </li>
+                      <li> <%= @billing_info.city %> </li>
+                      <li> <%= @billing_info.state %> </li>
+                      <li> <%= @billing_info.zip %> </li>
+                      <li> <%= @billing_info.phone %> </li>
+                      <li> <%= @billing_info.email %> </li>
+                      <%#= @billing_info.providers %> </li>
+                    </ul>
+                <% end %>
+              </div>
+
+
+              <div class="begin">
+                <h5>Begin your 30-day trial today! </h5>
+
+                <p>Remember, your credit will not be charged until <%= 30.days.from_now.strftime('%B %d, %Y') %>. </p>
+
+                <p>We'll send you a reminder email one week before the end of your trial period.</p>
+              </div>
+              <div class="trial">
+                <table cellpadding="10" cellspacing="0" width="100%">
+                  <tr>
+                    <td bgcolor="#ebeced">
+                      <font style="color:#01416f; font:bold 12px/12px Arial, Helvetica, sans-serif;">Licenses</font>
+                    </td>
+                    <td bgcolor="#ebeced">
+                      <font style="color:#01416f; font:bold 12px/12px Arial, Helvetica, sans-serif;">Billing
+                        Frequency</font></td>
+                    <td bgcolor="#ebeced">
+                      <font style="color:#01416f; font:bold 12px/12px Arial, Helvetica, sans-serif;">Amount per
+                        License</font></td>
+                    <td bgcolor="#dcddde" align="right">
+                      <font style="color:#01416f;  font:bold 12px/12px Arial, Helvetica, sans-serif;">Total
+                        Amount</font></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <font style="color:#414042; font:normal 12px/20px Arial, Helvetica, sans-serif"> <%= @physician_group.providers %>
+                        Providers</font></td>
+                    <td><font style="color:#414042; font:normal 12px/20px Arial, Helvetica, sans-serif">Monthly</font>
+                    </td>
+                    <td><font style="color:#414042; font:normal 12px/20px Arial, Helvetica, sans-serif">$50.00</font>
+                    </td>
+                    <td bgcolor="#ebeced" align="right">
+                      <font style="color:#414042; font:bold 12px/20px Arial, Helvetica, sans-serif">$ <%= (@physician_group.providers * 50).to_f if @physician_group.providers %></font>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <%= form_for(@order, :html=> {:id=> 'order_form'},:remote => true, :validate => true) do |f| %>
+
+                <%= render :partial => 'orders/form', :locals => {:f => f} %>
+            <% end %>
+
+
+
+            <div class="processing" style="display:none" id="processing_after">
+              <div class="text1" style="margin-left:32px">
+                <input type="button" value="Processing...">
+              </div>
+              <div class="processed"><img alt="" src="/images/processing.jpg">
+                <h6>Please wait while your subscription is securely processed.</h6>
+
+                <p>This may take a few minutes, depending on the speed of your internet connection.</p>
+              </div>
+            </div>
+
+
+            <%= raw step4 %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right_container pad_top1">
+    <h4>Take a month to see how it all works!</h4>
+
+    <p>Ut dapibus convallis felis sit amet auctor. Nullam condimentum enim et lectus blandit faucibus. Quisque eget
+      tortor justo. Phasellus arcu risus, porttitor nec tincidunt nec, ultricies sit amet felis.</p>
+  </div>
+</fieldset>
+

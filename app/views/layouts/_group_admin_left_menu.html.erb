@@ -1,0 +1,14 @@
+<div class="interface_left_section">
+  <div class="left_navigation">
+    <ul>
+      <% if is_group_admin? %>  
+        <li><%= menu_link_to 'physician_groups', 'edit', 'Group Profile', edit_physician_group_path(current_user.resource)  %></li> 
+        <li><%= menu_link_to 'physicians', 'index', 'Physicians', physicians_path  %></li> 
+      <% end %>  
+      <li><%= menu_link_to 'referring_physicians', 'index', 'Primary/Referring Physicians', referring_physicians_path  %></li> 
+      <li><%= menu_link_to 'facilities', 'index', 'Facilities (POS)', facilities_path  %></li> 
+      <li><%= menu_link_to 'billing_agencies', 'show', 'Billing Agency', billing_agency_path(get_billing_agency_id)  unless current_user.resource.billing_prefs.empty? %></li> 
+    </ul>
+  </div>
+  <%= render :partial => '/layouts/physician_profile'  %>  
+</div>

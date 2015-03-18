@@ -1,0 +1,3 @@
+$.facebox.close();
+$("#set_secondary_referring").html('<%= escape_javascript(render :partial => "secondary") %>');
+$('#patient_hospital_episodes_attributes_0_primary_physician_id').append('<option value="<%= @referring_physician.reload.id  %>"><%= @referring_physician.name  %></option>');   

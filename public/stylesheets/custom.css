@@ -1,0 +1,53 @@
+.errMsg {
+  color:#DA3838;
+}
+
+.paginate {
+  margin-top:20px;
+  float:right;
+}
+
+.field_with_errors {
+  width:100%;
+  float:left;
+}
+
+.note_link {
+  width:190px;
+  float:left;
+  border-left: 1px solid;
+}
+
+.first_note_link {
+  width:190px;
+  float:left;
+}
+
+.note_head {
+  float: left;
+  margin-top: 20px;
+}
+
+table tr td {
+    font-size:12px;
+
+}
+
+.delete {
+  background-color: #00A0C6;
+  background-image: url(AccordionTab0.gif);
+  border-bottom: 1px solid #999;
+  border-top: 1px solid white;
+  color: black;
+  cursor: pointer;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 0px;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.error {
+  color:red;
+}

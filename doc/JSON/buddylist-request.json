@@ -1,0 +1,17 @@
+#this request is sent to initialize the client at 
+#first time login to the device or desktop.
+#after the subscription, after verifying the temp password
+#and changing to a perm password, they will downloading the
+#clients (desktop or app from appstore).
+###########################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "authorization",
+	"Subject" : "buddylist_request",
+	"Data" :{
+		"public_key":{"%^$&^(230-934971986263123sksdsug2873623"},
+		"user_name":{"amit@joshsoftware.com"},
+		"password":{"928374897-sdaskjdh23786t123skjnd"}
+	}
+  }
+}

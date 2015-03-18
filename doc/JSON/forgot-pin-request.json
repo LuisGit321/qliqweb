@@ -1,0 +1,21 @@
+#this message is sent from the device to request for an encrypted
+#PIN to reveal the pin incase if
+#they forget their PIN. That means they created the PIN during the 
+#initialization process.
+#since md5 hash of PIN is store in the device keystore, it is
+#difficult to covert it back ro reveal it to the user
+#the PIN will be encrypted with their public_key, send to webapp
+#to store it on the web during the PIN creation process. This 
+#encrypted PIN will be sent to the device, it will be decrypted
+#with private key and reveal it the user.
+##############################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "authorization",
+	"Subject" : "pin_request",
+	"Data" :{
+		"user_name":{"amit@joshsoftware.com"},
+		"encrypted_password":{"23dsfasdfasdfasdf98sdf23098908"}
+	}
+  }
+}

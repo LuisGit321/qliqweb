@@ -1,0 +1,100 @@
+<div class="chk"><%= p.check_box "is_account_info" %> Same as my qliqAccount Information</div>
+<script type="text/javascript">
+
+</script>
+
+<div class="row1"> <%= p.text_field :first_name, :label => t('contact.first_name'), :div_class => "text" %> </div>
+<div class="row1"> <%= p.text_field :last_name, :label => t('contact.last_name'), :div_class => "text" %> </div>
+<div class="row1"> <%= p.text_field :title, :label => t('contact.name'), :div_class => "text", :required => "false" %>  </div>
+<div class="row1"> <%= p.text_field :phone, :label => t('contact.phone'), :div_class => "text" %>  </div>
+<div class="row1 pad_bottom"><%= p.text_field :email, :label => t('contact.subscribe_email'), :div_class => "text" %></div>
+<div class="row1"> <%= p.text_field :company, :label => t('contact.company'), :div_class => "text" %>  </div>
+<div class="row1"> <%= p.text_field :address1, :label => t('contact.address1'), :div_class => "text" %>  </div>
+<div class="row1"> <%= p.text_field :address2, :label => t('contact.address2'), :div_class => "text", :required => "false" %>  </div>
+<div class="row1"> <%= p.text_field :city, :label => t('contact.sub_city'), :div_class => "text" %></div>
+<div class="row1"><%= p.select :state, STATES.collect { |s| [s.name, s.code] }, {:include_blank => "--select--"}, :label => t('contact.sub_state') %></div>
+<div class="row1 pad_botom"> <%= p.text_field :zip, :label => t('contact.sub_zip'), :class => 'input_small', :div_class => "text width10" %>  </div>
+
+<div class="row1">
+  <input type="submit" value="Continue Step 3" name="commit" class="btn">
+</div>
+
+
+<script type="text/javascript">
+    clientSideValidations.callbacks.element.fail = function(element, message, callback) {
+        callback();
+        $('#form_have_errors').show();
+
+        element.parents('.text:first').addClass("invalid");
+        var messageElement = jQuery('label.message[for="' + element.attr('id') + '"]');
+        var isBlankFound = message.search(new RegExp(/blank/i));
+
+        if (element.attr('id') == 'prospective_subscriber_billing_address_email') {
+            if (isBlankFound < 0)
+                messageElement.text('Email ' + messageElement.text()).show();
+        }
+
+        if (element.attr('id') == 'prospective_subscriber_billing_address_phone') {
+            if (isBlankFound < 0)
+                messageElement.show();
+        }
+        if (element.attr('id') == 'prospective_subscriber_billing_address_zip') {
+            if (isBlankFound < 0)
+                messageElement.text( messageElement.text()).show().css('left', '89px').css('width', '100px');
+        }
+
+    }
+
+    clientSideValidations.callbacks.element.pass = function(element, callback) {
+        element.parents('.text:first').removeClass("invalid");
+        element.parent().find('.message').effect('fade', {}, 2000, callback);
+
+        if ($('div.field_with_errors').length == 0)
+            $('#form_have_errors').effect('fade', {}, 2000);
+
+    }
+
+
+    $(document).ready(function() {
+        $('#prospective_subscriber_billing_address_is_account_info').click(function() {
+            if ($('#prospective_subscriber_billing_address_is_account_info').is(':checked')) {
+                $('#prospective_subscriber_billing_address_first_name').val("<%= @physician_group.first_name%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_last_name').val("<%= @physician_group.last_name%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_title').val("<%= @physician_group.contact_title%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_phone').val("<%= @physician_group.phone%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_email').val("<%= @physician_group.prospective_subscriber.email%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_company').val("<%= @physician_group.name%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_address1').val("<%= @physician_group.address%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_address2').val("<%= @physician_group.address2%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_city').val("<%= @physician_group.city%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_state').val("<%= @physician_group.state%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_zip').val("<%= @physician_group.zip%>").data('changed', true);
+            }
+            else {
+                $('#prospective_subscriber_billing_address_first_name').val("<%= @billing_info.first_name%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_last_name').val("<%= @billing_info.last_name%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_title').val("<%= @billing_info.title %>").data('changed', true);
+                $('#prospective_subscriber_billing_address_phone').val("<%= @billing_info.phone%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_company').val("<%= @billing_info.company%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_email').val("<%= @billing_info.email%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_address1').val("<%= @billing_info.address1%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_address2').val("<%= @billing_info.address2%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_city').val("<%= @billing_info.city%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_state').val("<%= @billing_info.state%>").data('changed', true);
+                $('#prospective_subscriber_billing_address_zip').val("<%= @billing_info.zip%>").data('changed', true);
+            }
+
+            var form = $('#new_prospective_subscriber_billing_address');
+            var settings = window[form.attr('id')];
+            form.isValid(settings.validators);
+
+        });
+
+    })
+</script>
+
+
+
+
+
+

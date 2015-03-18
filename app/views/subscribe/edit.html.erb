@@ -1,0 +1,37 @@
+<fieldset>
+  <div class="left_container">
+    <div class="step1">
+      <div class="mid_curve1">
+        <div class="top_curve1">
+          <div class="bottom_curve1">
+            <div class="content_step1">
+              <h2><a href="#">Subscribe to qliqCharge</a></h2>
+
+              <div class='create'>
+                <h3>Step 1:</h3>
+
+                <h3><%= link_to 'Create your qliqAccount' %></h3>
+                <%= raw "<h3 class='color' id='form_have_errors' style='display:#{@user.errors.blank? ? 'none' : 'block'}'>Please correct or fill out highlighted fields</h3>" %>
+              </div>
+              <%= form_for(@user, :url => subscribe_path(@physician_group.id), :remote => true, :method => :put, :builder => FormBuilder, :validate => true) do |f| %>
+                  <%= render :partial => @user.respond_to?(:resource) ? 'form' : 'tmp_form', :locals => {:f => f} %>
+              <% end %>
+
+              <%= raw step2 %>
+              <%= raw step3 %>
+              <%= raw step4 %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="right_container">
+      <h4>Take a month to see how it all works!</h4>
+
+      <p>Ut dapibus convallis felis sit amet auctor. Nullam condimentum enim et lectus blandit faucibus. Quisque eget
+        tortor justo. Phasellus arcu risus, porttitor nec tincidunt nec, ultricies sit amet felis.</p>
+    </div>
+</fieldset>
+

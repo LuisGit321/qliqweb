@@ -1,0 +1,78 @@
+<script type="text/javascript">
+  function submit_form(id)
+{
+  $('#commit_id').val(id);
+  $('#frmAdmin').submit();
+}
+</script>
+
+<%= render :partial => "/layouts/notice"  %>
+<div id="page">
+  <div class="interface_left_section">
+    <%= render :partial => 'menu'  %>
+    <%= render :partial => '/layouts/physician_profile'  %>
+  </div>
+  <div class="interface_right_section">
+    <h3 class="pad_btm">Average Length of Stay</h3>
+    <%= render :partial => "/layouts/physician_header"  %>
+    <%= form_for(@report, :url => generate_reports_path, :html => { :id => "frmAdmin" }) do |f| %>
+      <fieldset>
+        <div>
+          <div class="fields">
+            <%= raw f.label t('reports.index.physician')  %>  
+            <%= f.select :physician_id, @physicians.collect{|p| [p.name, p.id]}, {:include_blank => "All"} %>  
+          </div>  
+          <%= hidden_field_tag "commit_id", ""  %>
+          <div id="physician_error">
+            <%= raw "<div class='errMsg_short'>#{@report.errors[:physician_id].first}</div>" unless @report.errors[:physician_id].empty? %>  
+          </div>
+          <br />
+          <div style="float:left;">
+            <%= label_tag t('reports.index.start_date') + t('mandatory') %>
+            <%= raw f.date_select :start_date %>
+            <%= raw "<br/><div class='errMsg_short'>#{@report.errors[:start_date].first}</div>" unless @report.errors[:start_date].empty?  %> 
+          </div>
+          <div style="float:right;">
+            <%= f.label t('reports.index.end_date') + t('mandatory'), :class => "apd_left"%>
+            <%= raw f.date_select :end_date %>
+            <%= raw "<br/><div class='errMsg_short'>#{@report.errors[:end_date].first}</div>" unless @report.errors[:end_date].empty?  %> 
+          </div>
+        </div>
+      </fieldset>
+    <% end  %>   
+    <div class="nav_right">
+      <div class="add"><%= link_to_function 'Generate Report', "submit_form('html')", :id => "generate_report" %> </div>
+      <div class="add"><%= link_to_function 'Export to PDF', "submit_form('pdf')", :id => "export_pdf" %> </div>
+      <div class="add"><%= link_to_function 'Export to Excel', "submit_form('excel')", :id => "export_excel", :format => :csv %> </div>
+    </div>
+    <% unless params[:action] == "list" %>  
+      <% if @result.empty? %>  
+        <div style="float:left;width:100%;margin-top:30px;">
+          <%= flash[:notice]  %>  
+        </div>
+      <% else %>  
+        <div style="float:left;width:100%;margin-top:30px;">
+          <div style="width:50%;float:left;">
+            <table>
+              <tr class="interface_heading">
+                <td class="col1 none">Month</td>
+                <td class="col1 none">Average Length of stay</td> 
+              </tr> 
+              <% @result.each do |key, val| %>  
+                <tr class="light_blue">
+                  <td><%= key  %></td>   
+                  <td><%= val  %> days</td>   
+                </tr> 
+              <% end %>  
+            </table>  
+          </div>  
+          <div style="width:50%;float:left;">
+            <div style="float:left;margin-left;20px;">
+              <%= image_tag(Gchart.line(:title => 'Avg length of stay', :data => @result.values, :axis_with_labels => 'x,y', :axis_labels => [@result.keys.join('|'), "0|" + @result.values.sort.join('|')]))  %>  
+            </div>  
+          </div>  
+        </div>  
+      <% end %>  
+    <% end %>  
+  </div>
+</div>

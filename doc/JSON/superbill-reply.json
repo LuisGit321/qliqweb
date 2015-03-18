@@ -1,0 +1,51 @@
+{ "Message": {
+    "Type":"web2client",
+    "Command" : "pull",
+    "Subject" : "superbills",
+    "Data" :{
+        "UserInfo":{
+            "user_name":"email address of the requester"
+        },
+        "Seperbills":[
+            {
+                "superbill":{
+                    "name":"",
+                    "facility_type":"",
+                    "preferred":"",
+                    "superbill_cpt":[
+                        {
+                            "cpt_group":"",
+                            "group_display_order":"",
+                            "cpt_code":"",
+                            "code_display_order":"",
+                            "superbill_icds":[
+                                {
+                                    "icd_code":""
+                                }
+                            ],
+                            "superbill_cpt_modifiers":[
+                        {
+                            "modifier":""
+                        }
+                    ]
+
+                        }
+                    ]
+
+                }
+            }
+        ],
+        "master_cpt_pft":[
+            {
+                "cpt_code":"",
+                "pft":""
+            }
+        ],
+        "master_icd_pft":[
+            {
+                "icd_code":"",
+                "pft":""
+            }
+        ]
+    }
+}

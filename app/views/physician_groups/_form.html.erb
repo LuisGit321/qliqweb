@@ -1,0 +1,44 @@
+<script type="text/javascript">
+  $(function() {
+      initialize_form();
+      var is_admin = "<%= is_group_admin?  %>";
+      var v = $("#frmAdmin").jcheck({notifiers: ["custom_errors"], live_notifiers: ["custom_errors"], field_prefix: "physician_group"});
+      v.validates("name", {presence: true});
+      if (is_admin != "true")
+        v.validates("billing_pref_attributes[billing_agency_id]",{presence: true})
+      $('#frmAdmin').submit(function(e) {
+        e.preventDefault();
+        return v.is_valid();
+        });
+  });
+</script>
+<%= form_for(@physician_group, :html => {:remote => true, :id => "frmAdmin"}, :builder => CCFormBuilder) do |f| %>
+  <fieldset>
+    <%= f.text_field :name, :label => t('.name') + t('mandatory') %>  
+    <%= f.text_field :address, :label => t('contact.address')  %>  
+    <%= label_tag t('contact.location')  %>
+    <%= text_field :physician_group, :city, :class => "width1" %> 
+    <% if is_group_admin? %>  
+      <%= select :physician_group, :state,  STATES.collect{|s| [s.name, s.code]}, {:include_blank => "--select--"}, :class => "width2", :style => "height:22px;" %>
+    <% else %>  
+      <%= select :physician_group, :state,  STATES.collect{|s| [s.name, s.code]}, {:include_blank => "--select--"}, :class => "width2" %>
+    <% end %>  
+    <%= text_field :physician_group, :zip, :class => "width3" %>  
+    <%= raw "<div class='errMsg'>#{@physician_group.errors[:zip].first}</div>" unless @physician_group.errors[:zip].empty?  %> 
+    <%= f.text_field :phone, :label => t('contact.phone')  %>  
+    <%= f.text_field :fax, :label => t('contact.fax')  %>  
+    <% unless is_group_admin? %>  
+      <%= f.fields_for :billing_pref do |b|  %>  
+        <%= b.select :billing_agency_id, BillingAgency.all.collect{|a| [a.name, a.id]}, {:include_blank => "--select--"}, :label => t('.billing_agency') %>  
+      <% end %>  
+    <% end %>  
+    <div class="butons">
+      <%= f.submit "Add", :class => "backgrnd" %>
+      <% if current_user.role?(ROLES[SYSTEM_ADMIN]) %> 
+        <%= link_to 'Back', physician_groups_path, :class => "backgrnd_lnk margin_rte" %>
+      <% end %>  
+      <%= image_tag "/images/spinner.gif", :id => "spinner", :style => "display:none;"  %>  
+    </div>
+  </fieldset> 
+<% end %>
+<%= render :partial => "events"  %>  

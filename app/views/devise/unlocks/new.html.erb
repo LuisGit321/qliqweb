@@ -1,0 +1,13 @@
+<h2 style="float: left; margin-left: 20px; width: 90%;">Resend unlock instructions</h2>
+
+<div style="float: left; margin-top: 20px; width: 100%; margin-left: 20px;">
+  <%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }, :builder => CCFormBuilder) do |f| %>
+    <%= f.text_field :email, :label => :Email %></p>
+
+    <div class="actions">
+      <%= f.submit "Resend unlock instructions" %>
+    </div>  
+  <% end %>
+
+  <%= render :partial => "devise/shared/links" %>
+</div>  

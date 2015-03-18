@@ -1,0 +1,31 @@
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "pull",
+	"Subject" : "buddylist",
+	"Data" :
+	"sip_server_url":"129.92.43.37",
+	"sip_server_port":"5061",
+    "sip_server_transport":"TLS",	
+	"user_id":"kkurapat@ardensys.net",
+	"user_sip_uri":"kkurapat@129.92.43.37",
+	"user_display_name":"Krishna Kurapti",
+	"BuddyList" :[{	
+		{
+			"display_name" : "Dr. Bob Von",
+			"user_id":"bv@bv.com",
+			"sip_uri":"sip://bv@129.92.43.37",
+			"public_key":"(*&@)($*($KJWL298373498(*&^&$%^$239437943487skjdshlu219836"},
+		{
+                	"display_name" : "Dr. Ed Ross",
+			"user_id":"er@start12.com",
+			"sip_uri":"sip://er@129.92.43.37",
+			"public_key":"(*&@)($*($KJWL298373498(*&^&$%^$239437943487skjdshlu219836"},
+		{
+                	"display_name":"Ravi Ada",
+			"user_id":"ravi@dobeyond.com",
+			"sip_uri":"sip://ra@129.92.43.37",
+			"public_key":"(*&@)($*($KJWL298373498(*&^&$%^$239437943487skjdshlu219836"}
+
+		}]
+	}
+}			

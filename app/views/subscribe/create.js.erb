@@ -1,0 +1,12 @@
+<% if @user.errors.any? -%>
+$("#flash_notice").hide(300);
+$("#form_have_errors").html("<%= escape_javascript(error_messages_for(@user))%>");
+$("#form_have_errors").show(300);
+<% else -%>
+<%flash.discard%>
+$("#form_have_errors").hide(300);
+$("#ajax_response_container").html("<%= escape_javascript( render :template => "subscribe/billing_information") %>");
+var form = $('#new_prospective_subscriber_billing_address');
+form.validate();
+<% end -%>
+

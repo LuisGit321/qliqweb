@@ -1,0 +1,12 @@
+<% token = defined?(counter) ? counter : "-1" %> 
+<tr id="tr_icd_<%= token %>">
+  <td>
+    <%= f.hidden_field :icd_id  %>  
+    <%= f.hidden_field "_destroy"  %>  
+    <%= @superbill.superbill_icds[token].icd.description  %>  
+  </td>
+  <td>
+    <%= @superbill.superbill_icds[token].icd.code  %>  
+  </td> 
+  <td class="edit-link"><%= link_to_function "Delete", "remove_icd(#{token})", :class => 'delete'  %></td>   
+</tr> 

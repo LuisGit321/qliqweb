@@ -1,0 +1,12 @@
+<% token = rand(10000000)  %>  
+<tr id="tr_icd_<%= parent_key  %>_<%= cpt  %>_<%= token %>"> 
+  <td>
+    <%= hidden_field_tag "cpt_attributes[#{parent_key}][cpts][#{cpt}][icds][#{token}][icd_id]", icd.id  %>  
+    <%= hidden_field_tag "cpt_attributes[#{parent_key}][cpts][#{cpt}][icds][#{token}][_delete]", ''  %>  
+    <%= icd.description  %>  
+  </td>
+  <td>
+    <%= icd.code  %>  
+  </td> 
+  <td class="edit-link"><%= link_to_function "Delete", "remove_icd(#{parent_key},#{cpt},#{token})", :class => 'delete'  %></td>   
+</tr>

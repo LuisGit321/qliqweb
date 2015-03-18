@@ -1,0 +1,30 @@
+<%= stylesheet_link_tag 'jcheck'  %>  
+<%= javascript_include_tag 'jcheck-0.7.1.min'  %>  
+<script type="text/javascript">
+  $(function() {
+      initialize_form();
+
+      var v = $("#frmAdmin").jcheck({notifiers: ["custom_errors"], live_notifiers: ["custom_errors"], field_prefix: "user"});
+      v.validates("email", "password",{presence: true});
+      v.validates_format_of("email", {"with": "email"});
+  });
+</script>
+<div class="form_tab">
+  <h1>Sign in</h1>
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:id => "frmAdmin"}, :builder => CCFormBuilder) do |f| %>
+    <%= f.text_field :email, :label => t('.email') %>
+
+    <%= f.password_field :password, :label => t('.password') %>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="fields" style="margin-left:110px;">
+        <%= f.check_box :remember_me %>
+        <span><%= t('.remember_me') %></span>
+      </div>
+    <% end -%>
+    <div class="butons" style="padding: 24px 0px 0px 192px;">
+      <%= f.submit "Sign in", :class => :backgrnd %>
+    </div>  
+  <% end %>
+  <%#= render :partial => "devise/shared/links" %>
+</div>  

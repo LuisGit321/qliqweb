@@ -1,0 +1,14 @@
+#this request is sent from the desktop client. This applies to
+#billing user only if they are outsourced entity and serving
+#multiple groups
+###########################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "authorization",
+	"Subject" : "grouplist_request",
+	"Data" :{
+		"user_name":{"amit@joshsoftware.com"},
+		"password":{"928374897-sdaskjdh23786t123skjnd"}
+	}
+  }
+}

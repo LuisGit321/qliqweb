@@ -1,0 +1,48 @@
+<script type="text/javascript">
+  $(function() {
+      initialize_form();
+
+      var v = $("#frmAdmin").jcheck({notifiers: ["custom_errors"], live_notifiers: ["custom_errors"], field_prefix: "referring_physician"});
+      v.validates("name", "fax",{presence: true});
+      /*v.validates_format_of("email", {"with": "email"});*/
+      $('#frmAdmin').submit(function(e) {
+        e.preventDefault();
+        return v.is_valid();
+        });
+  });
+</script>
+<%= form_for(@referring_physician, :html => { :remote => true, :id => "frmAdmin" }, :builder => CCFormBuilder) do |f| %>
+  <fieldset>
+    <%= f.text_field :name, :label => t('.name') + t('mandatory') %>  
+    <%= f.text_field :address, :label => t('contact.address')  %>  
+    <%= label_tag t('contact.location')  %><br/>  
+    <%= text_field :referring_physician, :city, :class => "width1" %>  
+    <%= select :referring_physician, :state, STATES.collect{|s| [s.name, s.code]}, {:include_blank => "-select-"}, :class => "width2" %>
+    <%= text_field :referring_physician, :zip, :class => "width3" %>  
+    <%= raw "<div class='errMsg'>#{@referring_physician.errors[:zip].first}</div>" unless @referring_physician.errors[:zip].empty?  %> 
+    <%= f.text_field :phone, :label => t('contact.phone')  %>  
+    <%= f.text_field :fax, :label => t('contact.fax') + t('mandatory') %>  
+    <%= f.text_field :email, :label => t('contact.email')  %>  
+    <%= f.text_field :npi, :label => t('.npi')  %>  
+    <%= f.select :specialty, @specialties.collect{|s| [s.name, s.name]}, {:include_blank => "--select--"}, :label => t('.specialty') %>
+    <% if is_group_admin? %>  
+      <div class="fields">
+        <%= label_tag t('.visiblity')  %>   
+        <%= f.check_box :visible_to_group  %> 
+      </div>  
+    <% end %>  
+    <div class="fields">
+      <%= hidden_field_tag :new_referring, @src  %>  
+    </div>  
+    <div class="butons">
+      <%= f.submit "Add", :class => :backgrnd %>
+      <% if params[:action] == "new" || params[:action] == "create" %>  
+        <% if @request_source.include?("patients/new") == false %> 
+          <%= link_to 'Back', @request_source, :class => "backgrnd_lnk margin_rte" %>
+        <% end %>   
+      <% else %>  
+        <%= link_to 'Back', referring_physicians_path, :class => "backgrnd_lnk margin_rte" %>
+      <% end %>  
+    </div>
+  </fieldset> 
+<% end %>

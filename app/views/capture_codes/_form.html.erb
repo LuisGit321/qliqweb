@@ -1,0 +1,106 @@
+<script type="text/javascript">
+  function selected(partial_id) 
+{
+    var icd_id = $('#encounter_encounter_icds_attributes_'+ partial_id +'_icd_id').val();
+    if(icd_id != '')
+    {
+    $.ajax({
+        type: "GET",
+        url: '/capture_codes/icd',
+        data:'id='+ icd_id + '&partial='+ partial_id
+        });
+    }
+}
+</script>
+<% counter = 0 %>  
+<%= form_for(@encounter, :html => {:remote => true, :id => "frmEncounter"}) do |f|  %>  
+  <fieldset>
+    <div style="text-align:center;float:left;padding-left:100px;">
+      <div class="fields">
+        <%= f.hidden_field :patient_id, :value => @encounter.patient_id  %>  
+        <%= raw f.label t('.date_of_service')  %>  
+        <%= raw f.date_select :date_of_service  %>
+        <%= raw "<div class='errMsg'>#{@encounter.errors[:date_of_service].first}</div>" unless @encounter.errors[:date_of_service].empty? %>  
+      </div>
+      <div class="fields">
+        <%= raw f.label t('.attending_physician')  %>  
+        <%= f.select :physician_id, @physicians.collect{|p| [p.name, p.id]}, {:include_blank => "--select--"} %>  
+        <%= raw "<div class='errMsg'>#{@encounter.errors[:physician_id].first}</div>" unless @encounter.errors[:physician_id].empty? %>  
+      </div>  
+    </div>  
+    <div class="fields">
+      <%= raw "<div class='errMsg' style='margin-left:0'>#{@encounter.errors[:error_cpt_codes].first}</div>" unless @encounter.errors[:error_cpt_codes].empty? %>  
+    </div>  
+    <div style="overflow:auto;width:800px;float:left;">
+      <table width="700px" height="500px" style="margin-top:20px;">
+        <% @cpt_groups.each do |group| %>  
+          <tr width="30px" class="light_blue">
+            <td class="col40"><%= group  %></td> 
+            <% remaining = @max_columns - @capture_codes[group].keys.size  %>  
+            <% @capture_codes[group].keys.each do |key|  %>  
+              <td> 
+                <%= check_box_tag "encounter[encounter_cpts_attributes][#{@capture_codes[group][key][:superbill_cpt_id]}][superbill_cpt_id]", @capture_codes[group][key][:superbill_cpt_id], @encounter.encounter_cpts.collect(&:superbill_cpt_id).include?(@capture_codes[group][key][:superbill_cpt_id].to_i) %>  
+                <span><%= @capture_codes[group][key][:cpt_description] %>[<%= @capture_codes[group][key][:cpt_code]  %>]</span>
+                <% counter += 1 %>  
+              </td>    
+            <% end %>  
+            <% for i in 0...remaining %>  
+              <td>&nbsp;</td> 
+            <% end %>  
+          </tr> 
+        <% end %>  
+      </table>  
+    </div>  
+    <div style="float:left;width:100%;">
+      <h3><%= t('.diagnosis_codes')  %></h3> 
+      <%= raw "<div class='errMsg'>#{@encounter.errors[:error_icd_codes].first}</div>" unless @encounter.errors[:error_icd_codes].empty? %>  
+      <div style="float:left;margin-top:5px;">
+        <div style="float:left;margin-right:15px;width:155px;">
+          <%= autocomplete_field_tag "icd_id_0", '',autocomplete_icd_description_encounters_path, :size => 15, :onmouseout => 'selected(0);', :id_element => '#encounter_encounter_icds_attributes_0_icd_id', :class => "width1" %>  
+          <% primary_icd = @encounter.encounter_icds.select{|p| p.primary_diagnosis == 1}.first  %>  
+          <%= hidden_field_tag "encounter[encounter_icds_attributes][0][icd_id]", primary_icd.try(:icd_id).to_s  %>  
+          <div id="icd_code_desc_0" style = "float:left;">
+            <%= render :partial => 'icd_description', :locals => {:icd => primary_icd.icd, :partial => 0} unless primary_icd.nil?  %>  
+          </div>  
+        </div>  
+        <% general_icds = @encounter.encounter_icds.select{|p| p.primary_diagnosis == 0} %>  
+        <div style="float:left;margin-right:15px;width:155px;">
+          <%= autocomplete_field_tag "icd_id_1", '',autocomplete_icd_description_encounters_path, :size => 15, :onmouseout => 'selected(1);', :id_element => '#encounter_encounter_icds_attributes_1_icd_id', :class => :width1 %>  
+          <%= hidden_field_tag "encounter[encounter_icds_attributes][1][icd_id]", general_icds[0].try(:icd_id).to_s   %>  
+          <div id="icd_code_desc_1" style = "float:left;">
+            <%= render :partial => 'icd_description', :locals => {:icd => general_icds[0].icd, :partial => 1} unless general_icds[0].nil?  %>  
+          </div>  
+        </div>  
+        <div style="float:left;margin-right:15px;width:155px;">
+          <%= autocomplete_field_tag "icd_id_2", '',autocomplete_icd_description_encounters_path, :size => 15, :onmouseout => 'selected(2);', :id_element => '#encounter_encounter_icds_attributes_2_icd_id', :class => :width1 %>  
+          <%= hidden_field_tag "encounter[encounter_icds_attributes][2][icd_id]", general_icds[1].try(:icd_id).to_s  %>  
+          <div id="icd_code_desc_2" style = "float:left;">
+            <%= render :partial => 'icd_description', :locals => {:icd => general_icds[1].icd, :partial => 2} unless general_icds[1].nil?  %>  
+          </div>  
+        </div>  
+        <div style="float:left;width:155px;">
+          <%= autocomplete_field_tag "icd_id_3", '',autocomplete_icd_description_encounters_path, :size => 15, :onmouseout => 'selected(3);', :id_element => '#encounter_encounter_icds_attributes_3_icd_id', :class => :width1 %>  
+          <%= hidden_field_tag "encounter[encounter_icds_attributes][3][icd_id]", general_icds[2].try(:icd_id).to_s  %>  
+          <div id="icd_code_desc_3" style = "float:left;">
+            <%= render :partial => 'icd_description', :locals => {:icd => general_icds[2].icd, :partial => 3} unless general_icds[2].nil?  %>  
+          </div>  
+        </div>  
+      </div>  
+    </div>  
+    <div class="butons">
+      <%= f.submit "Save", :class => :backgrnd %>
+      <%= link_to_function "Cancel", "javascript:$(document).trigger('close.facebox')", :class => "backgrnd_lnk margin_rte"  %>  
+      <%= image_tag "/images/spinner.gif", :id => "spinner1", :style => "display:none;"  %>  
+    </div>
+  </fieldset> 
+<% end %>
+<script type="text/javascript">
+  jQuery(function($) {
+      // create a convenient toggleLoading function
+      var toggleLoading = function() { $("#spinner1").toggle();};
+
+      $("#frmEncounter")
+      .bind("ajax:beforeSend",  toggleLoading)
+      .bind("ajax:complete", toggleLoading)
+      });
+</script>

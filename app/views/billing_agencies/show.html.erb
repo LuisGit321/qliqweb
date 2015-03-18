@@ -1,0 +1,26 @@
+<script type="text/javascript"> 
+  function change_billing_agency()
+  {
+    var agency_id = $('#billing_agency').val();
+
+  $.ajax({
+    type: 'GET',
+    url: '/billing/agencies/change_billing_agency',
+    data: 'billing_agency_id='+ agency_id
+  });
+  }
+</script>
+
+<%= render :partial => "/layouts/group_admin_left_menu"  %>
+
+<div class="interface_right_section">
+  <div class="form_tab">
+    <h3 style="width:100%;">Billing Agency</h3>
+    <%= label_tag "Select billing agency" %>  
+    <%= select_tag "billing_agency", options_from_collection_for_select(BillingAgency.all, 'id', 'name'), :include_blank => "--select--",:onchange => :"change_billing_agency();"  %>
+
+    <div id="billing_profile">
+      <%= render :partial => "profile"  %>
+    </div>
+  </div>  
+</div>

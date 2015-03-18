@@ -1,0 +1,10 @@
+<div id="sidebar">
+  <ul class="sideNav">
+    <h3>Patients</h3>
+    <% @patients.each do |p| %>
+      <li><%= link_to get_patient_name(p), notes_path(:patient_id => p.id)  %></li>
+    <% end %> 
+  </ul>
+</div>
+
+

@@ -1,0 +1,76 @@
+#slider
+  .viewport
+    %ul.overview
+      %li
+        .info
+          %h2 Mobile Charge Capture for All
+          %p
+            Introducing
+            = succeed "," do
+              %strong qliqCharge
+            a mobile solution that leverages state-of-the-art technology to help clinicians capture charges directly at the point-of-care.
+        = image_tag "marketing/overview/1-mobile-capture.png"
+      %li
+        .info
+          %h2 Enterprise-grade Solution
+          %p
+            %strong qliqCharge
+            interfaces with both hospital and practice-based information systems to deliver auto-populated census and appointment lists.
+        = image_tag "marketing/overview/2-enterprise-grade.png"
+      %li
+        .info
+          %h2 State-of-the-Art Technology
+          %p
+            %strong> qliqCharge
+            's revolutionary architecture provides end-to-end strong encryption, distributed storage, push and pull data transfer between desktop and iPhone applications, and real-time, secure messaging between physician and office staff.
+        = image_tag "marketing/overview/3-state-of-art.png"
+      %li
+        .info
+          %h2 Transparent, Low-cost Pricing
+          %p
+            At only $50 per month per provider, no lock-ins, and no set-up or integration fees,
+            %strong qliqCharge
+            costs a fraction of similar solutions... without hidden charges.
+        = image_tag "marketing/overview/4-transparent-cost.png"
+      %li
+        .info
+          %h2 Supports Solo to Large, Multi-Speciality Practices
+          %p
+            %strong> qliqCharge
+            's role-based architecture allows functionality to be managed by a single person or divided among multiple staff members. Solo to multiple-provider office, qliqCharge adapts to your needs.
+        = image_tag "marketing/overview/5-supports-solo-large.png"
+      %li
+        .info
+          %h2 A New Approach to Privacy & Security
+          %p Centralized, cloud-based data storage is unavoidably vulnerable to security breaches. Our approach: strong encryption of data while in transit; all PHI stored on your resources, in a distributed model, and in your control. In other words, we lower the risk of a potential breach while simultaneously minimizing the severity of it's impact.
+        .news
+          .each
+            .data
+              %h3= link_to "Health Net healthcare data breach affects1.5 million", "http://searchsecurity.techtarget.com/news/1374839/Health-Net-healthcare-data-breach-affects15-million"
+              %p= link_to "Read more about it »", "http://searchsecurity.techtarget.com/news/1374839/Health-Net-healthcare-data-breach-affects15-million", :target => '_blank'
+            = link_to image_tag( "marketing/overview/6-logo-searchsecurity.jpg" ), "http://searchsecurity.techtarget.com/news/1374839/Health-Net-healthcare-data-breach-affects15-million"
+          .each
+            .data
+              %h3= link_to "Sony PlayStation hacked; Data stolen from 77 million users", "http://www.cbsnews.com/video/watch/?id=7364007n"
+              %p= link_to "Read more about it »", "http://www.cbsnews.com/video/watch/?id=7364007n", :target => '_blank'
+            = link_to image_tag( "marketing/overview/6-logo-cbsnews.jpg" ), "http://www.cbsnews.com/video/watch/?id=7364007n"
+          .each
+            .data
+              %h3= link_to "Clinton calls Google hacking claim ‘very serious’", "http://www.ft.com/intl/cms/s/2/fa48111e-8d6e-11e0-bf0b-00144feab49a.html"
+              %p= link_to "Read more about it »", "http://www.ft.com/intl/cms/s/2/fa48111e-8d6e-11e0-bf0b-00144feab49a.html", :target => '_blank'
+            = link_to image_tag( "marketing/overview/6-logo-ft.jpg" ), "http://www.ft.com/intl/cms/s/2/fa48111e-8d6e-11e0-bf0b-00144feab49a.html"
+          .each
+            .data
+              %h3= link_to "Amazon.com Server Said to Have Been Used in Sony Attack", "http://www.bloomberg.com/news/2011-05-13/sony-network-said-to-have-been-invaded-by-hackers-using-amazon-com-server.html"
+              %p= link_to "Read more about it »", "http://www.bloomberg.com/news/2011-05-13/sony-network-said-to-have-been-invaded-by-hackers-using-amazon-com-server.html", :target => '_blank'
+            = link_to image_tag( "marketing/overview/6-logo-bloomberg.jpg" ), "http://www.bloomberg.com/news/2011-05-13/sony-network-said-to-have-been-invaded-by-hackers-using-amazon-com-server.html"
+  %ul.pager
+    %li= link_to '1', '#', :rel => '0', :class => 'pagenum'
+    %li= link_to '2', '#', :rel => '1', :class => 'pagenum'
+    %li= link_to '3', '#', :rel => '2', :class => 'pagenum'
+    %li= link_to '4', '#', :rel => '3', :class => 'pagenum'
+    %li= link_to '5', '#', :rel => '4', :class => 'pagenum'
+    %li= link_to '6', '#', :rel => '5', :class => 'pagenum'
+.buttons
+  = link_to "Subscribe Now »", subscribe_index_path, :class => 'btn-suscribe'
+  = link_to image_tag( "btn-app-store.png" ), "http://itunes.apple.com/us/app/qliq/id439811557?mt=8", :target => '_blank'

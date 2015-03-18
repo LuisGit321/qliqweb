@@ -1,0 +1,52 @@
+<div class="providers" id="provider_container">
+  <div class="heading">
+    <h4>Providers</h4>
+    <h4 class="rite"><%= @physician_group.providers %> Provider Lincenses Remaining</h4>
+    <h4 style="clear:both; padding-top:5px;"><%= f.check_box :physician_itself %>Admin as physician</h4>
+  </div>
+  <% counter = 1 %>
+  <%= f.fields_for :physicians do |p| %>
+      <div class="row2">
+        <h5><%= counter %></h5>
+        <%= p.text_field :first_name, :placeholder => "First Name, Middle initial", :div_class => "text2 tmp_class", :class => 'provider_name' %>
+        <%= p.text_field :last_name, :placeholder => "Last Name", :div_class => "text1 tmp_class", :class => 'provider_name' %>
+        <%= p.fields_for :user do |u| %>
+            <%= u.text_field "email", :placeholder => "Staff Email Address", :div_class => "text1 tmp_class", :class => 'provider_email' %>
+            <span class="tmp_hidden_class">
+        <%= hidden_field_tag "physician_group[physicians_attributes][#{counter - 1}][user_attributes][roles][]", ROLES[PHYSICIAN_ADMIN] %>
+              </span>
+        <% end %>
+      </div>
+      <% counter += 1 %>
+  <% end %>
+</div>
+<div class="providers">
+  <div class="heading">
+    <h4>Staff</h4>
+    <h4 class="rite">Unliminited Staff Licenses</h4>
+  </div>
+  <div id="staffs">
+    <% counter = 0 %>
+    <%= f.fields_for :billing_agencies do |b| %>
+        <%= render :partial => 'physician_groups/billing_agency', :locals => {:f => b, :counter => counter} %>
+        <% counter = counter + 1 %>
+    <% end %>
+  </div>
+  <div class="row2 pad_bottom">
+    <h5>&nbsp;&nbsp;</h5>
+
+    <div class="text1 none">
+      <%= link_to_add_fields "Add Staff", f, :billing_agencies %>
+    </div>
+  </div>
+  <div class="row2 pad_bottom">
+    <h5>&nbsp;&nbsp;</h5>
+
+    <div class="text1 width3">
+      <%= f.submit "Done", :class => "btn" %>
+    </div>
+    <p>Note that you can add Providers and Staff at any time. Just log in to your qliqCharge Dashboard.</p>
+  </div>
+</div>
+
+

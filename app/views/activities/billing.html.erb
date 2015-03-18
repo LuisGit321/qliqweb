@@ -1,0 +1,40 @@
+<%= render :partial => "/layouts/notice"  %>  
+<div id="page">
+  <div class="interface_left_section">
+    <div class="left_navigation">
+      <ul>
+        <li><%= link_to "Processing", billing_path, :class => :active %></li> 
+        <li><%= link_to "Disputes", "#"  %>  </li>
+      </ul>
+    </div>
+    <%= render :partial => '/layouts/physician_profile'  %>  
+  </div>
+  <div class="interface_right_section">
+    <h3>Billings</h3>
+    <%= render :partial => "/layouts/physician_header"  %>
+    <table cellspacing="0" cellpadding="0" class="interface_heading">
+      <tr>
+        <td class="none">BILLING/PROCESSING</td>
+      </tr>
+    </table>
+    <% @billings.each do |billing| %>  
+      <table cellspacing="0" cellpadding="0" class="interface_heading">
+        <tr class="light_blue">
+          <td class=" none">Process Date: <%= billing.processed_date.strftime("%Y/%m/%d")  %></td>  
+        </tr>
+      </table>
+      <table cellpadding="0" cellspacing="0">
+        <% encounters, patients = patient_encounters(billing.processed_date) %>  
+        <% patients.each do |patient_id| %>  
+          <% patient = get_patient(patient_id) %>  
+          <tr class="light_blue" >
+            <td class="col21 none_bottom"><%= get_patient_name(patient)  %></td> 
+            <td class="border_right">DOB: <%= patient.date_of_birth.strftime("%Y/%m/%d")  %></td> 
+            <td class="border_right" style="width:170px;">ICD9 Codes: <%= encounter_icds(encounters, patient_id)  %></td>  
+            <td class="border_right" style="width:170px;">CPT Codes: <%= encounter_cpts(encounters, patient_id)  %></td> 
+          </tr>
+        <% end %>  
+      </table>
+    <% end %>  
+  </div>
+</div>

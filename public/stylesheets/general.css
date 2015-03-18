@@ -1,0 +1,226 @@
+/* ========================================================================
+    Document   	:   reset.css
+    Created on 	:   Jul 11 - 2011, 22:18 pm
+    Author      	:   @dgfrancisco
+======================================================================== */
+/* General
+------------------------------------------------------------------------ */
+body {
+  font-family: Helvetica, Verdana, Arial, sans-serif; }
+
+a {
+  text-decoration: none;
+  color: #1a4b6f; }
+  a:hover {
+    text-decoration: none;
+    color: #1a4b6f; }
+
+.container {
+  width: 1000px;
+  margin: 0 auto;
+  overflow: hidden; }
+
+/* Header
+------------------------------------------------------------------------ */
+.header {
+  background: url("/images/bg-header.gif") 0 0 repeat-x; }
+  .header .brand {
+    float: left;
+    margin: 27px 0 27px 20px; }
+    .header .brand h1 a {
+      display: block;
+      text-indent: -90000px;
+      background: url("/images/brand.png") 0 0 no-repeat;
+      overflow: hidden;
+      width: 180px;
+      height: 72px; }
+  .header ul li {
+    display: inline;
+    float: left; }
+    .header ul li a {
+      display: block; }
+  .header .top-nav {
+    float: right;
+    width: 700px;
+    overflow: hidden;
+    margin: 20px 5px 27px 0; }
+    .header .top-nav ul {
+      float: right; }
+      .header .top-nav ul li a {
+        padding: 12px;
+        font-size: 14px;
+        letter-spacing: -0.5px;
+        text-align: right; }
+        .header .top-nav ul li a:hover {
+          color: #ff7200; }
+      .header .top-nav ul li.login a, .header .top-nav ul li.suscribe a {
+        padding: 12px 21px;
+        margin: 0 0 0 3px;
+        color: #fff;
+        font-size: 13px;
+        background: url("/images/bg-top-menu-btns.png") right 5px no-repeat;
+        width: 60px; }
+      .header .top-nav ul li.login a {
+        padding: 12px 28px 12px 25px; }
+        .header .top-nav ul li.login a img {
+          padding: 1px 0 0 5px;
+          margin: 0 10px 0 0; }
+  .header .main-nav {
+    float: right;
+    width: 700px; }
+    .header .main-nav ul {
+      float: right; }
+      .header .main-nav ul li a {
+        font-size: 14px;
+        letter-spacing: -0.7px;
+        margin: 0;
+        padding: 0 26px 0 0; }
+        .header .main-nav ul li a span {
+          display: block;
+          margin: 0;
+          text-align: center;
+          padding: 14px 0 13px 26px; }
+      .header .main-nav ul li.active a, .header .main-nav ul li a:hover {
+        background: url("/images/bg-main-menu-right.png") right 0 no-repeat;
+        color: #ff7200; }
+      .header .main-nav ul li.active a span, .header .main-nav ul li a:hover span {
+        background: url("/images/bg-main-menu-left.png") left 0 no-repeat; }
+
+/* Top Nav */
+/* Main Nav */
+/* Main
+------------------------------------------------------------------------ */
+.main .container {
+  position: relative; }
+.main .info {
+  margin: 60px 0 0 70px;
+  width: 430px;
+  position: absolute; }
+  .main .info h2 {
+    font: bold 44px/48px "Lucida Sans Unicode", "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    margin: 0 0 20px 0;
+    color: #1a4b6f;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 3px #aaa; }
+  .main .info p {
+    font: 19px/28px "Lucida Sans Unicode", "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    color: #909090;
+    letter-spacing: -1px; }
+    .main .info p strong {
+      color: #666; }
+.main #slider li img {
+  float: right; }
+.main .buttons {
+  position: absolute;
+  bottom: 80px;
+  left: 70px;
+  width: 247px;
+  text-align: center; }
+  .main .buttons img {
+    margin: 0 0 0 68px; }
+  .main .buttons a.btn-suscribe {
+    font: 23px/23px "Lucida Sans Unicode", "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    padding: 18px 0;
+    border: 0px;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 0 5px 0;
+    text-shadow: 0 2px 1px #333;
+    background: url("/images/btn-suscribe.png") 0 0 no-repeat;
+    display: block; }
+.main .news {
+  float: right;
+  width: 430px;
+  margin: 70px 30px 0 0;
+  overflow: hidden; }
+  .main .news .data {
+    float: left;
+    width: 200px; }
+    .main .news .data h3 {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 18px;
+      margin: 0 0 10px 0; }
+    .main .news .data p {
+      font-size: 12px;
+      height: 20px; }
+      .main .news .data p a {
+        color: #ff7200; }
+        .main .news .data p a:hover {
+          border-bottom: 1px dotted; }
+  .main .news img {
+    float: right; }
+  .main .news .each {
+    margin: 0 0 40px 0;
+    overflow: hidden; }
+
+.hidden {
+  display: none; }
+
+/* Carousel */
+#slider {
+  height: 600px;
+  overflow: hidden; }
+  #slider .viewport {
+    float: left;
+    width: 1000px;
+    height: 600px;
+    overflow: hidden;
+    position: relative; }
+  #slider .overview {
+    list-style: none;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0; }
+    #slider .overview li {
+      float: left;
+      margin: 0 20px 0 0;
+      height: 600px;
+      width: 1000px; }
+
+.pager {
+  position: absolute;
+  bottom: 30px;
+  right: 240px;
+  overflow: hidden; }
+  .pager li {
+    float: left;
+    display: inline; }
+    .pager li a {
+      width: 18px;
+      height: 18px;
+      display: block;
+      background: url("/images/btn-slider-normal.png") center center no-repeat;
+      text-indent: -9000px;
+      margin: 0 2px;
+      overflow: hidden; }
+      .pager li a.active {
+        background: url("/images/btn-slider-active.png") center center no-repeat; }
+
+/* Footer
+------------------------------------------------------------------------ */
+.footer {
+  background: url("/images/bg-footer.gif") 0 0 repeat-x;
+  padding: 33px 0 20px 0; }
+  .footer p {
+    color: #fff;
+    font-size: 12px;
+    float: left;
+    margin: 0 0 0 30px; }
+  .footer ul {
+    float: right;
+    margin: 0 30px 0 0; }
+    .footer ul li {
+      float: left;
+      display: inline;
+      margin: 0 0 0 20px; }
+      .footer ul li a {
+        font-size: 12px;
+        color: #fff;
+        display: block;
+        padding: 5px 0;
+        border-bottom: 1px dotted transparent; }
+        .footer ul li a:hover {
+          border-bottom: 1px dotted; }

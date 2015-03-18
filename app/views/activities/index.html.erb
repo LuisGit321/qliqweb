@@ -1,0 +1,64 @@
+<%= render :partial => "/layouts/notice"  %>  
+<% if current_user.sign_in_count == 1 %>
+  <div class="interface_right_section">
+    <h3>Download Application</h3>
+    <table cellpadding="0" cellspacing="0">
+      <tr class="light_blue">
+        <td class="col11" colspan=3>iPhone App</td>
+        <td class="col11" colspan=3><%= link_to "Download", "#" %></td>
+      </tr>
+      <tr class="light_blue">
+        <td class="col11" colspan=3>Web App</td>
+        <td class="col11" colspan=3><%= link_to "Download", "#" %></td>
+      </tr>
+    </table>
+  </div>
+<% else %>
+  <div id="page">
+    <div class="interface_left_section">
+      <div class="left_navigation">
+        <ul>
+          <li><%= link_to "Current Patient", activities_path, :class => :active %></li> 
+          <li><%= link_to "History", history_activities_path  %>  </li>
+        </ul>
+      </div>
+      <%= render :partial => '/layouts/physician_profile'  %>  
+    </div>
+    <div class="interface_right_section">
+      <h3>Current Patients</h3>
+      <div class="add"> <%= link_to "Add Patient", new_patient_path  %></div>
+      <%= render :partial => "/layouts/physician_header"  %>
+      <table cellpadding="0" cellspacing="0">
+        <tr class="interface_heading">
+          <td class="col1 none">PATIENT NAME</td>
+          <% for i in 0..6  %>  
+            <td class="none"><%= (Date.today - i).strftime("%m/%d")  %></td>   
+          <% end %>  
+        </tr>
+        <% @patients.each do |patient|  %>
+          <tr class="light_blue">
+            <td class="col11">
+              <%= link_to get_patient_name(patient), edit_patient_path(patient), :class => "patient_name", :style => "width:auto;" %>
+              <%= link_to "Notes", notes_path(:patient => patient.id), :class => "note_link", :style => "width:auto;"  %> 
+            </td>  
+            <% summary_dates = get_summary_dates  %>  
+            <% encounters, encounters_dates = get_patient_encounters_for_date(summary_dates, patient.id) %>  
+            <% summary_dates.each do |date|  %>  
+              <% if summary_dates.last == date  %>  
+                <td class="width_last">
+                <% else %>  
+                  <td>
+                  <% end %>  
+                  <% if !encounters_dates.include?(date) || !is_cpts_exists?(encounters, date)  %>  
+                    <%= link_to "No codes", edit_encounter_path(patient, :dot => date), :class => "patient_link", :rel => :facebox  %>
+                  <% else %>  
+                    <%= link_to get_latest_cpt(encounters, date), edit_encounter_path(patient, :dot => date), :class => "patient_link", :rel => :facebox %>
+                  <% end %>  
+                </td>     
+              <% end %>  
+            </tr>
+          <% end  %> 
+        </table>
+      </div>
+    </div>
+  <%end%>

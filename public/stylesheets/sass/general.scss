@@ -1,0 +1,237 @@
+/* ========================================================================
+    Document   	:   reset.css
+    Created on 	:   Jul 11 - 2011, 22:18 pm
+    Author      	:   @dgfrancisco
+======================================================================== */
+/* General
+------------------------------------------------------------------------ */
+
+body {
+  font-family: Helvetica, Verdana, Arial, sans-serif; }
+
+a {
+  text-decoration: none;
+  color: #1a4b6f;
+  &:hover {
+    text-decoration: none;
+    color: #1a4b6f; } }
+
+.container {
+  width: 1000px;
+  margin: 0 auto;
+  overflow: hidden; }
+
+/* Header
+------------------------------------------------------------------------ */
+
+.header {
+  background: url("/images/bg-header.gif") 0 0 repeat-x;
+  .brand {
+    float: left;
+    margin: 27px 0 27px 20px;
+    h1 a {
+      display: block;
+      text-indent: -90000px;
+      background: url("/images/brand.png") 0 0 no-repeat;
+      overflow: hidden;
+      width: 180px;
+      height: 72px; } }
+  ul li {
+    display: inline;
+    float: left;
+    a {
+      display: block; } }
+  .top-nav {
+    float: right;
+    width: 700px;
+    overflow: hidden;
+    margin: 20px 5px 27px 0;
+    ul {
+      float: right;
+      li {
+        a {
+          padding: 12px;
+          font-size: 14px;
+          letter-spacing: -0.5px;
+          text-align: right;
+          &:hover {
+            color: #ff7200; } }
+        &.login a, &.suscribe a {
+          padding: 12px 21px;
+          margin: 0 0 0 3px;
+          color: #fff;
+          font-size: 13px;
+          background: url("/images/bg-top-menu-btns.png") right 5px no-repeat;
+          width: 60px; }
+        &.login a {
+          padding: 12px 28px 12px 25px;
+          img {
+            padding: 1px 0 0 5px;
+            margin: 0 10px 0 0; } } } } }
+  .main-nav {
+    float: right;
+    width: 700px;
+    ul {
+      float: right;
+      li {
+        a {
+          font-size: 14px;
+          letter-spacing: -0.7px;
+          margin: 0;
+          padding: 0 26px 0 0;
+          span {
+            display: block;
+            margin: 0;
+            text-align: center;
+            padding: 14px 0 13px 26px; } }
+        &.active a, a:hover {
+          background: url("/images/bg-main-menu-right.png") right 0 no-repeat;
+          color: #ff7200; }
+        &.active a span, a:hover span {
+          background: url("/images/bg-main-menu-left.png") left 0 no-repeat; } } } } }
+
+/* Top Nav */
+
+/* Main Nav */
+
+/* Main
+------------------------------------------------------------------------ */
+
+.main {
+  .container {
+    position: relative; }
+  .info {
+    margin: 60px 0 0 70px;
+    width: 430px;
+    position: absolute;
+    h2 {
+      font: bold 44px / 48px "Lucida Sans Unicode", "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+      margin: 0 0 20px 0;
+      color: #1a4b6f;
+      letter-spacing: -1px;
+      text-shadow: 0 2px 3px #aaa; }
+    p {
+      font: 19px / 28px "Lucida Sans Unicode", "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+      color: #909090;
+      letter-spacing: -1px;
+      strong {
+        color: #666; } } }
+  #slider li img {
+    float: right; }
+  .buttons {
+    position: absolute;
+    bottom: 80px;
+    left: 70px;
+    width: 247px;
+    text-align: center;
+    img {
+      margin: 0 0 0 68px; }
+    a.btn-suscribe {
+      font: 23px / 23px "Lucida Sans Unicode", "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+      padding: 18px 0;
+      border: 0px;
+      color: #fff;
+      cursor: pointer;
+      margin: 0 0 5px 0;
+      text-shadow: 0 2px 1px #333;
+      background: url("/images/btn-suscribe.png") 0 0 no-repeat;
+      display: block; } }
+  .news {
+    float: right;
+    width: 430px;
+    margin: 70px 30px 0 0;
+    overflow: hidden;
+    .data {
+      float: left;
+      width: 200px;
+      h3 {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 18px;
+        margin: 0 0 10px 0; }
+      p {
+        font-size: 12px;
+        height: 20px;
+        a {
+          color: #ff7200;
+          &:hover {
+            border-bottom: 1px dotted; } } } }
+    img {
+      float: right; }
+    .each {
+      margin: 0 0 40px 0;
+      overflow: hidden; } } }
+
+.hidden {
+  display: none;
+}
+
+/* Carousel */
+
+#slider {
+  height: 600px;
+  overflow: hidden;
+  .viewport {
+    float: left;
+    width: 1000px;
+    height: 600px;
+    overflow: hidden;
+    position: relative; }
+  .overview {
+    list-style: none;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    li {
+      float: left;
+      margin: 0 20px 0 0;
+      height: 600px;
+      width: 1000px; } } }
+
+.pager {
+  position: absolute;
+  bottom: 30px;
+  right: 240px;
+  overflow: hidden;
+  li {
+    float: left;
+    display: inline;
+    a {
+      width: 18px;
+      height: 18px;
+      display: block;
+      background: url("/images/btn-slider-normal.png") center center no-repeat;
+      text-indent: -9000px;
+      margin: 0 2px;
+      overflow: hidden;
+      &.active {
+        background: url("/images/btn-slider-active.png") center center no-repeat; } } } }
+
+/* Footer
+------------------------------------------------------------------------ */
+
+.footer {
+  background: url("/images/bg-footer.gif") 0 0 repeat-x;
+  padding: 33px 0 20px 0;
+  p {
+    color: #fff;
+    font-size: 12px;
+    float: left;
+    margin: 0 0 0 30px; }
+  ul {
+    float: right;
+    margin: 0 30px 0 0;
+    li {
+      float: left;
+      display: inline;
+      margin: 0 0 0 20px;
+      a {
+        font-size: 12px;
+        color: #fff;
+        display: block;
+        padding: 5px 0;
+        border-bottom: 1px dotted transparent;
+        &:hover {
+          border-bottom: 1px dotted; } } } } }

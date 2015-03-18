@@ -1,0 +1,38 @@
+<script type="text/javascript">
+  $(function() {
+      initialize_form();
+
+      var v = $("#frmAdmin").jcheck({notifiers: ["custom_errors"], live_notifiers: ["custom_errors"], field_prefix: "agency_employee"});
+      v.validates("name", "user_attributes[email]",{presence: true});
+      v.validates_format_of("user_attributes[email]", {"with": "email"});
+      $('#frmAdmin').submit(function(e) {
+        e.preventDefault();
+        return v.is_valid();
+        });
+  });
+</script>
+<%= form_for(@agency_employee, :html => { :remote => true, :id => "frmAdmin" }, :builder => CCFormBuilder) do |f|  %>
+  <fieldset>
+    <%= f.text_field :name, :label => t('.name') + t('mandatory') %>
+    <%= f.text_field :employee_number, :label => t('.number')  %>
+    <%= f.text_field :address, :label => t('contact.address')  %>
+    <%= label_tag t('contact.location')  %><br/>
+    <%= text_field :agency_employee, :city, :class => "width1" %>
+    <%= select :agency_employee, :state, STATES.collect{|s| [s.name, s.code]}, {:include_blank => "--select--"}, :class => "width2"%>
+    <%= text_field :agency_employee, :zip, :class => "width3" %>
+    <%= f.text_field :phone, :label => t('contact.phone')  %>
+    <%= f.fields_for :user do |u|  %> 
+      <%= u.text_field :email, :label => t('contact.email') + t('mandatory') %>
+    <% end %>
+    <div class="butons">
+      <%= f.submit "Add", :class => :backgrnd %>
+      <% if  current_user.role?(ROLES[BILLING_FUNCTIONAL])  %>
+        <%= link_to 'Back', billing_agency_profile_path(current_user.resource), :class => "backgrnd_lnk margin_rte"  %> 
+      <% else %>  
+        <%= link_to 'Back', agency_employees_path, :class => "backgrnd_lnk margin_rte" %>
+      <% end %>
+      <%= image_tag "/images/spinner.gif", :id => "spinner", :style => "display:none;"  %>
+    </div>
+  </fieldset> 
+<% end %>
+<%= render :partial => "/physician_groups/events"  %>

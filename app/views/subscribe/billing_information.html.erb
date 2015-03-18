@@ -1,0 +1,47 @@
+<fieldset>
+  <div class="left_container">
+    <div class="step1">
+      <div class="mid_curve1">
+        <div class="top_curve4">
+          <div class="bottom_curve4">
+            <%= form_for(@billing_info, :url => create_billing_info_subscribe_index_path, :method => :post, :remote => true, :builder => FormBuilder, :validate => true) do |p| %>
+                <div class="content_step1">
+                  <h2><a href="#">Subscribe to qliqCharge</a></h2>
+
+
+                  <%= raw step1 %>
+                  <%#= raw step2 %>
+                  <div class='create p_btm'>
+                    <h3>Step 2:</h3>
+
+                    <h3><%= link_to 'Billing Information' %></h3>
+
+
+                    <br/>
+                    <%= render :partial => "tmp_billing_info_form", :locals => {:p => p} %>
+                  </div>
+                </div>
+
+
+                <%#= render :partial => 'payment_form', :locals => {:p => p} %>
+            <% end %>
+
+            <div class="content_step1">
+              <%= raw step3 %>
+              <%= raw step4 %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="right_container pad_top3">
+    <h4>Take a month to see how it all works!</h4>
+
+    <p>Ut dapibus convallis felis sit amet auctor. Nullam condimentum enim et lectus blandit faucibus. Quisque eget
+      tortor justo. Phasellus arcu risus, porttitor nec tincidunt nec, ultricies sit amet felis.</p>
+  </div>
+</fieldset>
+

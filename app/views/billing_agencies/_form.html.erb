@@ -1,0 +1,34 @@
+<script type="text/javascript">
+  $(function() {
+      initialize_form();
+
+      var v = $("#frmAdmin").jcheck({notifiers: ["custom_errors"], live_notifiers: ["custom_errors"], field_prefix: "billing_agency"});
+      v.validates("first_name", "last_name", "user_attributes[email]",{presence: true});
+      v.validates_format_of("user_attributes[email]", {"with": "email"});
+      $('#frmAdmin').submit(function(e) {
+        e.preventDefault();
+        return v.is_valid();
+        });
+  });
+</script>
+<%= form_for(@billing_agency, :html => { :remote => true, :id => "frmAdmin"}, :builder => CCFormBuilder) do |f| %>
+  <%= f.text_field :first_name, :label => t('.name') + t('mandatory') %>  
+  <%= f.text_field :last_name, :label => t('.name') + t('mandatory') %>  
+  <%= f.text_field :address, :label => t('contact.address')  %>  
+  <%= label_tag t('contact.location')  %><br/>  
+  <%= text_field :billing_agency, :city, :class => "width1" %>  
+  <%=select :billing_agency, :state, STATES.collect{|s| [s.name, s.code]}, {:include_blank => "-select-"}, :class => "width2"%>  
+  <%= text_field :billing_agency, :zip, :class => "width3" %>  
+  <%= raw "<div class='errMsg'>#{@billing_agency.errors[:zip].first}</div>" unless @billing_agency.errors[:zip].empty?  %> 
+  <%= f.text_field :phone, :label => t('contact.phone') + t('mandatory') %>  
+  <%= f.text_field :fax, :label => t('contact.fax')  %>  
+  <%= f.fields_for :user do |u|  %>  
+    <%= u.text_field :email, :label => t('contact.email') + t('mandatory') %>  
+  <% end %>
+  <div class="butons">
+    <%= f.submit "Add", :class => :backgrnd %>
+    <%= link_to 'Back', @request_source, :class => "backgrnd_lnk margin_rte" %>
+    <%= image_tag "/images/spinner.gif", :id => "spinner", :style => "display:none;"  %>  
+  </div>
+<% end %>
+<%= render :partial => "/physician_groups/events"  %>  

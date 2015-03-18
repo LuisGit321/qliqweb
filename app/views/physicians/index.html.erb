@@ -1,0 +1,31 @@
+<% if is_group_admin? %>  
+  <%= render :partial => "/layouts/group_admin_left_menu"  %>  
+<% else %>  
+  <%= render :partial => "/admin/home/left_menu"  %>  
+<% end %>  
+<div class="interface_right_section">
+  <h3>Physicians</h3>
+  <div class="add"><%= link_to "Add Physician", new_physician_path, :rel => :facebox  %></div>
+  <table cellpadding="0" cellspacing="0">
+    <tr class="interface_heading">
+      <td class="col31_top none">GROUP NAME</td>
+      <td class="none">NAME</td>
+      <td class="none">NPI</td>
+      <td class="none">PHONE</td>
+      <td class="none">EMAIL</td>
+      <td class="none">&nbsp;</td>
+    </tr>
+    <% @physicians.each do |physician| %>  
+      <tr class="light_blue">
+        <td class="col31"><%= physician.physician_group.try(:name).nil? ? raw("&nbsp;") : physician.physician_group.try(:name)  %></td> 
+        <td><%= physician.name  %></td> 
+        <td><%= physician.npi.blank? ? raw("&nbsp;") : physician.npi  %></td> 
+        <td><%= physician.phone.blank? ? raw("&nbsp;") :  physician.phone  %></td> 
+        <td><%= physician.user.try(:email)  %></td> 
+        <td class="edit-link border_right"><%= link_to 'Edit', edit_physician_path(physician), :rel => :facebox %> |
+        <%= link_to 'Delete', physician, :method => :delete, :confirm => "Are you sure?" %> |
+        <%= link_to 'Reset password', reset_password_path(physician.user), :rel => :facebox %></td> 
+      </tr>                        
+    <% end %>  
+  </table>
+</div>

@@ -1,0 +1,237 @@
+<fieldset>
+  <div class="left_container">
+    <div class="step1">
+      <div class="mid_curve1">
+        <div class="top_curve2">
+          <div class="bottom_curve2">
+            <div class="content_step1">
+              <h2><a href="#">Subscribe to qliqCharge</a></h2>
+              <%= raw step1 %>
+              <%= raw step2 %>
+              <%= raw step3 %>
+              <div class='create p_btm'>
+                <h3>Step 4:</h3>
+
+                <h3><%= link_to 'Add Providers & Staff' %></h3>
+                <%= raw "<h3 class='color' id='form_have_errors' style='display:#{@physician_group.errors.blank? ? 'none' : 'block'}'>Please correct or fill out highlighted fields</h3>" %>
+              </div>
+              <br/>
+              <%= form_for @physician_group, :url => physician_group_path(@physician_group), :method => :put, :builder => FormBuilder do |f| %>
+                  <%= render :partial => "physician_groups/providers", :locals => {:f => f} %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right_container">
+      <h4>Take a month to see how it all works!</h4>
+
+      <p>Ut dapibus convallis felis sit amet auctor. Nullam condimentum enim et lectus blandit faucibus. Quisque eget
+        tortor justo. Phasellus arcu risus, porttitor nec tincidunt nec, ultricies sit amet felis.</p>
+    </div>
+  </div>
+</fieldset>
+<!--Group Admin's information-->
+<div style="display:none">
+                <span id="group_admin_info_0">
+                  <%= @physician_group.first_name %>
+                </span>
+  <span id="group_admin_info_1">
+                  <%= @physician_group.last_name %>
+                </span>
+  <span id="group_admin_info_2">
+                  <%= @physician_group.user.email %>
+                </span>
+</div>
+<script type="text/javascript">
+
+
+    var validateNameAndEmail = function() {
+        var valid = true;
+
+        var check_presence = function(obj, changeColor) {
+            if ($(obj).attr('disabled'))
+                return false;
+
+            if ($(obj).val() == '') {
+                $(obj).parent('div').addClass("error_in_field");
+                if (changeColor)
+                    $(obj).parent('div').addClass("invalid");
+
+                valid = false;
+            }
+            else {
+                $(obj).parent('div').removeClass("invalid");
+                $(obj).parent('div').removeClass("error_in_field");
+            }
+        };
+
+        var check_email_format = function(obj, changeColor) {
+            if ($(obj).attr('disabled'))
+                return false;
+            if (!/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i.test($(obj).val())) {
+                $(obj).parent('div').addClass("error_in_field");
+                if (changeColor)
+                    $(obj).parent('div').addClass("invalid");
+                valid = false;
+            }
+            else {
+                //$(obj).parent('div').removeClass("invalid");
+                check_unique_email(obj, changeColor);
+                check_local_uniqueness(obj);
+            }
+        };
+
+        var show_hide_error_head = function() {
+            if ($('div.invalid').length == 0) {
+                $('#form_have_errors').hide();
+            }
+            else {
+                $('#form_have_errors').show();
+            }
+        }
+        var check_unique_email = function(obj, changeColor) {
+            if ($(obj).attr('disabled'))
+                return false;
+
+            var data = {};
+            var name = 'user[email]';
+            data[name] = $(obj).val();
+            var idField = $('#' + $(obj).attr('id').replace('_email', '_id'))
+            if (idField)
+                data['id'] = idField.attr('value');
+
+            if (jQuery.ajax({
+                url: '/validators/uniqueness.json',
+                data: data,
+                async: false
+            }).status == 200) {
+
+                $(obj).parent('div').addClass("error_in_field");
+                $(obj).parent('div').addClass("invalid");
+                existingMessage = $('label#message_for_' + $(obj).attr('id')).length;
+
+                if (!existingMessage)
+                    $(obj).parent().append($("<label id='message_for_" + $(obj).attr('id') + "' class='fieldErrorMessage'>Email already taken</label>").css('left', '100px'));
+                valid = false;
+            }
+            else {
+                $(obj).parent('div').removeClass("error_in_field");
+                $(obj).parent('div').removeClass("invalid");
+                $('label#message_for_' + $(obj).attr('id')).remove();
+            }
+        }
+        var check_local_uniqueness = function(obj) {
+            if ($(obj).attr('disabled'))
+                return false;
+            //find in forms for duplicate
+            $('input.provider_email, input.staffs_email').each(function() {
+                if (obj != this && $(this).val() == $(obj).val()) {
+                    $(obj).val('');
+                    existingMessage = $('label#local_duplicate_message_for_' + $(obj).attr('id')).length;
+
+                    if (!existingMessage)
+                        $(obj).parent().append($("<label id='local_duplicate_message_for_" + $(obj).attr('id') + "' class='fieldErrorMessage'>Duplicate Email</label>").css('left', '100px'));
+                    $('label#local_duplicate_message_for_' + $(obj).attr('id')).effect('fade', {}, 4000);
+                }
+
+
+            });
+        }
+        // this will cycle through all visible inputs and attempt to valdate all of them.
+        // if validations fail 'valid' is set to false
+        $('input.provider_email, input.staffs_email, input.staffs_name, input.provider_name ').each(function() {
+            check_presence(this, false);
+        });
+        $('input.provider_email, input.staffs_email, input.staffs_name, input.provider_name ').focusout(function() {
+            check_presence(this, true);
+            show_hide_error_head();
+        });
+        $('input.provider_email, input.staffs_email').each(function() {
+            check_email_format(this, false);
+        });
+        $('input.provider_email, input.staffs_email').focusout(function() {
+            check_email_format(this, true);
+            show_hide_error_head();
+
+
+            //check_unique_email(this);
+        });
+
+
+        $("#physician_group_submit").bind("click", function(e) {
+            if ($('div.error_in_field').length == 0)
+                return true;
+            else {
+                $('div.error_in_field').addClass('invalid');
+                return false;
+            }
+        });
+    };
+
+    var handleRemoveElement = function() {
+        $('span.removeFieldSet').click(function() {
+            $(this).parent('div.row2').remove();
+        })
+    };
+    var last_provider_field_original_names = [];
+    var last_provider_hidden_field = $('.tmp_hidden_class:last').text().trim();
+
+    var check_if_physician_itself = function(obj) {
+        var elements = $('#provider_container').children('div.row2:last').children('div.tmp_class').find('input');
+        if (last_provider_field_original_names.length == 0) {
+            elements.each(function(index, element) {
+                last_provider_field_original_names.push($(element).attr('name'));
+            });
+
+        }
+
+        if ($(obj).is(':checked')) {
+            elements.each(function(index, element) {
+                $(element).attr('name', 'tmp_element_' + index).
+                        val($('#group_admin_info_' + index).text().trim()).
+                        attr('disabled', 'disabled').
+                        parent().removeClass('error_in_field invalid');
+                $('.tmp_hidden_class:last').text('');
+            });
+            //$('#provider_container').children('div.row2:last').hide();
+        }
+        else {
+            elements.each(function(index, element) {
+                $(element).attr('name', last_provider_field_original_names[index]).val('').removeAttr('disabled');
+                if (index == 2)
+                    $(element).addClass('provider_email');
+                else
+                    $(element).addClass('provider_name');
+                $('.tmp_hidden_class:last').text($(last_provider_hidden_field));
+                validateNameAndEmail();
+            });
+        }
+    }
+    $(document).ready(function() {
+        validateNameAndEmail();
+        handleRemoveElement();
+        check_if_physician_itself($('#physician_group_physician_itself'));
+        $('#physician_group_physician_itself').click(function() {
+            check_if_physician_itself(this);
+        })
+    })
+</script>
+
+<style type="text/css">
+    .row2 .invalid {
+        border: 1px solid #D1542B !important;
+        background: #ffffff !important;
+    }
+
+    span.removeFieldSet {
+        color: #DD0000;
+        font-size: 20px;
+        font-weight: bold;
+        left: 607px;
+        position: absolute;
+        cursor: pointer;
+    }
+</style>
+

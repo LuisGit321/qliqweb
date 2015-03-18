@@ -1,0 +1,1 @@
+$("#icd_code_desc_<%= @partial  %>").html('<%= escape_javascript(render :partial => "icd_description", :locals => {:icd => @icd, :partial => @partial}) %>');  

@@ -1,0 +1,74 @@
+#after webapp authenticates the user, this informaiton
+#is sent to clients
+######################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "authorization",
+	"Subject" : "buddylist",
+	"Data" :{
+	"SipServerInfo":{
+		"sip_server_url":"129.92.43.37",
+		"sip_server_port":"5061",
+		"sip_server_transport":"TLS"
+	},
+	"WebServerInfo":{
+		"web_app_url":"http://www.qliqsoft.com",
+		"web_auth_url":"http://www.qliqsoft.com/auth"
+	},
+	"GroupInfo":{
+		"group":{"name":"","address":"","city":"","state":"","zip":""},
+		"members":[{
+			"role":"chargecapture",
+			"name":"phsyician name",
+			"initials":"phsyician initials",
+			"specialty":"specialty name",
+			"state":"which state",
+			"zip":"what zip",
+			"npi":"provideer id",
+			"mobile":"cell phone",
+			"phone":" office phone",
+			"fax":"fax number"
+			"email":"email of the member"  <== this is added(it is their username also)
+		}],
+	},
+	"UserInfo":{
+		"user_role":"chargecapture",
+                
+		/* these are new fileds added. these are to be populated with
+                /* the requester or caller info.
+		"name":"phsyician name",
+		"initials":"phsyician initials",
+		"specialty":"specialty name",
+		"state":"which state",
+		"zip":"what zip",
+		"npi":"provideer id",
+		"mobile":"cell phone",
+		"phone":" office phone",
+		"fax":"fax number"
+                /* end of new fields
+
+		"user_id":"kkurapat@ardensys.net",
+		"user_sip_uri":"sip:<first_name>_<mn>_<last_name>_<group_name>@129.92.43.37",
+		"user_display_name":"Krishna Kurapti"
+	},
+	"BuddyList" :[{	
+		{
+			"display_name" : "Dr. Bob Von",
+			"user_id":"bv@bv.com",
+			"sip_uri":"sip:<first_name>_<mn>_<last_name>_<group_name>@129.92.43.37",
+			"public_key":"(*&@)($*($KJWL298373498(*&^&$%^$239437943487skjdshlu219836"},
+		{
+			"display_name" : "Dr. Ed Ross",
+			"user_id":"er@start12.com",
+			"sip_uri":"sip:<first_name>_<mn>_<last_name>_<group_name>@129.92.43.37",
+			"public_key":"(*&@)($*($KJWL298373498(*&^&$%^$239437943487skjdshlu219836"},
+		{
+			"display_name":"Ravi Ada",
+			"user_id":"ravi@dobeyond.com",
+			"sip_uri":"sip:<first_name>_<mn>_<last_name>_<group_name>@129.92.43.37",
+			"public_key":"(*&@)($*($KJWL298373498(*&^&$%^$239437943487skjdshlu219836"}
+
+		}]
+		}
+	}
+}			

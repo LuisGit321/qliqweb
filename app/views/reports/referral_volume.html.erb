@@ -1,0 +1,53 @@
+<script type="text/javascript">
+  function submit_form(id)
+{
+  $('#commit_id').val(id);
+  $('#frmAdmin').submit();
+}
+</script>
+
+
+<%= render :partial => "/layouts/notice"  %>
+<div id="page">
+  <div class="interface_left_section">
+    <%= render :partial => 'menu'  %>
+    <%= render :partial => '/layouts/physician_profile'  %>
+  </div>
+  <div class="interface_right_section">
+    <h3 class="pad_btm">Reports/Referral Volume</h3>
+    <%= render :partial => "/layouts/physician_header"  %>
+    <%= form_for(@report, :html => {:id => "frmAdmin" }, :url => referral_volume_report_reports_path) do |f| %>
+      <fieldset>
+        <div>
+          <div class="fields">
+            <%= label_tag  t('.referring_physician')  %>  
+            <%= f.select :referring_physician_id, @referring_physicians.collect{|p| [p.name, p.id]}, {:include_blank => "All"} %>  
+          </div>  
+          <%= hidden_field_tag "commit_id", ""  %>
+          <br />
+          <div style="float:left;">
+            <%= label_tag t('.start_date') + t('mandatory') %>
+            <%= raw f.date_select :start_date %>
+            <%= raw "<br/><div class='errMsg_short'>#{@report.errors[:start_date].first}</div>" unless @report.errors[:start_date].empty?  %> 
+          </div>
+          <div style="float:right;">
+            <%= f.label t('.end_date') + t('mandatory'), :class => "apd_left"%>
+            <%= raw f.date_select :end_date %>
+            <%= raw "<br/><div class='errMsg_short'>#{@report.errors[:end_date].first}</div>" unless @report.errors[:end_date].empty?  %> 
+          </div>
+        </div>
+      </fieldset>
+    <% end  %>   
+    <div class="nav_right">
+      <div class="add"><%= link_to_function 'Generate Report', "submit_form('html')", :id => "generate_report" %> </div>
+      <div class="add"><%= link_to_function 'Export to PDF', "submit_form('pdf')", :id => "export_pdf" %> </div>
+      <div class="add"><%= link_to_function 'Export to Excel', "submit_form('excel')", :id => "export_excel" %> </div>
+    </div>
+    <% if @records  %> 
+      <div id="patient_info">
+        <%= render :partial => "referral_report"  %>  
+      </div>  
+    <% end  %>   
+  </div>
+</div>
+

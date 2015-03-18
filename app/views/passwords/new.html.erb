@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag 'jcheck'  %>  
+<%= javascript_include_tag 'jcheck-0.7.1.min'  %>  
+<script type="text/javascript">
+  $(function() {
+      initialize_form();
+
+      var v = $("#frmAdmin").jcheck({notifiers: ["custom_errors"], live_notifiers: ["custom_errors"], field_prefix: "user"});
+      v.validates("email", {presence: true});
+      v.validates_format_of("email", {"with": "email"});
+  });
+</script>
+<div class="form_tab">
+  <h1>Forgot your password?</h1>
+
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :id => "frmAdmin" }, :builder => CCFormBuilder) do |f| %>
+    <fieldset>
+      <%= f.text_field :email, :label => :Email %></p>
+      <div class="butons" style="padding: 24px 0px 0px 192px;">
+        <%= f.submit "Send", :class => :backgrnd %>
+      </div>  
+    </fieldset> 
+  <% end %>
+</div>  

@@ -1,0 +1,9 @@
+<%= form_for(@user, :url => reset_password_path(@user, :attempt => @attempt), :method => :post, :remote => true, :builder => CCFormBuilder) do |f|   %>  
+  <fieldset>
+    <%= f.password_field :password, :label => t('.password'), :style => "border: 1px solid #008CCE;"  %>  
+    <%= f.password_field :password_confirmation, :label => t('.confirm_password'), :style => "border: 1px solid #008CCE;"  %>  
+    <div class="butons" style="padding: 24px 0px 0px 192px;">
+      <%= f.submit "Update", :class => :backgrnd  %>  
+    </div>  
+  </fieldset> 
+<% end %>  

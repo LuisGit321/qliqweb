@@ -1,0 +1,32 @@
+<% unless @note.type_id == ADMIT_NOTE or @note.type_id == PROGRESS_NOTE or !@patient.nil? %> 
+  <%= render :partial => "type"   %> 
+<% end  %> 
+<div style="float: left;">
+  <%= tiny_mce_init(AppConfig.default_mce_options)  %>  
+  <%= form_for(@note, :html => {:remote => true}) do |f|  %>
+    <% unless @patient.nil? %> 
+      <div class="fields">
+        <%= hidden_field_tag :patient_id,  @patient.id  %>  
+        <%= f.select :type_id, NoteType.all.collect{|n| [n.description, n.id]}, { :include_blank => "--select--"} %>
+        <%= raw "<div class='errMsg' style='margin-left:0'>#{@note.errors[:type_id].first}</div>" unless @note.errors[:type_id].empty? %>  
+      </div>  
+    <% else %> 
+      <div class="fields">
+        <%= f.hidden_field :type_id, :value => @note.type_id  %>  
+      </div>  
+    <% end %>
+    <% unless @flag.nil? %> 
+      <div class="fields">
+        <%= hidden_field_tag :flag, @flag  %>  
+      </div>  
+    <% end %>
+    <div class="fields">
+      <%= f.text_area :text_note, :size => "70x20", :class => :mceEditor  %>  
+      <%= raw "<div class='errMsg' style='margin-left:0'>#{@note.errors[:text_note].first}</div>" unless @note.errors[:text_note].empty? %>  
+    </div>  
+    <div class="butons" style="padding-left:192px;">
+      <%= f.submit "Add", :class => :backgrnd %>
+      <%= image_tag "/images/spinner.gif", :id => "spinner", :style => "display:none;"  %>  
+    </div>
+  <% end %>  
+</div> 

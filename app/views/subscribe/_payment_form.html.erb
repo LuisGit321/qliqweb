@@ -1,0 +1,77 @@
+<div class="bottom_section">
+  <div class="bottom_left">
+    <div class="secure">
+      <h5>Secure credit card verification</h5>
+      <a href="#"><img src="/images/lock.png" alt=""></a>
+
+      <p>This is a secure, 128-bit SSL encrypted card verification. </p>
+
+      <p>Your card will not be charged until the end of your 30-day trial period (June 8, 2011).</p>
+      <span class="clear"></span></div>
+    <div class="listing">
+
+      <ul>
+        <li>
+          <div class="credit_card">
+            <p class="bold"> Credit card type</p>
+
+            <p>Please select your credit card type.</p>
+
+            <div class="row3 bg_none">
+              <%= p.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :include_blank => 'Select card type' %>
+
+            </div>
+          </div>
+
+        </li>
+        <li>
+          <div class="credit_card">
+            <p class="bold"> Credit card number</p>
+
+            <p>Please enter the 16-digit number on the front of your credit card.</p>
+
+            <div class="row3 text">
+              <%=p.text_field :card_number%>
+            </div>
+          </div>
+
+        </li>
+
+        <li>
+          <div class="credit_card">
+            <p class="bold"> Expiration date</p>
+
+            <p>The date your credit card expires, found on the front of your credit card.</p>
+
+            <div class="row3 bg_none">
+               <%= p.select :card_expires_on_month, (1..12).collect{|m| m <= 9 ? "0#{m}" : m}, :prompt => 'Month'%>
+              <label>/</label>
+              <%= p.select :card_expires_on_year, Date.today.year.to_i..Date.today.year.to_i+10, :prompt => 'Year'%>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="credit_card length">
+            <p class="bold"> Security code
+              <small>(or “CVC” or “CVV”)</small>
+            </p>
+            <p>The last 3 digits on the back of your credit card.</p>
+
+            <div class="row3 inpt text">
+              <%= p.text_field :card_verification%>
+            </div>
+          </div>
+          <div class="card"><a href="#"><img src="/images/card.gif" alt=""></a></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom_right">
+    <div class="security"><span>Sercurity</span> <span>Badge</span></div>
+  </div>
+</div>
+<div class="content_step1">
+  <div class="row1">
+    <%= submit_tag "Continue Step 3", :class => "btn" %>
+  </div>
+</div>

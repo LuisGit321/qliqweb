@@ -1,0 +1,49 @@
+<script type="text/javascript">
+  function check_if_uploaded() 
+{
+  if($('#image').val() == "")
+  {
+    alert("Please upload the picture");
+    return false;
+  }
+  return true;
+}
+</script>
+<%= render :partial => "/layouts/notice"  %>  
+<div id="page">
+  <div class="interface_left_section">
+    <div class="left_navigation">
+      <ul>
+        <li><%= menu_link_to 'activities', 'index', 'Current Patient', activities_path %></li> 
+        <li><%= link_to "History", "#"  %>  </li>
+      </ul>
+    </div>
+    <%= render :partial => '/layouts/physician_profile'  %>  
+  </div>
+  <div class="interface_right_section"u>
+    <div>
+      <div class="<%= get_class_for_image(@resource)  %>" style="float:left;margin-top:40px;">  
+        <%= image_tag @resource.print.image.url(:medium_thumb) unless @resource.print.nil? %>  
+      </div>  
+      <div style="float:left;width:400px;margin-left:50px;">
+        <%= form_tag(physician_upload_path(@resource, :for => @resource.class.name), :multipart => true)  do %>  
+          <div>
+            <span>Select an image file on your computer (4MB max):</span>
+          </div>  
+          <div style="margin-top:30px;">
+            <%= file_field_tag "image", :style => "background:none;width:auto;" %>  
+          </div>  
+          <div style="width:100%;margin-top:5px;float:left;">
+            <% unless @print.nil? %> 
+              <%= raw "<div class='errMsg_short'>#{@print.errors[:image_content_type].first}</div>" unless  @print.errors[:image_content_type].empty? %> 
+              <%= raw "<div class='errMsg_short'>#{@print.errors[:image_file_size].first}</div>" unless  @print.errors[:image_file_size].empty? %> 
+            <% end %>
+          </div>  
+          <div style="width:100%;margin-top:30px;float:left;">
+            <%= submit_tag "Upload", :onclick => "return check_if_uploaded();" %>  
+          </div>  
+        <% end  %>
+      </div>  
+    </div>  
+  </div>  
+</div>  

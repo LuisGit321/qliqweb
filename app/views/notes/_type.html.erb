@@ -1,0 +1,9 @@
+<ul>
+  <li><%= menu_link_to 'notes', 'index', 'Hospital Course', new_note_path(:note => HOSPITAL_COURSE), :remote => true, :id => "#{HOSPITAL_COURSE}" %></li> 
+  <li><%= menu_link_to 'notes', 'index', 'Medications', new_note_path(:note => MEDICATION), :remote => true, :id => "#{MEDICATION}" %></li> 
+  <li><%= menu_link_to 'notes', 'index', 'Followup Instructions', new_note_path(:note => FOLLOWUP_INSTRUCTION), :remote => true, :id => "#{FOLLOWUP_INSTRUCTION}" %></li> 
+</ul>
+<script type="text/javascript">
+  var note = "<%= @note.type_id  %>" 
+  $('#'+ note).addClass('active');
+</script>

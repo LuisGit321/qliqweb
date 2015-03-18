@@ -1,0 +1,41 @@
+<div id="header">
+  <h1><a href="/"><img src="/images/logo.jpg" alt="" title="ardensys" /></a></h1>
+  <div class="header_right_section"> 
+    <% if user_signed_in? %>  
+      <div id="inner_navigation">
+        <ul>
+          <li class="pad_rite"> <%= link_to raw("<span>Logout</span>"), destroy_user_session_path, :class => "right_none"  %></li>
+          <% if current_user.role?(ROLES[SYSTEM_ADMIN])  %> 
+            <li><%= link_to raw("<span>Edit Profile</span>"), reset_password_path(current_user), :rel => 'facebox'  %></li>  
+          <% else  %>  
+            <li> <%= link_to raw("<span>Edit Profile</span>"), edit_physician_path(current_user.resource), :rel => 'facebox'  %></li>
+          <% end %> 
+          <% if  current_user.role?(ROLES[GROUP_ADMIN]) ||  current_user.role?(ROLES[PHYSICIAN_ADMIN])  %>    
+            <li><%= link_to raw("<span>Subscribe</span>"), subscribe_path(current_user.resource.name), :class => "pad_rite" if current_user.resource_type == "PhysicianGroup" %>
+            <li><%= link_to raw("<span>Administration</span>"), current_user.role?(ROLES[GROUP_ADMIN]) ? edit_physician_group_path(current_user.resource) : referring_physicians_path  %> </li>   
+          <% end %> 
+        </ul>
+      </div>
+      <p><a href="#"><%= welcome_tag  %></a></p> 
+    <% else %>  
+      <div id="inner_navigation">
+        <ul>
+          <li class="pad_rite"><%= link_to raw("<span>Login</span>"), new_user_session_path, :class => "pad_rite", :rel => :facebox  %>  
+          </li>
+          <li><%= link_to raw("<span>Subscribe</span>"), new_subscribe_path, :class => "pad_rite" %>  
+        </ul>
+      </div>
+      <span>
+        <%= link_to "Forgot Password?", new_password_path(:user), :rel => :facebox %><br />
+      </span> 
+    <% end %>  
+  </div>
+  <div id="navigation">
+    <ul>
+      <li class="none"><a href="#" class="active"><span class="active">Home</span></a></li>
+      <li><a href="#"><span>Blog</span></a></li>
+      <li><a href="#"><span>Contact</span></a></li>
+      <li class="none">1 (800) 777-7777</li>
+    </ul>
+  </div>
+</div>

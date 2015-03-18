@@ -1,0 +1,20 @@
+<%= form_for(@resource, :url => providers_path(:for => @for), :html => { :remote => true, :id => "frmAdmin" }, :builder => CCFormBuilder) do |f| %>
+  <fieldset>
+    <%= f.text_field :first_name, :label => t('physicians.form.first_name') + t('mandatory') %>  
+    <%= f.text_field :last_name, :label => t('physicians.form.last_name') + t('mandatory') %>  
+    <%= f.fields_for :user do |u|  %>  
+      <%= u.text_field :email, :label => t('contact.email') + t('mandatory') %>  
+      <% if @for.blank? %>  
+        <%= hidden_field_tag "physician[user_attributes][roles][]", ROLES[PHYSICIAN_ADMIN] %>
+      <% else %>  
+        <%= hidden_field_tag "billing_agency[user_attributes][roles][]", ROLES[BILLING_ADMIN] %>
+      <% end %>  
+    <% end %>  
+    <div class="butons">
+      <%= f.submit "Add", :class => 'backgrnd' %>
+      <%= link_to 'Back', providers_path(:for => @for), :class => "backgrnd_lnk margin_rte" %> 
+      <%= image_tag "/images/spinner.gif", :id => "spinner", :style => "display:none;"  %>  
+    </div>
+  </fieldset> 
+<% end %>
+<%= render :partial => "/physician_groups/events"  %>  

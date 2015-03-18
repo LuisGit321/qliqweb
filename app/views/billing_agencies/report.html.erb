@@ -1,0 +1,65 @@
+<%= stylesheet_link_tag 'style', :media => 'all' %>
+<style type="text/css">
+  body {
+  background: none;
+  }
+</style>
+<div class="interface_right_section" style="float:left;border:0;">
+  <h1 style="margin-bottom: 30px;text-align: center;"><%= @billing_agency.name  %> Report</h1> 
+  <div style="width:100%;float:left;" id="main">
+    <% @patients.each do |patient| %>  
+      <% encounters = patient.encounters.unbilled.uniq %>  
+      <% unless encounters.empty? %>  
+        <div id="print_for_<%= patient.id %>">
+          <div style="float:left;margin: 10px 0px 10px 30px;">
+            <%= get_patient_name(patient)  %>  
+            <b style="margin-left:20px;margin-right:10px;">DOB :</b><%= patient.date_of_birth.strftime("%Y/%m/%d")  %>  
+          </div>  
+          <table cellpadding="0" cellspacing="0" style="margin: 10px 0 10px 30px; width: 550px;">
+            <tr class="interface_heading_print">
+              <td class="col31_top none">DOS</td>
+              <td class="none">ICD9(p)</td>
+              <td class="none">ICD9</td>
+              <td class="none">ICD9</td>
+              <td class="none">ICD9</td>
+              <td class="none">CPT</td>
+            </tr>
+            <% encounters.each do |encounter| %>  
+              <%= hidden_field_tag "encounters[#{patient.id}][]", encounter.id  %>  
+              <tr class="light_blue_print">
+                <td class="col31"><%= encounter.date_of_service.strftime('%m/%d')  %></td>
+                <% unless encounter.encounter_icds.primary.empty?  %> 
+                  <td class="col31" style="text-align:center;"><%= encounter.encounter_icds.primary.first.icd.code %></td>   
+                <% else  %>
+                  <td class="col31" style="text-align:center;">&nbsp;</td> 
+                <% end %>  
+                <% general_icds = encounter.encounter_icds.general %> 
+                <% unless general_icds[0].nil?  %> 
+                  <td class="col31" style="text-align:center;"><%= general_icds[0].icd.code %></td> 
+                <% else  %>
+                  <td class="col31" style="text-align:center;">&nbsp;</td> 
+                <% end %>  
+                <% unless general_icds[1].nil?  %> 
+                  <td class="col31" style="text-align:center;"><%= general_icds[1].icd.code %></td>   
+                <% else %>
+                  <td class="col31" style="text-align:center;">&nbsp;</td> 
+                <% end %>  
+                <% unless general_icds[2].nil?  %> 
+                  <td class="col31" style="text-align:center;"><%= general_icds[2].icd.code %></td>   
+                <% else %>
+                  <td class="col31" style="text-align:center;">&nbsp;</td> 
+                <% end %>  
+                <td class="col31" style="text-align:center;"><%= get_cpts_codes(encounter.cpts.collect(&:cpt_id))  %></td>   
+              </tr> 
+            <% end %>  
+          </table>
+          <hr>
+        </div>  
+      <% end %>  
+    <% end %>  
+  </div>  
+</div>
+<script type="text/javascript">
+  window.print();
+  setTimeout(window.location = "<%= billing_agency_profile_path(@billing_agency.id)  %>", 1000);
+</script>

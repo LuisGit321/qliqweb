@@ -1,0 +1,139 @@
+<style type="text/css" media="all">
+  label {
+    width:91px !important;
+  }
+
+  .errMsg {
+    margin-left:105px;
+  }
+
+  .custom_error {
+    margin-left:105px;
+  }
+</style>
+<script type="text/javascript">
+  jQuery().ready(function(){
+      $('#accordion').accordion();
+      });
+
+function add_cpt_group() 
+{
+  var new_cpt_group = $('#cpt_group_id').val();
+  if(new_cpt_group == "")
+    alert("Please select the Cpt Group");
+  else
+  {
+    $.ajax({
+        type: "GET",
+        url: '/superbills/add',
+        data:'id='+ new_cpt_group + '&type=<%= CPT_GROUP  %>', 
+    });
+  }
+}
+
+function add_cpt(id) 
+{
+  var new_cpt = $('#search_cpt_id_' + id).val();
+  if(new_cpt == "")
+    alert("Please select the Cpt");
+  else
+  {
+    $.ajax({
+        type: "GET",
+        url: '/superbills/add',
+        data:'id='+ new_cpt + '&token='+ id +'&type=<%= CPT  %>', 
+    });
+  }
+}
+
+function add_icd(parent_key, child_id) 
+{
+  var new_icd = $('#icd_code_id_' + child_id).val();
+  if(new_icd == "")
+    alert("Please select the ICD");
+  else
+  {
+    $.ajax({
+        type: "GET",
+        url: '/superbills/add',
+        data:'id='+ new_icd + '&token='+ child_id +'&parent_key='+ parent_key +'&type=<%= ICD  %>', 
+    });
+  }
+}
+
+function remove_cpt(parent_key, child_id)
+{
+  $('#cpt_attributes_'+ parent_key +'_cpts_'+ child_id +'__delete').val('1');
+  $('#tbl_cpts_'+ parent_key + '_'+ child_id).hide();
+}
+
+function remove_icd(parent_key, cpt, token)
+{
+  $('#cpt_attributes_'+ parent_key +'_cpts_'+ cpt +'_icds_'+ token +'__delete').val('1');
+  $('#tr_icd_'+parent_key+'_'+ cpt +'_'+ token).hide();
+}
+</script>
+<script type="text/javascript">
+  $(function() {
+      initialize_form();
+
+      var v = $("#frmSuperBill").jcheck({notifiers: ["custom_errors"], live_notifiers: ["custom_errors"], field_prefix: "superbill"});
+      v.validates("name", "specialty_id",{presence: true});
+      $('#frmSuperBill').submit(function(e) {
+        e.preventDefault();
+        return v.is_valid();
+        });
+  });
+</script>
+<%= form_for(@superbill, :html => {:remote => true, :id => "frmSuperBill"}) do |f|  %>  
+  <div style="width:900px;float:left;">
+    <div style="float:left;">
+      <div class="fields" style="width:300px;"> 
+        <%= raw f.label t('.name') + t('mandatory')  %>  
+        <%= f.text_field :name, :class => :width1  %>  
+        <%= raw "<div class='errMsg'>#{@superbill.errors[:name].first}</div>" unless @superbill.errors[:name].empty? %>  
+      </div>  
+      <div class="fields" style="width:300px;">
+        <%= raw f.label t('.state') %>  
+        <%= f.select :state_id, @states.collect{|s| [s.code, s.id]}, {:include_blank => "--select--"}, :class => :width1  %>  
+        <%= raw "<div class='errMsg'>#{@superbill.errors[:state_id].first}</div>" unless @superbill.errors[:state_id].empty? %>  
+      </div>  
+      <div class="fields" style="width:300px;">
+        <%= raw f.label t('.specialty') + t('mandatory') %>  
+        <%= f.select :specialty_id, @specialties.collect{|s| [s.name, s.id]}, {:include_blank => "--select--"}, :class => :width1   %>  
+        <%= raw "<div class='errMsg'>#{@superbill.errors[:specialty_id].first}</div>" unless @superbill.errors[:specialty_id].empty? %>  
+      </div>  
+    </div>  
+    <div style="float:left;width:100%;">
+      <h1 style="text-align: center;"><%= t('.procedure_code')  %></h1> 
+      <div style="margin-top:5px;float:left;">
+        <%= raw f.label t('.cpt_group')  %>  
+        <%= autocomplete_field_tag 'cpt_group', '', autocomplete_cpt_group_name_superbills_path, :id_element => '#cpt_group_id', :class => :width1  %>  
+        <%= hidden_field_tag 'cpt_group_id', ''  %>  
+      </div> 
+      <%= button_to_function "Add", "add_cpt_group();", :class => :backgrnd  %>  
+      <div id="accordion" class="basic" style="width: 90%; margin-left: 35px; margin-top: 18px;float:left;">
+        <% counter = 0  %>  
+        <% @superbill_cpts.keys.each do |s|  %>  
+          <%= render 'cpt', :f => s, :counter => counter  %>  
+          <% counter += 1  %>  
+        <% end %>  
+      </div>  
+    </div>  
+  </div>  
+  <div class="butons" style="padding: 24px 0px 0px 272px;">
+    <%= submit_tag "Save", :class => :backgrnd, :disable_with => "Please wait..." %>
+    <%= link_to_function "Cancel", "javascript:$(document).trigger('close.facebox')", :class => "backgrnd_lnk margin_rte"  %>  
+    <%= image_tag "/images/spinner.gif", :id => "spinner1", :style => "display:none;"  %>  
+  </div>
+<% end %>  
+<script type="text/javascript">
+  jQuery(function($) {
+      // create a convenient toggleLoading function
+      var toggleLoading = function() { $("#spinner1").toggle();};
+
+      $("#frmEncounter")
+      .bind("ajax:beforeSend",  toggleLoading)
+      .bind("ajax:complete", toggleLoading)
+      });
+    </script>

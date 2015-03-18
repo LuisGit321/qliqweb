@@ -1,0 +1,27 @@
+<div class="middle_curve">
+  <div class="content">
+    <%= form_for @registration, :html => {:remote => true}, :url => home_index_path do |f| %>  
+      <fieldset>
+        <h2>Sign up for qliqUpdates!</h2>
+        <span style="color:red;"><%= @error%></span>
+        <div class="row">
+          <% name_error = @registration.errors["name"]%>
+          <% name_error = "Name" if name_error.blank?%>
+          <%= f.text_field :name, :placeholder => name_error  %>  
+        </div>
+        <div class="row">
+          <% email_error = @registration.errors["email"] %>
+          <% email_error = "Email Address" if email_error.blank?%>
+          <%= f.text_field :email, :placeholder => email_error  %>  
+        </div>
+        <div class="row">
+          <%= f.submit "Submit", :class => "btn"  %>  
+        </div>
+        <p>We’ll only use your email address
+        to send you a launch update, and
+        will never share your information.</p>
+      </fieldset>
+    <% end %>  
+  </div>
+</div>
+<div class="bottom_curve">&nbsp; </div>

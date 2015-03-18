@@ -1,0 +1,39 @@
+.row1 .text {
+	-moz-border-radius:5px 5px 5px 5px;
+	border-radius:5px 5px 5px 5px;
+	-webkit-border-radius:5px 5px 5px 5px;
+	background:#ededee;
+	border:1px solid #bcbdc0;
+	behavior: url("include/ie-css3.htc");position:relative; z-index:999
+}
+.row3 {
+	-moz-border-radius:5px 5px 5px 5px;
+	border-radius:5px 5px 5px 5px;
+	-webkit-border-radius:5px 5px 5px 5px;
+	background:#ededee;
+	border:1px solid #bcbdc0;behavior: url("include/ie-css3.htc");position:relative; z-index:999
+}
+.inpt {
+	-moz-border-radius:5px 5px 5px 5px;
+	border-radius:5px 5px 5px 5px;
+	-webkit-border-radius:5px 5px 5px 5px;
+	behavior: url("include/ie-css3.htc");position:relative; z-index:999
+}
+.providers .row2 .text1 {
+	-moz-border-radius:5px 5px 5px 5px;
+	border-radius:5px 5px 5px 5px;
+	-webkit-border-radius:5px 5px 5px 5px;
+	behavior: url("include/ie-css3.htc");position:relative; z-index:999
+}
+.providers .row2 .text2 {
+	display:inline;
+	-moz-border-radius:5px 5px 5px 5px;
+	border-radius:5px 5px 5px 5px;
+	-webkit-border-radius:5px 5px 5px 5px;
+	behavior: url("include/ie-css3.htc");position:relative; z-index:999
+}
+.text .error_message{-moz-border-radius:5px 5px 5px 5px!important;
+	border-radius:5px 5px 5px 5px!important;
+	-webkit-border-radius:5px 5px 5px 5px!important;
+	behavior: url("include/ie-css3.htc");position:relative; z-index:9999}
+

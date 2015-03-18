@@ -1,0 +1,33 @@
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $('a[rel=facebox_new]').facebox({
+        loadingImage : '/images/loading.gif',
+        closeImage   : '/images/closelabel.png'
+      });
+    $('#capture_code').addClass('active');
+    })
+</script>
+<div class="add" style="float:left;"><%= link_to "Capture Code", new_encounter_path, :rel => :facebox_new  %></div>
+<div style="width:100%;float:left;" id="main">
+  <table cellpadding="0" cellspacing="0">
+    <tr class="interface_heading">
+      <td class="col31_top none">DOS</td>
+      <td class="none">ICD9(p)</td>
+      <td class="none">ICD9</td>
+      <td class="none">ICD9</td>
+      <td class="none">ICD9</td>
+      <td class="none">CPT</td>
+    </tr>
+    <% @captured_codes.each do |encounter| %>  
+      <tr class="light_blue">
+        <td class="col31"><%= encounter.date_of_service.strftime('%m/%d')  %></td> 
+        <td><%= encounter.encounter_icds.primary.first.icd.code unless encounter.encounter_icds.primary.empty?  %></td>   
+        <% general_icds = encounter.encounter_icds.general %>  
+        <td><%= general_icds[0].icd.code unless general_icds[0].nil?  %></td>   
+        <td><%= general_icds[1].icd.code unless general_icds[1].nil?  %></td>   
+        <td><%= general_icds[2].icd.code unless general_icds[2].nil?  %></td>   
+        <td><%= get_cpts_codes(encounter.cpts.collect(&:cpt_id))  %></td>   
+      </tr> 
+    <% end %>  
+  </table>
+</div>  

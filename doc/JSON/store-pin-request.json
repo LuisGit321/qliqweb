@@ -1,0 +1,14 @@
+#this message is sent to store the encrypted PIN in the webapp
+#to retrieve in case of forgot PIN request.
+##############################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "authorization",
+	"Subject" : "store_pin_request",
+	"Data" :{
+		"user_name":{"amit@joshsoftware.com"},
+		"encrypted_password":{"4234i1u23o41234123u42134jl12j3lk4j1l23j4"}
+		"pin":{<encrypted pin will be sent here>}
+	}
+  }
+}

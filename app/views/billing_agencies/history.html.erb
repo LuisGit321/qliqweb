@@ -1,0 +1,61 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+      $('#select_all').click(function() {
+        $(':checkbox').attr('checked', this.checked);
+      });
+
+      $('#billing_patient_group').change(function() {
+        var group_id = $('#billing_patient_group').val();
+        $.ajax({
+            url : '/billing/agencies/physicians',
+            type : 'GET',
+            data : 'group_id=' + group_id
+        });
+      });
+  });
+</script>
+<%= render :partial => "/layouts/agency_left_menu"  %>
+<div class="interface_right_section">
+  <h1>History</h1>
+  <div style="margin-bottom:10px;float:left;">
+    <%= form_for(@billing_patient, :url => history_billing_agencies_path, :html => {:style => "width:660px;padding:0", :method => :post}) do |f|  %>  
+      <fieldset>
+        <div class="fields" style="width:auto;margin-top: 5px;">
+          <%= label_tag "Group"  %>  
+          <%= f.select :group, @groups.collect{|a| [a.name, a.id]}, {:include_blank => "All"}, :style => "width:100px;"  %>  
+        </div>  
+        <div id="physicians">
+          <div class="fields" style="width:auto;margin-left:10px;margin-top: 5px;">
+            <%= label_tag "Physician"  %>  
+            <%= f.select :physician, @physicians.collect{|a| [a.name, a.id]}, {:include_blank => "All"}, :style => "width:100px;"  %>  
+          </div>  
+        </div>  
+        <div class="fields" style="width:auto;margin-left:20px;">
+          <div class="butons" style="padding:0">
+            <%= submit_tag "Search", :class => :backgrnd  %>  
+          </div>  
+        </div>  
+      </fieldset> 
+    <% end %>  
+  </div>  
+  <div style="width:100%;float:left;" id="main">
+    <table cellpadding="0" cellspacing="0" style="margin: 10px 0 10px 30px; width: 550px;">
+      <tr class="interface_heading">
+        <td class="col31_top none">Date</td>
+        <td class="none">Group</td>
+        <td class="none">Physician</td>
+        <td class="none">User</td>
+        <td class="none">File Name</td>
+      </tr>
+      <% @history.each do |history| %>  
+        <tr class="light_blue">
+          <td class="col31"><%= history.processed_date  %></td>   
+          <td><%= history.group  %></td>   
+          <td><%= history.physician  %></td>   
+          <td><%= history.user.resource.name  %></td>   
+          <td><%= link_to history.report_path, "/system/reports/" + history.report_path, :target => '_blank'  %></td>   
+        </tr> 
+      <% end %>  
+    </table>
+  </div>
+</div>

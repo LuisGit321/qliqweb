@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Qliqsoft</title>
+    <%= stylesheet_link_tag 'style', 'facebox' %>
+    <%= javascript_include_tag 'jquery', 'jquery-ui-min', 'facebox', 'rails', 'application' %>
+    <%= javascript_include_tag "autocomplete-rails.js"  %>
+    <%= stylesheet_link_tag 'jquery-ui-1.8.4.custom' %>
+    <%= stylesheet_link_tag "/javascripts/jscalendar-1.0/calendar-win2k-cold-1.css" %>
+    <%= javascript_include_tag "jscalendar-1.0/calendar.js" %>
+    <%= javascript_include_tag "jscalendar-1.0/lang/calendar-en.js" %>
+    <%= javascript_include_tag "jscalendar-1.0/calendar-setup.js" %>
+    <%= javascript_include_tiny_mce  %>  
+    <%= tiny_mce %>
+    <%= csrf_meta_tag %>
+    <script type="text/javascript">
+      //<![CDATA[
+    var BLANK_URL = 'include/blank.html';
+    var BLANK_IMG = 'include/spacer.gif'; //]]> </script>
+  <!--[if lt IE 7]> <script type="text/javascript" src="include/ds-sleight.js" ></script> <![endif]-->
+  <!--[if IE]><link rel="stylesheet" type="text/css" href="include/ie.css"><![endif]-->
+</head>
+<body>
+  <div class="wrapper">
+    <%= render :partial => 'layouts/header'  %>  
+    <%= render :partial => '/layouts/notice'  %>
+    <div id="page">
+      <%= yield  %>  
+    </div>
+    <%= render :partial => "/layouts/footer"  %>  
+  </div>
+</body>
+</html>

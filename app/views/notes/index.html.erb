@@ -1,0 +1,40 @@
+<%= stylesheet_link_tag 'coverflow' %>
+<%= javascript_include_tag 'coverflow/ui.coverflow', 'coverflow/sylvester', 'coverflow/transformie', 'coverflow/coverflow', 'coverflow/jquery.mousewheel.min' %>
+<%= render :partial => '/layouts/physician_left_menu'  %>  
+<div class="interface_right_section">
+  <div class="add">
+    <div id="patient_info">
+      <% if @flag %> 
+        <%= link_to"Add Note", new_note_path(:note => PROGRESS_NOTE, :patient=> @patient, :flag => 1), :remote => true, :rel => :facebox %> 
+      <% else %> 
+        <%= link_to"Add Note", new_note_path(:note => PROGRESS_NOTE, :patient=> @patient), :remote => true, :rel => :facebox %> 
+      <% end  %> 
+    </div>
+  </div>
+  <%= render :partial => "/layouts/physician_header"  %>
+  <% if @flag %> 
+    <%#= render :partial => "list"  %> 
+  <% end  %> 
+  <!--div class="pageWrapper"-->
+  <div class="demo">
+    <div class="coverflow_wrapper" style="float:left;">
+      <div id="coverflow">
+        <% @notes.each do |note|  %>
+          <%= link_to raw(note.text_note), note_path(note.id), 'data-notetype' => note.note_type.description, 'data-updatedat' => note.encounter_notes.first.updated_at.strftime("%Y-%m-%d"), :rel => 'facebox' %>
+        <% end %>        
+      </div>
+      <div id="imageCaption">
+        Sample Text
+      </div>
+      <div id='slider'></div>
+    </div>
+  </div>
+  <div class="listholder">
+    <div id="scroll-pane">
+      <ul id="sortable"> </ul>
+    </div>
+    <div id="slider-wrap">
+      <div id="slider-vertical"></div>
+    </div>
+  </div>
+</div>  

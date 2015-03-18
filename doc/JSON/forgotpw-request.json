@@ -1,0 +1,21 @@
+#this message is sent from the device to get the temp
+#password incase if they forgot thier old password
+#username, public_key and NPI will be sent in the request.at
+#this point, the kestore entries for the old password will be
+#removed from the device keystore.
+#get the information verified, send them the temp password
+#to their email (user_id). Upon receiving the email, user
+#will be clicking on the link, just like the initial process.
+#user will be prompted to change their password. This new
+#password will be entered in the device. if its a  successful
+#login, keystore on the device will be created.
+##############################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "authorization",
+	"Subject" : "forgot_pw_request",
+	"Data" :{
+		"user_name":{"amit@joshsoftware.com"}
+	}
+  }
+}

@@ -1,0 +1,11 @@
+#after storing the PIN, send the success/failure message
+##############################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "authorization",
+	"Subject" : "store_pin_reply",
+	"Data" :{
+		"success":{"pin stored successfully."},
+	}
+  }
+}

@@ -1,0 +1,87 @@
+<fieldset>
+  <%= f.fields_for :resource do |p| %>
+      <div class="row1"> <%= p.text_field :first_name, :label => t('contact.first_name'), :div_class => "text" %> </div>
+      <div class="row1"> <%= p.text_field :last_name, :label => t('contact.last_name'), :div_class => "text" %> </div>
+      <div class="row1"> <%= p.text_field :contact_title, :label => t('contact.name'), :div_class => "text", :required => "false" %>  </div>
+      <div class="row1"> <%= p.text_field :phone, :label => t('contact.phone'), :div_class => "text" %>  </div>
+  <% end %>
+  <div class="row1 pad_bottom"><%= f.text_field :email, :label => t('contact.subscribe_email'), :div_class => "text" %></div>
+  <%= f.fields_for :resource do |p| %>
+      <div class="row1"> <%= p.text_field :name, :label => t('contact.company'), :div_class => "text" %>  </div>
+      <div class="row1"> <%= p.text_field :address, :label => t('contact.address1'), :div_class => "text" %>  </div>
+      <div class="row1"> <%= p.text_field :address2, :label => t('contact.address2'), :div_class => "text", :required => "false" %>  </div>
+      <div class="row1"> <%= p.text_field :city, :label => t('contact.sub_city'), :div_class => "text" %></div>
+      <div class="row1"><%= p.select :state, STATES.collect { |s| [s.name, s.code] }, {:include_blank => "--select--"}, :label => t('contact.sub_state') %></div>
+      <div class="row1"> <%= p.text_field :zip, :label => t('contact.sub_zip'), :div_class => "text width10" %>  </div>
+      <div class="row1 pad_bottom"> <%= p.text_field :providers, :label => t('contact.providers'), :div_class => "text width11", :help => 'Number of Medical Providers in your Group' %>   </div>
+  <% end %>
+  <% if @user.new_record? %>
+      <div class="password">
+        <div class="row1"> <%= f.password_field :password, :value => "", :label => t('contact.password'), :div_class => "text width", :validate => {:presence => true, :confirmation => true} %>  </div>
+        <div class="row1"> <%= f.password_field :password_confirmation, :label => t('contact.confirm_password'), :div_class => "text width" %> </div>
+      </div>
+      <div class="text width1 border_radius_5" id="password_format_note">
+        <small class="font">Your password will be case sensitive and must contain at least 6 letters and/or numbers.
+        </small>
+      </div>
+
+  <% end %>
+  <div class="row1">
+    <%= submit_tag "Continue Step 2", :class => "btn" %>
+  </div>
+</fieldset>
+
+<script type="text/javascript">
+    clientSideValidations.callbacks.element.fail = function(element, message, callback) {
+        callback();
+        $('#form_have_errors').show();
+
+        element.parents('.text:first').addClass("invalid");
+        var messageElement = jQuery('label.message[for="' + element.attr('id') + '"]');
+        var isBlankFound = message.search(new RegExp(/blank/i));
+
+        if (element.attr('id') == 'user_email') {
+            if (isBlankFound < 0)
+                messageElement.text('Email ' + messageElement.text()).show();
+        }
+
+        if (element.attr('id') == 'user_password') {
+            $('#password_format_note').css('border', '2px solid #D1542B').children('small').css('color', 'red');
+            if($('#user_password_confirmation').val().length == 0){
+                element.parent().find('.message').hide();
+
+            }
+            else if (isBlankFound < 0) {
+                messageElement.text('Password ' + messageElement.text()).show().css('left', '216px');
+            }
+
+        }
+
+        if (element.attr('id') == 'user_resource_attributes_phone') {
+            if (isBlankFound < 0)
+                messageElement.show();
+        }
+
+        if (element.attr('id') == 'user_resource_attributes_zip') {
+            if (isBlankFound < 0)
+                messageElement.text( messageElement.text()).show().css('left', '89px').css('width', '100px');
+        }
+
+    };
+
+    clientSideValidations.callbacks.element.pass = function(element, callback) {
+        element.parents('.text:first').removeClass("invalid");
+        element.parent().find('.message').effect('fade', {}, 2000, callback);
+
+        if (element.attr('id') == 'user_password') {
+            $('#password_format_note').css('border', 'none').children('small').css('color', '#6D6E71');
+        }
+
+        if($('div.field_with_errors').length == 0)
+           $('#form_have_errors').effect('fade', {}, 2000);
+    };
+
+
+
+</script>
+

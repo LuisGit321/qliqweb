@@ -1,0 +1,4 @@
+<%= label_tag "Referring Physician"  %>
+<%= select_tag "patient[hospital_episodes_attributes][0][referring_physician_id]", options_from_collection_for_select(@referring_physicians, 'id', 'name', @referring_physician.id.to_s), :include_blank => "--select--", :style => "width:351px;" %>
+
+

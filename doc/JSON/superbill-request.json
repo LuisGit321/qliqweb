@@ -1,0 +1,14 @@
+#this request is sent to pull the superbills from web.
+#the requester will be sending the username and md5 password,
+#web app sends the reply only when the user gets authenticated.
+###########################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "pull",
+	"Subject" : "superbills",
+	"Data" :{
+		"user_name":{"amit@joshsoftware.com"},
+		"encrypted_password":{"928374897-sdaskjdh23786t123skjnd"}
+	}
+  }
+}

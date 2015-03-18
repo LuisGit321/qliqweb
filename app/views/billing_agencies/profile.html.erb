@@ -1,0 +1,137 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+      $('#select_all').click(function() {
+        $(':checkbox').attr('checked', this.checked);
+      });
+
+      $('#billing_patient_group').change(function() {
+        var group_id = $('#billing_patient_group').val();
+        $.ajax({
+            url : '/billing/agencies/physicians',
+            type : 'GET',
+            data : 'group_id=' + group_id
+        });
+      });
+  });
+  function is_patient_selected(id)
+  {
+    var patients = $(":checkbox[name='patients[]']").filter(':checked');
+    if(patients.length == 0)
+    {
+      alert("Please select atleast one patient");
+      return false;
+    }
+    if(id == 1)
+    {
+      /*window.print();
+      $('#main').printElement({pageTitle:'Ardensys Billing Agency Report'});*/
+      $('#print_report').val(1);
+    }
+    return true; 
+  }
+</script>
+<%= render :partial => "/layouts/agency_left_menu"  %>
+<div class="interface_right_section">
+  <h1>Inbox</h1>
+  <div style="margin-bottom:10px;float:left;">
+    <%= form_for(@billing_patient, :url => search_billing_agencies_path, :html => {:style => "width:660px;padding:0"}) do |f|  %>  
+      <fieldset>
+        <div class="fields" style="width:auto;margin-top: 5px;">
+          <%= label_tag "Group"  %>  
+          <%= f.select :group, @groups.collect{|a| [a.name, a.id]}, {:include_blank => "All"}, :style => "width:100px;"  %>  
+        </div>  
+        <div id="physicians">
+          <div class="fields" style="width:auto;margin-left:10px;margin-top: 5px;">
+            <%= label_tag "Physician"  %>  
+            <%= f.select :physician, @physicians.collect{|a| [a.name, a.id]}, {:include_blank => "All"}, :style => "width:100px;"  %>  
+          </div>  
+        </div>  
+        <div class="fields" style="width:auto;margin-left:20px;">
+          <div class="butons" style="padding:0">
+            <%= submit_tag "Generate Report", :class => :backgrnd  %>  
+          </div>  
+        </div>  
+      </fieldset> 
+    <% end %>  
+  </div>  
+  <hr>
+  <%= form_tag(report_billing_agencies_path, :style => "width:660px;padding:0") do   %>  
+    <%= hidden_field_tag "billing_patient[group]", @billing_patient.group  %>  
+    <%= hidden_field_tag "billing_patient[physician]", @billing_patient.physician  %>  
+    <div>
+      <div style="margin-top:10px;margin-bottom:10px;float:left;">
+        <fieldset>
+          <div class="fields" style="width:auto;margin-top: 5px;">
+            <%= check_box_tag :select_all, '1' ,false, :style => "width:20px;"  %>  
+            <span>Select All</span>
+          </div>  
+          <div class="fields" style="width:auto;margin-left:20px;">
+            <div class="butons" style="padding:0">
+              <%= submit_tag "Export Selected to PDF", :class => :backgrnd, :onclick => "return is_patient_selected(0);"  %>  
+            </div>  
+          </div>  
+          <div class="fields" style="width:auto;margin-left:20px;">
+            <div class="butons" style="padding:0">
+              <%= hidden_field_tag 'print_report', ''  %>
+              <%= submit_tag "Print Selected", :class => :backgrnd, :onclick => "return is_patient_selected(1);"  %>  
+            </div>  
+          </div>  
+        </fieldset> 
+      </div>  
+      <hr>
+    </div>  
+    <div style="width:100%;float:left;" id="main">
+      <% @patients.each do |patient| %>  
+        <% encounters = patient.encounters.unbilled.uniq %>  
+        <% unless encounters.empty? %>  
+          <div id="print_for_<%= patient.id %>">
+            <div style="float:left;">
+              <%= check_box_tag "patients[]", patient.id ,false, :style => "width:20px;"  %>  
+              <%= get_patient_name(patient)  %>  
+              <b style="margin-left:20px;margin-right:10px;">DOB :</b><%= patient.date_of_birth.strftime("%Y/%m/%d")  %>  
+            </div>  
+            <table cellpadding="0" cellspacing="0" style="margin: 10px 0 10px 30px; width: 550px;">
+              <tr class="interface_heading">
+                <td class="col31_top none">DOS</td>
+                <td class="none">ICD9(p)</td>
+                <td class="none">ICD9</td>
+                <td class="none">ICD9</td>
+                <td class="none">ICD9</td>
+                <td class="none">CPT</td>
+              </tr>
+              <% encounters.each do |encounter| %>  
+                <%= hidden_field_tag "encounters[#{patient.id}][]", encounter.id  %>  
+                <tr class="light_blue">
+                  <td class="col31"><%= encounter.date_of_service.strftime('%m/%d')  %></td>
+                  <% unless encounter.encounter_icds.primary.empty?  %> 
+                    <td class="col31" style="text-align:center;"><%= encounter.encounter_icds.primary.first.icd.code %></td>   
+                  <% else  %>
+                    <td class="col31" style="text-align:center;">&nbsp;</td> 
+                  <% end %>  
+                  <% general_icds = encounter.encounter_icds.general %> 
+                  <% unless general_icds[0].nil?  %> 
+                    <td class="col31" style="text-align:center;"><%= general_icds[0].icd.code %></td> 
+                  <% else  %>
+                    <td class="col31" style="text-align:center;">&nbsp;</td> 
+                  <% end %>  
+                  <% unless general_icds[1].nil?  %> 
+                    <td class="col31" style="text-align:center;"><%= general_icds[1].icd.code %></td>   
+                  <% else %>
+                    <td class="col31" style="text-align:center;">&nbsp;</td> 
+                  <% end %>  
+                  <% unless general_icds[2].nil?  %> 
+                    <td class="col31" style="text-align:center;"><%= general_icds[2].icd.code %></td>   
+                  <% else %>
+                    <td class="col31" style="text-align:center;">&nbsp;</td> 
+                  <% end %>  
+                  <td class="col31" style="text-align:center;"><%= get_cpts_codes(encounter.cpts.collect(&:cpt_id))  %></td>   
+                </tr> 
+              <% end %>  
+            </table>
+            <hr>
+          </div>  
+        <% end %>  
+      <% end %>  
+    </div>  
+  <% end %>  
+</div>

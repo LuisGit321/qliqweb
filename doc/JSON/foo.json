@@ -1,0 +1,28 @@
+{"Message":{
+    "Data":{
+        "master_cpt_pft":[],
+        "master_icd_pft":[],
+        "UserInfo":[{
+            "user_name":"rada@qliqsoft.com"
+        },
+        "Superbills":[
+            {
+                "Superbill":{
+                    "name":"Hospitalist Template",
+                    "preferred":"1",
+                    "facility_type":"Hospital"
+                }
+            },
+            {
+                "Superbill":{
+                    "name":"Cardiology Template",
+                    "preferred":"0",
+                    "facility_type":"Hospital"
+                }
+            }
+        ]
+    },
+    "Subject":null,
+    "Command":null,
+    "Type":null
+}}

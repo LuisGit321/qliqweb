@@ -1,0 +1,10 @@
+<div style="float:left;width:155px;">
+  <!--label style="width:70px;"><%#= icd.description  %> - </label--> 
+  <label style="width:40px;">Code:</label> 
+  <label style="width:auto;float:right;padding:0"><%= icd.code  %></label>   
+  <% if partial.to_i == 0 %>  
+    <%= hidden_field_tag "encounter[encounter_icds_attributes][#{partial.to_i}][primary_diagnosis]", '1'  %>  
+  <% else %>  
+    <%= hidden_field_tag "encounter[encounter_icds_attributes][#{partial.to_i}][primary_diagnosis]", '0'  %>  
+  <% end %>  
+</div>  

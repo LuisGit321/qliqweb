@@ -1,0 +1,40 @@
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'home_style', 'av_hack', 'client_side_validation' %>
+  <%= javascript_include_tag 'rails.validations', 'rails.validations.custom' %>
+<% end %>
+<div id="ajax_response_container">
+  <fieldset>
+    <div class="left_container">
+      <div class="step1">
+        <div class="mid_curve1">
+          <div class="top_curve1">
+            <div class="bottom_curve1">
+              <div class="content_step1">
+                <h2>
+                  <a href="#">Subscribe to qliqCharge</a>
+                  <span style='margin-left:15px; font-size:12px; color:#D2542A'><%= flash[:error] %></span>
+                </h2>
+                <div class='create'>
+                  <h3>Step 1:</h3>
+                  <h3><%= link_to 'Create your qliqAccount' %></h3>
+                  <%= raw "<h3 class='color' id='form_have_errors' style='display:#{@user.errors.blank? ? 'none' : 'block'}'>Please correct or fill out highlighted fields</h3>" %>
+                </div>
+                <%= form_for(@user, :url => subscribe_index_path, :method => :post, :remote => true, :builder => FormBuilder, :validate => true) do |f| %>
+                  <%= render :partial => 'tmp_form', :locals => {:f => f} %>
+                <% end %>
+                <%= raw step2 %>
+                <%= raw step3 %>
+                <%= raw step4 %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right_container">
+      <h4>Take a month to see how it all works!</h4>
+      <p>Ut dapibus convallis felis sit amet auctor. Nullam condimentum enim et lectus blandit faucibus. Quisque eget
+      tortor justo. Phasellus arcu risus, porttitor nec tincidunt nec, ultricies sit amet felis.</p>
+    </div>
+  </fieldset>
+</div>

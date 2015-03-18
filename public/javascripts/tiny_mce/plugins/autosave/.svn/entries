@@ -1,0 +1,70 @@
+8
+
+dir
+349
+svn://localhost/eJosh/trunk/src/eJosh/vendor/plugins/rails_tiny_mce/assets/public/javascripts/tiny_mce/plugins/autosave
+svn://localhost/eJosh
+
+
+
+2009-10-14T15:12:35.376469Z
+160
+hansraj
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+be6aba8a-1533-11de-b1d4-ef632c4ee052
+
+editor_plugin.js
+file
+
+
+
+
+2009-11-06T08:14:05.000000Z
+f54e4df3a63237afd7471c95d8484f6e
+2009-10-14T15:12:35.376469Z
+160
+hansraj
+has-props
+
+langs
+dir
+
+editor_plugin_src.js
+file
+
+
+
+
+2009-11-06T08:14:05.000000Z
+b8c0d2e3c38ecb75bb16c374e4050b23
+2009-10-14T15:12:35.376469Z
+160
+hansraj
+has-props
+
+readme.txt
+file
+
+
+
+
+2009-11-06T08:14:05.000000Z
+bd3d2e2fe0c37c3458bbd6e1550878d6
+2009-10-14T15:12:35.376469Z
+160
+hansraj
+has-props
+

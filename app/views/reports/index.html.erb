@@ -1,0 +1,57 @@
+<script type="text/javascript">
+  function submit_form(id)
+{
+  $('#commit_id').val(id);
+  $('#frmAdmin').submit();
+}
+</script>
+
+<%= render :partial => "/layouts/notice"  %>
+<div id="page">
+  <div class="interface_left_section">
+    <%= render :partial => 'menu'  %>
+    <%= render :partial => '/layouts/physician_profile'  %>
+  </div>
+  <div class="interface_right_section">
+    <h3 class="pad_btm">Reports/Activity Log</h3>
+    <%= render :partial => "/layouts/physician_header"  %>
+      <%= form_for(@report, :html => { :id => "frmAdmin" }) do |f| %>
+        <fieldset>
+          <div> 
+            <div class="fields">
+              <%= raw f.label t('.physician') + t('mandatory') %>  
+              <%= f.select :physician_id, @physicians.collect{|p| [p.name, p.id]}, {:include_blank => "--select--"} %>  
+              <%= raw "<br/><div class='physician_error'>#{@report.errors[:physician_id].first}</div>" unless @report.errors[:physician_id].empty? %>  
+            </div>  
+            <%#= select_tag :superbill, options_from_collection_for_select(@superbills, 'id', 'name', @preferred_superbill.to_s) , :include_blank => '--select--' ,:style => "width:290px;" %>
+            <%#= select_tag :physician_id, options_from_collection_for_select(@physicians, 'id', 'name' ), :include_blank => "--select--", :style => "width:200px;" %>  
+            <%#= autocomplete_field_tag "physician_name", '',autocomplete_physician_name_reports_path, :size => 15, :id_element => '#physician_id' %>
+            <%#= hidden_field_tag "physician_id", @report.physician_id.to_s  %>
+            <%= hidden_field_tag "commit_id", ""  %>
+            <div style="float:left;">
+              <%= label_tag t('.start_date') + t('mandatory') %>
+              <%= raw f.date_select :start_date %>
+              <%= raw "<br/><div class='errMsg_short'>#{@report.errors[:start_date].first}</div>" unless @report.errors[:start_date].empty?  %> 
+            </div>
+            <div style="float:right;">
+              <%= f.label t('.end_date') + t('mandatory'), :class => "apd_left"%>
+              <%= raw f.date_select :end_date %>
+              <%= raw "<br/><div class='errMsg_short'>#{@report.errors[:end_date].first}</div>" unless @report.errors[:end_date].empty?  %> 
+            </div>
+          </div>
+        </fieldset>
+      <% end  %>   
+    <div class="nav_right">
+      <div class="add"><%= link_to_function 'Generate Report', "submit_form('html')", :id => "generate_report" %> </div>
+      <div class="add"><%= link_to_function 'Export to PDF', "submit_form('pdf')", :id => "export_pdf" %> </div>
+      <div class="add"><%= link_to_function 'Export to Excel', "submit_form('excel')", :id => "export_excel" %> </div>
+    </div>
+    <% if @hash  %> 
+      <% unless @hash.empty? %> 
+        <div id="patient_info">
+          <%= render :partial => "form"  %>  
+        </div>  
+      <% end %> 
+    <% end %> 
+  </div>
+</div>

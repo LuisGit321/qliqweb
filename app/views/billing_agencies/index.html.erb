@@ -1,0 +1,23 @@
+<%= render :partial => "/admin/home/left_menu"  %>  
+<div class="interface_right_section">
+  <h3>Billing Agencies</h3>
+  <div class="add"><%= link_to "Add Billing Agency", new_billing_agency_path, :rel => :facebox  %></div>
+  <table cellpadding="0" cellspacing="0">
+    <tr class="interface_heading">
+      <td class="col31_top none">NAME</td>
+      <td class="none">EMAIL</td>
+      <td class="none">PHONE</td>
+      <td class="none">&nbsp;</td>
+    </tr>
+    <% @billing_agencies.each do |billing_agency| %>
+      <tr class="light_blue">
+        <td class="col31"><%= billing_agency.name  %></td> 
+        <td><%= billing_agency.user.try(:email)  %></td> 
+        <td><%= billing_agency.phone  %></td>   
+        <td class="edit-link border_right"><%= link_to 'Edit', edit_billing_agency_path(billing_agency), :rel => :facebox %> |
+        <%= link_to 'Delete', billing_agency, :method => :delete, :confirm => "Are you sure?" %> |
+        <%= link_to 'Reset password', reset_password_path(billing_agency.user), :rel => :facebox %></td> 
+      </tr>
+    <% end %>  
+  </table>
+</div>

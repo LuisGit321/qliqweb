@@ -1,0 +1,41 @@
+<style type="text/css" media="all">
+  label {
+    width:154px !important;
+  }
+
+  .errMsg {
+    margin-left:168px;
+  }
+</style>
+<%= stylesheet_link_tag 'jcheck'  %>  
+<%= javascript_include_tag 'jcheck-0.7.1.min'  %>  
+<%= render :partial => '/layouts/physician_left_menu'  %>  
+<div class="interface_right_section">
+  <div id="frmPatient">
+    <%= render :partial => "form"  %>
+  </div>
+  <div style="float: left; margin: 30px 10px 10px;width: 100%;">
+    <div style="border-top:2px solid;">&nbsp;</div>  
+    <ul>
+      <li><%= menu_link_to 'capture_codes', 'index', 'Codes', encounters_path, :remote => true, :id => "capture_code", :onclick => "update_tab('capture_code')" %></li> 
+      <li><%= menu_link_to 'notes', 'index', 'Admin Note', new_note_path(:note => ADMIT_NOTE), :remote => true, :id => "admin_note", :onclick => "update_tab('admin_note')" %></li> 
+      <li><%= menu_link_to 'notes', 'index', 'Discharge Note', new_note_path(:note => HOSPITAL_COURSE), :remote => true, :id => "discharged_note", :onclick => "update_tab('discharged_note')" %></li> 
+    </ul>
+    <div style="float: left; margin-top: 20px;width:100%;" id="patient_info">
+      &nbsp;
+    </div>  
+  </div>  
+</div>  
+<script type="text/javascript">
+  $.ajax({
+type: "GET",
+url: '/capture_codes'
+});
+
+function update_tab(link)
+{
+  $('.active').removeClass('active');
+  $('#'+ link).addClass('active');
+}
+</script>
+

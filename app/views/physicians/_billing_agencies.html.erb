@@ -1,0 +1,4 @@
+<div class="fields">
+  <%= raw label_tag "Billing Agency" %>  
+  <%= select_tag "physician[billing_pref_attributes][billing_agency_id]", options_from_collection_for_select(BillingAgency.all, 'id', 'name', @billing_agency), {:include_blank => "--select--"} %>  
+</div>

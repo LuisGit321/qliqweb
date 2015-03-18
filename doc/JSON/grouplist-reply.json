@@ -1,0 +1,24 @@
+#After verifying the credentials, if the user belongs has outsourced
+#billing role, send all the groups that they are serving.
+########################################################################
+{ "Message": {
+	"Type":"web2client",
+	"Command" : "authorization",
+	"Subject" : "grouplist_reply",
+	"Data" :
+	"Groups":[{
+		"group":{"name":"","address":"","city":"","state":"","zip":""},
+		"members":[{
+			"role":"chargecapture",
+			"name":"phsyician name",
+			"initials":"phsyician initials",
+			"specialty":"specialty name",
+			"state":"which state",
+			"zip":"what zip",
+			"npi":"provideer id",
+			"mobile":"cell phone",
+			"phone":" office phone",
+			"fax":"fax number"
+		}]
+	}]
+}			

@@ -1,0 +1,30 @@
+<%= render :partial => '/layouts/agency_admin_left_menu'  %>
+<div class="interface_right_section">
+  <h3>Employees</h3>
+  <div class="add"><%= link_to "Add Employees", new_agency_employee_path, :rel => :facebox  %></div>
+  <table cellpadding="0" cellspacing="0">
+    <tr class="interface_heading">
+      <td class="col31_top none">NAME</td>
+      <td class="none">NUMBER</td>
+      <td class="none">PHONE</td>
+      <td class="none">EMAIL</td>
+      <td class="none">&nbsp;</td>
+    </tr>
+    <% @agency_employees.each do |agency_employee|  %>
+      <tr class="light_blue">
+        <td class="col31"><%= agency_employee.name %> </td>
+        <td><%= agency_employee.employee_number %> </td>
+        <td><%= agency_employee.phone  %></td>
+        <td><%= agency_employee.user.email  %></td>
+        <td class="col32 border_right edit-link">
+          <%= link_to "Edit", edit_agency_employee_path(agency_employee), :rel => "facebox" %>  |
+          <% if agency_employee.user.locked_at?  %>
+            <%= link_to "Enable", agency_employee_path(agency_employee), :method => :delete  %> 
+          <% else %> 
+            <%= link_to "Disable", agency_employee_path(agency_employee), :method => :delete  %> 
+          <% end %> 
+        </td>
+      </tr>
+    <% end %>  
+  </table>
+</div>

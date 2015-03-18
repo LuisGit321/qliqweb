@@ -1,0 +1,19 @@
+var active_id = $( "#accordion" ).accordion( "option", "active" );
+<% if @type == CPT_GROUP %>  
+  $('#accordion').append('<%= escape_javascript(render :partial => "cpt_group_html", :locals => {:cpt_group => @cpt_group }) %>');
+  $('#cpt_group').val('');
+  $('#cpt_group_id').val('');
+  $('#accordion').accordion("destroy");
+  $('#accordion').accordion({ active: active_id});
+<% elsif @type == CPT %>  
+  $('#group_cpts_<%= @token %>').append('<%= escape_javascript(render :partial => "cpt_html", :locals => {:cpt => @cpt, :parent_key => @token}) %>');
+  $('#cpt_<%= @token  %>').val('');
+  $('#search_cpt_id_<%= @token  %>').val('');
+  $('#accordion').accordion("destroy");
+  $('#accordion').accordion({ active: active_id});
+<% elsif @type == ICD %>  
+  $('#tbl_cpts_<%= @parent  %>_<%= @token %> tbody').append('<%= escape_javascript(render :partial => "icd_html", :locals => {:icd => @icd, :parent_key => @parent, :cpt => @token}) %>'); 
+  $('#icd_code_<%= @token %>').val('');
+  $('#icd_code_id_<%= @token %>').val('');
+<% end %>  
+

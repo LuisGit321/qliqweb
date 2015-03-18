@@ -1,0 +1,4 @@
+<div class="fields" style="width:auto;margin-left:10px;margin-top: 5px;">
+  <%= label_tag "Physician"  %>  
+  <%= select_tag "billing_patient[physician]", options_from_collection_for_select(@physicians, 'id', 'name'), :include_blank => "All", :style => "width:100px;"  %>  
+</div>  

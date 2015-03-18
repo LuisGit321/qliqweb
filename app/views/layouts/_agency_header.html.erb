@@ -1,0 +1,32 @@
+<div id="header">
+  <h1><a href="/"><img src="/images/logo.jpg" alt="" title="ardensys" /></a></h1>
+  <div class="header_right_section"> 
+    <% if user_signed_in? %>  
+      <div id="inner_navigation">
+        <ul>
+          <li class="pad_rite"> <%= link_to raw("<span>Logout</span>"), destroy_user_session_path, :class => "right_none"  %></li>
+          <% if current_user.role?(ROLES[BILLING_ADMIN])  %> 
+            <li><%= link_to raw("<span>Administration</span>"), agency_employees_path  %></li>  
+            <li><%= link_to raw("<span>Edit Profile</span>"), edit_billing_agency_path(current_user.resource), :rel => 'facebox'  %></li> 
+            <li><%= link_to raw("<span>Home</span>"), billing_agency_profile_path(current_user.resource)  %></li> 
+          <% elsif  current_user.role?(ROLES[BILLING_FUNCTIONAL])  %>
+            <li><%= link_to raw("<span>Administration</span>"), edit_agency_employee_path(current_user.resource) %></li>
+            <li><%= link_to raw("<span>Edit Profile</span>"), reset_password_path(current_user), :rel => 'facebox'  %> </li> 
+            <li><%= link_to raw("<span>Home</span>"), billing_agency_profile_path(current_user.resource)  %></li> 
+          <% end %> 
+        </ul>
+      </div>
+      <p><a href="#"><%= welcome_tag  %></a></p> 
+    <% else %>  
+      <div id="inner_navigation">
+        <ul>
+          <li class="pad_rite">
+          <%= link_to raw("<span>Login</span>"), new_user_session_path, :class => "pad_rite"  %>  
+          </li>
+          <li><a href="#"><span>register</span></a></li>
+        </ul>
+      </div>
+      <span><a href="#">Forgot Password?</a></span> 
+    <% end %>  
+  </div>
+</div>

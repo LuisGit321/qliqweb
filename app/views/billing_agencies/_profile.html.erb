@@ -1,0 +1,25 @@
+<h3 style="float:right;"></h3>
+<div align="centre"  id="main" style="float: left;margin-left: 100px;">
+  <table  cellpadding="4" cellspacing="4">
+    <tr class="light_blue">
+      <td> Name </td>
+      <td><%= @billing_agency.name  %></td>
+    </tr>
+    <tr class="light_blue">
+      <td> Email </td>
+      <td><%= @billing_agency.user.try(:email)  %></td>
+    </tr>
+    <tr class="light_blue">
+      <td> Phone </td>
+      <td><%= @billing_agency.phone  %></td>
+    </tr>
+  </table>
+
+  <%= form_for("physician_group" , :as => 'post', :url => change_agency_physician_groups_path) do |f| %>
+    <%= f.hidden_field 'billing_agency_id',  :value => @billing_agency.id %>
+    <div class="butons">
+      <%= f.submit "Change", :class => :backgrnd  %>
+    </div> 
+  <% end %> 
+</div>
+

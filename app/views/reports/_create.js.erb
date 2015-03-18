@@ -1,0 +1,2 @@
+$("#patient_info").html('<%= escape_javascript(render :partial => "form") %>');
+$("#physician_error").html("<div class='errMsg'><%= @report.errors[:error_physician_id].first %></div>" );  

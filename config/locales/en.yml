@@ -1,0 +1,112 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  mandatory: " *"
+  sessions:
+    new:
+      email: "Email"
+      password: "Password"
+      remember_me: "Remember me"
+  contact:
+    subscribe_email: "Email Address"
+    address: "Address"
+    address1: "Address 1"
+    address2: "Address 2"
+    first_name: "First Name"
+    last_name: "Last Name"
+    name: "Title"
+    title: "Title"
+    providers: "Providers"
+    company: "Company"
+    location: "City/State/Zip"
+    sub_city: "City"
+    sub_state: "State"
+    sub_zip: "Zip"
+    phone: "Business Phone"
+    fax: "Fax"
+    email: "Email"
+    password: "Password"
+    confirm_password: "Confirm Password"
+    card_number: "Credit card number"
+    ex_month: "Expiration Month"
+    ex_year: "Expiration Year"
+    cvc_code: "Security Code"
+  physician_groups:
+    form:
+      name: "Group Name"
+      billing_agency: "Billing Agency"
+  physicians:
+    form:
+      group: "Group"
+      salutation: "Salutation"
+      first_name: "First Name"
+      last_name: "Last Name"
+      npi: "NPI"
+      no_of_billing_days: "No of billing days"
+      specialty: "Specialty"
+      superbills: "Preferred superbill"
+      superbill2: "Superbill # 2"
+      billing_agency: "Billing Agency"
+      subscription_info: "Subscription Info"
+      iphone: "iPhone"
+      web: "Web"
+      roles: "Roles"
+      facility: "Facility"
+      fax_to_primary: "Fax to Primary"
+  patients:
+    form:
+      f_name: "First Name"
+      m_name: "Middle Name"
+      l_name: "Last Name"
+      insurance: "Insurance"
+      date_of_birth: "Date Of Birth"
+      facility: "Facility"
+      primary_referring: "Primary Referring Physician"
+      referring: "Referring Physician"
+  billing_agencies:
+    form:
+      name: "Agency Name"
+  agency_employees:
+    form:
+      name: "Employee Name"
+      number: "Employee Number"
+  referring_physicians:
+    form:
+      name: "Name"
+      npi: "NPI"
+      specialty: "Specialty"
+      visiblity: "Visible to group"
+  facilities:
+    form:
+      name: "Name"
+      type: "Type"
+      phone: "Phone"
+      visiblity: "Visible to group"
+  capture_codes:
+    form:
+      date_of_service: "Date Of Service"
+      attending_physician: "Attending Physician"
+      diagnosis_codes: "Diagnosis Codes"
+  superbills:
+    form:
+      name: "Name"
+      state: "State"
+      specialty: "Specialty"
+      procedure_code: "Procedure Codes"
+      diagnosis_code: "Diagnosis Codes"
+      cpt_group: "Cpt Group"
+  reports:
+    index:
+      physician: "Physician"
+      start_date: "Start Date"
+      end_date: "End Date"
+    referral_volume:
+      referring_physician: "Primary or Referral Physician"
+      start_date: "Start Date"
+      end_date: "End Date"
+  admin:
+    home:
+      form:
+        password: "New password"
+        confirm_password: "Confirm password"

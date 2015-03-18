@@ -1,0 +1,618 @@
+- content_for :head do
+  = javascript_include_tag 'subscriptions', 'jquery.blockUI'
+.main
+  .container.suscriptions
+    .form-container
+      %h1 Suscribe to qliqCharge
+      #accordion
+        %h3
+          %a{:href => "#section0"}
+            %span • Search Your Group
+        #search-step.step1
+          .fieldset.search-box
+            %h2
+              Begin by securely and accurately searching for your Group
+              = succeed "by" do
+                %br/
+              looking up your
+              = succeed "," do
+                %a.lightbox{:href => "#"} NPI Number
+              %a.lightbox{:href => "#"} Group
+              or
+              %a.lightbox{:href => "#"} Provider Name
+              below:
+            = form_tag npi_search_path, :id => 'npi-search-form' do
+              .field
+                = text_field_tag :npi
+                .clear
+              .form-buttons
+                = submit_tag 'Search'
+                = image_tag 'loading2.gif', :class => 'loading hidden'
+            .clear
+          .accordion-buttons.gray
+            %input{:type => "button", :value => "Continue to Step 2"}/
+            .clear
+        %h3
+          %a{:href => "#section1"}
+            Step 1
+            %span • Your Group
+        .step1
+          %p.intro
+            Complete or correct fields below (if required) and continue to Step 2.
+            %a.lightbox{:href => "#"} lightbox
+          .fieldset
+            .npi-number
+              %h2
+                %small> *
+                NPI Number
+                %a#help{:href => "#"} Help
+              %form
+                %p.npi-selected
+                  %strong 9876543210
+                %p Changes to your Group’s contact details will only be reflected in your qliqAccount and will not affect your NPI record.
+            = form_for @physician_group, :validate => true, :url => subscriptions_create_group_path, :html => { :class => 'form', :id => 'new-physician-group-form' } do |f|
+              .field
+                = f.label :company
+                = f.text_field :name
+                .clear
+              .field.error
+                %label
+                  %small> *
+                  Address Line 1
+                = f.text_field :address
+                .clear
+              .field
+                %label Address Line 2
+                = f.text_field :address2
+                .clear
+              .field
+                %label
+                  %small> *
+                  City
+                = f.text_field :city
+                .clear
+              .field.error
+                %label
+                  %small> *
+                  State
+                = f.collection_select :state, @states, :code, :name
+                .clear
+              .field
+                %label Zip Code
+                = f.text_field :zip
+                .clear
+              .field
+                %label Phone Number
+                = f.text_field :phone
+                .clear
+              .field
+                %label Fax Number
+                = f.text_field :fax
+                .clear
+              .field.providers
+                %a#help{:href => "#"} Help
+                %label Providers
+                = f.text_field :providers
+                %p Number of Medical Providers in your Group
+                .clear
+
+            .clear
+          %div{:style => "display:none"}
+            #lightbox.groups
+              .top
+                %h2 Based on your entry, we found the following Groups!
+                .lightbox-search
+                  %form
+                    .field.new-search
+                      %input{:type => "text"}/
+                      .clean
+                        %a{:href => "#"}
+                          = image_tag 'bg-close.gif'
+                      %input.btn{:type => "submit", :value => "New Search"}/
+                      .clear
+                    .field.refine-search
+                      %p Or Filter Results by Provider Name or Practice location:
+                      %input{:type => "text"}/
+                      %input.btn{:type => "submit", :value => "Refine Search"}/
+                      .clear
+                    .field.zip-code
+                      %p Filter Results by Practice Zip Code:
+                      %input{:type => "text"}/
+                      %input.btn{:type => "submit", :value => "Submit"}/
+                      .clear
+              %table.tablaDatos{:cellspacing => "0"}
+                %tbody
+                  %tr
+                    %td
+                      %input{:type => "radio"}/
+                    %td
+                      %p
+                        %strong Carrboro Family Medicine
+                      %p
+                        %smal
+                          Family Medicine
+                    %td
+                      %p 100 West Main Street
+                      %p Suite 700
+                      %p Carrboro, NC 27510
+                      %p (919) 555-1234
+                    %td
+                      %p Group NPI # 9876543210
+                      %p 5 Providers
+                  %tr
+                    %td
+                      %input{:type => "radio"}/
+                    %td
+                      %p
+                        %strong Carrboro Family Medicine
+                      %p
+                        %smal
+                          Family Medicine
+                    %td
+                      %p 100 West Main Street
+                      %p Suite 700
+                      %p Carrboro, NC 27510
+                      %p (919) 555-1234
+                    %td
+                      %p Group NPI # 9876543210
+                      %p 5 Providers
+                  %tr
+                    %td
+                      %input{:type => "radio"}/
+                    %td
+                      %p
+                        %strong Carrboro Family Medicine
+                      %p
+                        %smal
+                          Family Medicine
+                    %td
+                      %p 100 West Main Street
+                      %p Suite 700
+                      %p Carrboro, NC 27510
+                      %p (919) 555-1234
+                    %td
+                      %p Group NPI # 9876543210
+                      %p 5 Providers
+                  %tr
+                    %td
+                      %input{:type => "radio"}/
+                    %td
+                      %p
+                        %strong Carrboro Family Medicine
+                      %p
+                        %smal
+                          Family Medicine
+                    %td
+                      %p 100 West Main Street
+                      %p Suite 700
+                      %p Carrboro, NC 27510
+                      %p (919) 555-1234
+                    %td
+                      %p Group NPI # 9876543210
+                      %p 5 Providers
+                  %tr
+                    %td
+                      %input{:type => "radio"}/
+                    %td
+                      %p
+                        %strong None of the Above
+                      %p
+                        %smal
+                          Select to enter Group details
+                    %td
+                    %td
+              .pagination
+                %p
+                  Dispaying 6-9 of 9 total 
+                  %a{:href => "#"} Show Previous 5
+              .form-buttons.orange
+                %input{:type => "button", :value => "Search"}/
+                .clear
+          .accordion-buttons.orange
+            %input{:type => "button", :value => "Continue to Step 2"}/
+            .clear
+        %h3
+          %a{:href => "#section2"}
+            Step 2
+            %span • Your Admin Account
+        .step2
+          .fieldset
+            %form.form
+              .field
+                %label First Name
+                %input{:type => "text"}/
+                .clear
+              .field
+                %label Last Name
+                %input{:type => "text"}/
+                .clear
+              .field
+                %label Phone Number
+                %input{:type => "text"}/
+                .clear
+              .field
+                %label Email Address
+                %input{:type => "text"}/
+                .clear
+              .pass
+                .field
+                  %label Create Password
+                  %input{:type => "text"}/
+                  .clear
+                .field
+                  %label Confirm Password
+                  %input{:type => "text"}/
+                  .clear
+                %p Your password will be case sensitive and must contain at least 6 letters and/or numbers.
+            .clear
+          .accordion-buttons.orange
+            %input{:type => "button", :value => "Continue to Step 3"}/
+            .clear
+        %h3
+          %a{:href => "#section3"}
+            Step 3
+            %span • Review Subscription
+        .step3
+          .review
+            .col
+              %p
+                %strong Your Admin qliqAccount Information
+              %p John Paredes
+              %p CFO
+              %p
+                Carrboro Family Medicine
+                %br/
+                100 West Main Street, Suite 700
+                %br/
+                Chapel Hill, NC 27510
+              %p (919) 555-7775
+              %p jparedes@westernhospital.com
+              %p
+                %a{:href => "#"} Edit
+            .col
+              %p
+                %strong Your Group’s Billing Information
+              %p John Paredes
+              %p CFO
+              %p
+                Carrboro Family Medicine
+                %br/
+                100 West Main Street, Suite 700
+                %br/
+                Chapel Hill, NC 27510
+              %p (919) 555-7775
+              %p 5 Providers
+              %p
+                %strong NPI
+              %p 8924621591 (Group)
+              %p
+                %strong Credit Card Information
+              %p xxxx xxxx xxxx 9765
+              %p Exp: 06/13
+              %p
+                %a{:href => "#"} Edit
+          %form
+            .field.promo-code
+              %p Enter Promotion Code:
+              %input{:type => "text"}/
+              %input.btn{:type => "submit", :value => "Apply"}/
+              .clear
+          .fieldset.trial-info
+            %h2 Begin your 30-day trial today!
+            %p
+              Your credit will not be charged until September 6, 2011.
+              %br/
+              Plus, we’ll send you a reminder email one week before the end of your trial period.
+            %table.tablaDatos{:cellspacing => "0"}
+              %thead
+                %tr
+                  %th Licenses
+                  %th Billing Frequency
+                  %th Amount per License
+                  %th Total Amount
+              %tbody
+                %tr
+                  %td
+                    %p 5 Providers
+                  %td
+                    %p Monthly
+                  %td
+                    %p $50.00
+                  %td
+                    %p $250.00
+          .accordion-buttons.orange
+            %input{:type => "button", :value => "Continue to Step 4"}/
+            .clear
+        %h3
+          %a{:href => "#section4"}
+            Step 4
+            %span • Group's Billing Information
+        .step4
+          .fieldset.trial-info
+            %h2 Begin your 30-day trial today!
+            %p
+              Your credit will not be charged until September 6, 2011.
+              Plus, we’ll send you a reminder email one week before the end of your trial period.
+            %table.tablaDatos{:cellspacing => "0"}
+              %thead
+                %tr
+                  %th Licenses
+                  %th Billing Frequency
+                  %th Amount per License
+                  %th Total Amount
+              %tbody
+                %tr
+                  %td
+                    %p 5 Providers
+                  %td
+                    %p Monthly
+                  %td
+                    %p $50.00
+                  %td
+                    %p $250.00
+          %form.form.payment-options
+            .field.radios
+              %input{:type => "radio"}/
+              %label Invoice Group (minimum 10 licenses required for invoicing)
+              .clear
+            .field.radios
+              %input{:type => "radio"}/
+              %label Pay now with Credit Card
+              .clear
+          .accordion-buttons.gray
+            %input{:type => "button", :value => "Process Payment"}/
+            .clear
+        %h3
+          %a{:href => "#section5"}
+            Step 4
+            %span • Group's Billing Information
+        .step4
+          .fieldset.trial-info
+            %h2 Begin your 30-day trial today!
+            %p
+              Your credit will not be charged until September 6, 2011.
+              Plus, we’ll send you a reminder email one week before the end of your trial period.
+            %table.tablaDatos{:cellspacing => "0"}
+              %thead
+                %tr
+                  %th Licenses
+                  %th Billing Frequency
+                  %th Amount per License
+                  %th Total Amount
+              %tbody
+                %tr
+                  %td
+                    %p 5 Providers
+                  %td
+                    %p Monthly
+                  %td
+                    %p $50.00
+                  %td
+                    %p $250.00
+          %form.form.payment-options
+            .field.radios
+              %input{:type => "radio"}/
+              %label Invoice Group (minimum 10 licenses required for invoicing)
+              .clear
+            .field.radios
+              %input{:type => "radio"}/
+              %label Pay now with Credit Card
+              .clear
+          .fieldset
+            %h2 Invoice Billing Information
+            %form.form
+              .field.checkbox
+                %input{:type => "checkbox"}/
+                %label Same as my Admin qliqAccount information
+                .clear
+              .field
+                %label First Name
+                %input{:type => "text", :value => "John"}/
+                .clear
+              .field
+                %label Last Name
+                %input{:type => "text", :value => "Paredes"}/
+                .clear
+              .field
+                %label Title
+                %input{:type => "text", :value => "CFO"}/
+                .clear
+              .field
+                %label Phone Number
+                %input{:type => "text", :value => "919-555-7775"}/
+                .clear
+              .field
+                %label Email Address
+                %input{:type => "text", :value => "jparedes@carrborofamilymedicine.com"}/
+                .clear
+              .field.group
+                %label Group
+                %input{:type => "text", :value => "Carrboro Family Medicine"}/
+                .clear
+              .field
+                %label Address Line 1
+                %input{:type => "text", :value => "100 West Main Street"}/
+                .clear
+              .field
+                %label Address Line 2
+                %input{:type => "text", :value => "Suite 700"}/
+                .clear
+              .field
+                %label City
+                %input{:type => "text", :value => "Carrboro"}/
+                .clear
+              .field
+                %label State
+                %select
+                  %option{:selected => "Select"} NC
+                  %option State
+                  %option State
+                  %option State
+                  %option State
+                .clear
+              .field
+                %label Zip Code
+                %input{:type => "text", :value => "27510"}/
+                .clear
+            .clear
+          .accordion-buttons.gray
+            %input{:type => "button", :value => "Process Payment"}/
+            .clear
+        %h3
+          %a{:href => "#section5"}
+            Step 4
+            %span • Group's Billing Information
+        .step4
+          .fieldset.trial-info
+            %h2 Begin your 30-day trial today!
+            %p
+              Your credit will not be charged until September 6, 2011.
+              Plus, we’ll send you a reminder email one week before the end of your trial period.
+            %table.tablaDatos{:cellspacing => "0"}
+              %thead
+                %tr
+                  %th Licenses
+                  %th Billing Frequency
+                  %th Amount per License
+                  %th Total Amount
+              %tbody
+                %tr
+                  %td
+                    %p 5 Providers
+                  %td
+                    %p Monthly
+                  %td
+                    %p $50.00
+                  %td
+                    %p $250.00
+          %form.form.payment-options
+            .field.radios
+              %input{:type => "radio"}/
+              %label Invoice Group (minimum 10 licenses required for invoicing)
+              .clear
+            .field.radios
+              %input{:type => "radio"}/
+              %label Pay now with Credit Card
+              .clear
+          .fieldset
+            %h2 Invoice Billing Information
+            %form.form
+              .field.checkbox
+                %input{:type => "checkbox"}/
+                %label Same as my Admin qliqAccount information
+                .clear
+              .field
+                %label First Name
+                %input{:type => "text", :value => "John"}/
+                .clear
+              .field
+                %label Last Name
+                %input{:type => "text", :value => "Paredes"}/
+                .clear
+              .field
+                %label Title
+                %input{:type => "text", :value => "CFO"}/
+                .clear
+              .field
+                %label Phone Number
+                %input{:type => "text", :value => "919-555-7775"}/
+                .clear
+              .field
+                %label Email Address
+                %input{:type => "text", :value => "jparedes@carrborofamilymedicine.com"}/
+                .clear
+              .field.group
+                %label Group
+                %input{:type => "text", :value => "Carrboro Family Medicine"}/
+                .clear
+              .field
+                %label Address Line 1
+                %input{:type => "text", :value => "100 West Main Street"}/
+                .clear
+              .field
+                %label Address Line 2
+                %input{:type => "text", :value => "Suite 700"}/
+                .clear
+              .field
+                %label City
+                %input{:type => "text", :value => "Carrboro"}/
+                .clear
+              .field
+                %label State
+                %select
+                  %option{:selected => "Select"} NC
+                  %option State
+                  %option State
+                  %option State
+                  %option State
+                .clear
+              .field
+                %label Zip Code
+                %input{:type => "text", :value => "27510"}/
+                .clear
+            .clear
+          .fieldset.creditcard
+            %h2 Secure credit card verification
+            %p
+              This is a secure, 128-bit SSL encrypted card verification.
+              = succeed "Your" do
+                %br/
+              card will not be charged until the end of your 30-day trial period (September 6, 2011).
+            %form.form
+              .number
+                %label
+                  %small> *
+                  Credit card number
+                %p Please enter the 16-digit number on the front of your credit card.
+                %input{:type => "text"}/
+              .date
+                %label
+                  %small> *
+                  Expiration date
+                %p The date your credit card expires, found on the front of your credit card.
+                %p
+                  %select
+                    %option 10
+                  \/
+                  %select
+                    %option 11
+              .code
+                %label
+                  %small> *
+                  Security code
+                  %span (or “CVC” or “CVV”)
+                %p The last 3 digits on the back of your credit card.
+                %input{:type => "text"}/
+            .badges
+              security badegs
+          .accordion-buttons
+            %input{:type => "button", :value => "Process Payment"}/
+            .clear
+    .sidebar
+      .message
+        %h2 per month, per provider
+        %p
+          No Lock-in
+          %br>/
+          No Set-up or Integration fees
+          %br>/
+          Add your support staff free
+      .module
+        %h2 Take a month to see how it all works!
+        %p
+          Security is key. Nullam condimentum enim et lectus blandit faucibus. Quisque eget tortor justo.
+          Phasellus arcu risus, porttitor nec tincidunt nec, ultricies sit amet felis.
+      .module
+        %h2 Carrboro Family Medicine
+        %p
+          Family Medicine
+          %br>/
+          Group NPI 9876543210
+          %br>/
+          5 Providers
+        %p
+          100 West Main Street, Suite 700
+          %br>/
+          Carrboro, NC 27510-2026
+          %br>/
+          (919) 555-1234

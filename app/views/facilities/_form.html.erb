@@ -1,0 +1,35 @@
+<script type="text/javascript">
+  $(function() {
+      initialize_form();
+
+      var v = $("#frmAdmin").jcheck({notifiers: ["custom_errors"], live_notifiers: ["custom_errors"], field_prefix: "facility"});
+      v.validates("name", {presence: true});
+      $('#frmAdmin').submit(function(e) {
+        e.preventDefault();
+        return v.is_valid();
+        });
+  });
+</script>
+<%= form_for(@facility, :html => { :remote => true, :id => "frmAdmin" }, :builder => CCFormBuilder) do |f| %>
+  <fieldset>
+    <%= f.text_field :name, :label => t('.name') + t('mandatory') %>  
+    <%= f.select :facility_type, FACILITY_TYPES.collect{|t| [t, t]}, {:include_blank => "--select--"}, :label => t('.type') %>  
+    <%= f.text_field :address, :label => t('contact.address')  %>  
+    <%= label_tag t('contact.location')  %><br/>  
+    <%= text_field :facility, :city, :class => "width1" %>  
+    <%= select :facility , :state, STATES.collect{|s| [s.name, s.code]}, {:include_blank => "-select-"}, :class => "width2"%>
+    <%= text_field :facility, :zip, :class => "width3" %>  
+    <%= raw "<div class='errMsg'>#{@facility.errors[:zip].first}</div>" unless @facility.errors[:zip].empty?  %> 
+    <%= f.text_field :phone, :label => t('.phone')  %>  
+    <% if is_group_admin? %>  
+      <div class="fields">
+        <%= label_tag t('.visiblity')  %>   
+        <%= f.check_box :visible_to_group  %> 
+      </div>  
+    <% end %>
+    <div class="butons">
+      <%= f.submit "Add", :class => :backgrnd %>
+      <%= link_to 'Back', facilities_path, :class => "backgrnd_lnk margin_rte" %>
+    </div>
+  </fieldset> 
+<% end %>

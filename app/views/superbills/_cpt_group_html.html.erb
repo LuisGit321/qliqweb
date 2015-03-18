@@ -1,0 +1,12 @@
+<% token = cpt_group.id %> 
+<a id="cpt_group_header_<%= token  %>"><%= cpt_group.name  %></a>   
+<div>
+  <div class="fields", style="color: #31A0D7;">
+    <%= label_tag "Cpt" %>
+    <%= autocomplete_field_tag "cpt_#{token}", '', autocomplete_cpt_code_superbills_path, :id_element => "#search_cpt_id_#{token}", :class => :width_cpt  %>  
+    <%= hidden_field_tag "search_cpt_id_#{token}", ''  %>  
+    <%= button_to_function "Add", "add_cpt(#{token});", :style => "width:50px;margin-left:20px;"  %> 
+  </div>  
+  <div id="group_cpts_<%= token %>">  
+  </div>  
+</div>
